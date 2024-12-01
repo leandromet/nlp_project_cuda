@@ -1,0 +1,293 @@
+bndt@bndt-G7-7588:~$ cd /ssda/
+bndt@bndt-G7-7588:/ssda$ ls
+lost+found  python_env_ai
+bndt@bndt-G7-7588:/ssda$ cd python_env_ai/
+bndt@bndt-G7-7588:/ssda/python_env_ai$ ls
+env  test_cuda.py
+bndt@bndt-G7-7588:/ssda/python_env_ai$ python3 -m venv env
+bndt@bndt-G7-7588:/ssda/python_env_ai$ python test_cuda.py 
+Command 'python' not found, did you mean:
+  command 'python3' from deb python3
+  command 'python' from deb python-is-python3
+bndt@bndt-G7-7588:/ssda/python_env_ai$ source env/bin/activate
+(env) bndt@bndt-G7-7588:/ssda/python_env_ai$ python test_cuda.py 
+True
+NVIDIA GeForce GTX 1060 with Max-Q Design
+(env) bndt@bndt-G7-7588:/ssda/python_env_ai$ ls
+env  test_cuda.py
+(env) bndt@bndt-G7-7588:/ssda/python_env_ai$ python /home/bndt/Documents/GitHub/nlp_project_cuda/
+ajuda_doc/                             nlm_earth_model_eleutherAI_advance.py
+earth_model.py                         nlm_earth_model_eleutherAI.py
+face_model.py                          nlm_earth_model.py
+.git/                                  test_cuda.py
+(env) bndt@bndt-G7-7588:/ssda/python_env_ai$ python /home/bndt/Documents/GitHub/nlp_project_cuda/nlm_earth_model_eleutherAI_advance.py
+[INFO] Initializing the model and pipeline...
+config.json: 100%|█████████████████████████| 1.35k/1.35k [00:00<00:00, 3.30MB/s]
+model.safetensors: 100%|███████████████████| 5.31G/5.31G [03:23<00:00, 26.1MB/s]
+tokenizer_config.json: 100%|████████████████████████████████████████████████████████████████████████████████████████████| 200/200 [00:00<00:00, 704kB/s]
+vocab.json: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████| 798k/798k [00:00<00:00, 4.04MB/s]
+merges.txt: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████| 456k/456k [00:00<00:00, 17.8MB/s]
+special_tokens_map.json: 100%|████████████████████████████████████████████████████████████████████████████████████████| 90.0/90.0 [00:00<00:00, 327kB/s]
+
+[GPU MEMORY USAGE]
+|===========================================================================|
+|                  PyTorch CUDA memory summary, device ID 0                 |
+|---------------------------------------------------------------------------|
+|            CUDA OOMs: 0            |        cudaMalloc retries: 0         |
+|===========================================================================|
+|        Metric         | Cur Usage  | Peak Usage | Tot Alloc  | Tot Freed  |
+|---------------------------------------------------------------------------|
+| Allocated memory      |   5114 MiB |   5114 MiB |   5114 MiB |      0 B   |
+|       from large pool |   5112 MiB |   5112 MiB |   5112 MiB |      0 B   |
+|       from small pool |      1 MiB |      1 MiB |      1 MiB |      0 B   |
+|---------------------------------------------------------------------------|
+| Active memory         |   5114 MiB |   5114 MiB |   5114 MiB |      0 B   |
+|       from large pool |   5112 MiB |   5112 MiB |   5112 MiB |      0 B   |
+|       from small pool |      1 MiB |      1 MiB |      1 MiB |      0 B   |
+|---------------------------------------------------------------------------|
+| Requested memory      |   5114 MiB |   5114 MiB |   5114 MiB |      0 B   |
+|       from large pool |   5112 MiB |   5112 MiB |   5112 MiB |      0 B   |
+|       from small pool |      1 MiB |      1 MiB |      1 MiB |      0 B   |
+|---------------------------------------------------------------------------|
+| GPU reserved memory   |   5132 MiB |   5132 MiB |   5132 MiB |      0 B   |
+|       from large pool |   5130 MiB |   5130 MiB |   5130 MiB |      0 B   |
+|       from small pool |      2 MiB |      2 MiB |      2 MiB |      0 B   |
+|---------------------------------------------------------------------------|
+| Non-releasable memory |  17884 KiB |  19808 KiB | 396656 KiB | 378772 KiB |
+|       from large pool |  17784 KiB |  17784 KiB | 394616 KiB | 376832 KiB |
+|       from small pool |    100 KiB |   2040 KiB |   2040 KiB |   1940 KiB |
+|---------------------------------------------------------------------------|
+| Allocations           |     364    |     364    |     364    |       0    |
+|       from large pool |     170    |     170    |     170    |       0    |
+|       from small pool |     194    |     194    |     194    |       0    |
+|---------------------------------------------------------------------------|
+| Active allocs         |     364    |     364    |     364    |       0    |
+|       from large pool |     170    |     170    |     170    |       0    |
+|       from small pool |     194    |     194    |     194    |       0    |
+|---------------------------------------------------------------------------|
+| GPU reserved segments |     148    |     148    |     148    |       0    |
+|       from large pool |     147    |     147    |     147    |       0    |
+|       from small pool |       1    |       1    |       1    |       0    |
+|---------------------------------------------------------------------------|
+| Non-releasable allocs |       3    |       3    |      26    |      23    |
+|       from large pool |       2    |       2    |      25    |      23    |
+|       from small pool |       1    |       1    |       1    |       0    |
+|---------------------------------------------------------------------------|
+| Oversize allocations  |       0    |       0    |       0    |       0    |
+|---------------------------------------------------------------------------|
+| Oversize GPU segments |       0    |       0    |       0    |       0    |
+|===========================================================================|
+
+
+[DEBUG] Input text: Are forests in danger from global warming? And are they responsible for it?
+[DEBUG] Tokenized input: {'input_ids': tensor([[ 8491, 17039,   287,  3514,   422,  3298,  9917,    30,   843,   389,
+           484,  4497,   329,   340,    30]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])}
+[INFO] Generating text...
+Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to 'longest_first' truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
+Setting `pad_token_id` to `eos_token_id`:None for open-end generation.
+
+[GPU MEMORY USAGE]
+|===========================================================================|
+|                  PyTorch CUDA memory summary, device ID 0                 |
+|---------------------------------------------------------------------------|
+|            CUDA OOMs: 0            |        cudaMalloc retries: 0         |
+|===========================================================================|
+|        Metric         | Cur Usage  | Peak Usage | Tot Alloc  | Tot Freed  |
+|---------------------------------------------------------------------------|
+| Allocated memory      |   5122 MiB |   5205 MiB |  17594 MiB |  12471 MiB |
+|       from large pool |   5120 MiB |   5198 MiB |   7614 MiB |   2493 MiB |
+|       from small pool |      1 MiB |     54 MiB |   9980 MiB |   9978 MiB |
+|---------------------------------------------------------------------------|
+| Active memory         |   5122 MiB |   5205 MiB |  17594 MiB |  12471 MiB |
+|       from large pool |   5120 MiB |   5198 MiB |   7614 MiB |   2493 MiB |
+|       from small pool |      1 MiB |     54 MiB |   9980 MiB |   9978 MiB |
+|---------------------------------------------------------------------------|
+| Requested memory      |   5122 MiB |   5203 MiB |  17356 MiB |  12234 MiB |
+|       from large pool |   5120 MiB |   5196 MiB |   7385 MiB |   2264 MiB |
+|       from small pool |      1 MiB |     54 MiB |   9971 MiB |   9969 MiB |
+|---------------------------------------------------------------------------|
+| GPU reserved memory   |   5270 MiB |   5270 MiB |   5270 MiB |      0 B   |
+|       from large pool |   5210 MiB |   5210 MiB |   5210 MiB |      0 B   |
+|       from small pool |     60 MiB |     60 MiB |     60 MiB |      0 B   |
+|---------------------------------------------------------------------------|
+| Non-releasable memory |   9564 KiB |  72936 KiB |  13319 MiB |  13310 MiB |
+|       from large pool |   9464 KiB |  70792 KiB |   3027 MiB |   3018 MiB |
+|       from small pool |    100 KiB |  20176 KiB |  10292 MiB |  10292 MiB |
+|---------------------------------------------------------------------------|
+| Allocations           |     365    |     444    |   74464    |   74099    |
+|       from large pool |     171    |     220    |    1938    |    1767    |
+|       from small pool |     194    |     273    |   72526    |   72332    |
+|---------------------------------------------------------------------------|
+| Active allocs         |     365    |     444    |   74464    |   74099    |
+|       from large pool |     171    |     220    |    1938    |    1767    |
+|       from small pool |     194    |     273    |   72526    |   72332    |
+|---------------------------------------------------------------------------|
+| GPU reserved segments |     181    |     181    |     181    |       0    |
+|       from large pool |     151    |     151    |     151    |       0    |
+|       from small pool |      30    |      30    |      30    |       0    |
+|---------------------------------------------------------------------------|
+| Non-releasable allocs |       3    |      44    |   31771    |   31768    |
+|       from large pool |       2    |      23    |     515    |     513    |
+|       from small pool |       1    |      42    |   31256    |   31255    |
+|---------------------------------------------------------------------------|
+| Oversize allocations  |       0    |       0    |       0    |       0    |
+|---------------------------------------------------------------------------|
+| Oversize GPU segments |       0    |       0    |       0    |       0    |
+|===========================================================================|
+
+
+[RESULTS]
+Sequence 1:
+Are forests in danger from global warming? And are they responsible for it?
+
+By Daniel Trotta
+
+(Image: David G. Anderson/Flickr)
+
+It’s been nearly a decade since the first global warming scare. Now, a new study shows that the problem of climate change is more complex than previously thought.
+
+Global warming has been blamed for the unprecedented heat and drought conditions that have plagued the United States and Europe in recent years. It has also been linked
+
+Sequence 2:
+Are forests in danger from global warming? And are they responsible for it? The answer is not so clear.
+
+The United Nations Food and Agriculture Organization (FAO) has recently released a report on the state of the world's forests. The report says that by 2030, there will be less forest cover on the planet than at the beginning of the century.
+
+FAO says that the trend is likely to continue, and that the number of trees will continue to decline. But the report
+
+[INFO] Total time elapsed: 214.54 seconds
+(env) bndt@bndt-G7-7588:/ssda/python_env_ai$ python /home/bndt/Documents/GitHub/nlp_project_cuda/nlm_earth_model_eleutherAI_advance.py
+[INFO] Initializing the model and pipeline...
+
+[GPU MEMORY USAGE]
+|===========================================================================|
+|                  PyTorch CUDA memory summary, device ID 0                 |
+|---------------------------------------------------------------------------|
+|            CUDA OOMs: 0            |        cudaMalloc retries: 0         |
+|===========================================================================|
+|        Metric         | Cur Usage  | Peak Usage | Tot Alloc  | Tot Freed  |
+|---------------------------------------------------------------------------|
+| Allocated memory      |   5114 MiB |   5114 MiB |   5114 MiB |      0 B   |
+|       from large pool |   5112 MiB |   5112 MiB |   5112 MiB |      0 B   |
+|       from small pool |      1 MiB |      1 MiB |      1 MiB |      0 B   |
+|---------------------------------------------------------------------------|
+| Active memory         |   5114 MiB |   5114 MiB |   5114 MiB |      0 B   |
+|       from large pool |   5112 MiB |   5112 MiB |   5112 MiB |      0 B   |
+|       from small pool |      1 MiB |      1 MiB |      1 MiB |      0 B   |
+|---------------------------------------------------------------------------|
+| Requested memory      |   5114 MiB |   5114 MiB |   5114 MiB |      0 B   |
+|       from large pool |   5112 MiB |   5112 MiB |   5112 MiB |      0 B   |
+|       from small pool |      1 MiB |      1 MiB |      1 MiB |      0 B   |
+|---------------------------------------------------------------------------|
+| GPU reserved memory   |   5132 MiB |   5132 MiB |   5132 MiB |      0 B   |
+|       from large pool |   5130 MiB |   5130 MiB |   5130 MiB |      0 B   |
+|       from small pool |      2 MiB |      2 MiB |      2 MiB |      0 B   |
+|---------------------------------------------------------------------------|
+| Non-releasable memory |  17884 KiB |  19808 KiB | 396656 KiB | 378772 KiB |
+|       from large pool |  17784 KiB |  17784 KiB | 394616 KiB | 376832 KiB |
+|       from small pool |    100 KiB |   2040 KiB |   2040 KiB |   1940 KiB |
+|---------------------------------------------------------------------------|
+| Allocations           |     364    |     364    |     364    |       0    |
+|       from large pool |     170    |     170    |     170    |       0    |
+|       from small pool |     194    |     194    |     194    |       0    |
+|---------------------------------------------------------------------------|
+| Active allocs         |     364    |     364    |     364    |       0    |
+|       from large pool |     170    |     170    |     170    |       0    |
+|       from small pool |     194    |     194    |     194    |       0    |
+|---------------------------------------------------------------------------|
+| GPU reserved segments |     148    |     148    |     148    |       0    |
+|       from large pool |     147    |     147    |     147    |       0    |
+|       from small pool |       1    |       1    |       1    |       0    |
+|---------------------------------------------------------------------------|
+| Non-releasable allocs |       3    |       3    |      26    |      23    |
+|       from large pool |       2    |       2    |      25    |      23    |
+|       from small pool |       1    |       1    |       1    |       0    |
+|---------------------------------------------------------------------------|
+| Oversize allocations  |       0    |       0    |       0    |       0    |
+|---------------------------------------------------------------------------|
+| Oversize GPU segments |       0    |       0    |       0    |       0    |
+|===========================================================================|
+
+
+[DEBUG] Input text: Are forests in danger from global warming? And are they responsible for it?
+[DEBUG] Tokenized input: {'input_ids': tensor([[ 8491, 17039,   287,  3514,   422,  3298,  9917,    30,   843,   389,
+           484,  4497,   329,   340,    30]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])}
+[INFO] Generating text...
+Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to 'longest_first' truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
+Setting `pad_token_id` to `eos_token_id`:None for open-end generation.
+
+[GPU MEMORY USAGE]
+|===========================================================================|
+|                  PyTorch CUDA memory summary, device ID 0                 |
+|---------------------------------------------------------------------------|
+|            CUDA OOMs: 0            |        cudaMalloc retries: 0         |
+|===========================================================================|
+|        Metric         | Cur Usage  | Peak Usage | Tot Alloc  | Tot Freed  |
+|---------------------------------------------------------------------------|
+| Allocated memory      |   5122 MiB |   5205 MiB |  17594 MiB |  12471 MiB |
+|       from large pool |   5120 MiB |   5198 MiB |   7614 MiB |   2493 MiB |
+|       from small pool |      1 MiB |     54 MiB |   9980 MiB |   9978 MiB |
+|---------------------------------------------------------------------------|
+| Active memory         |   5122 MiB |   5205 MiB |  17594 MiB |  12471 MiB |
+|       from large pool |   5120 MiB |   5198 MiB |   7614 MiB |   2493 MiB |
+|       from small pool |      1 MiB |     54 MiB |   9980 MiB |   9978 MiB |
+|---------------------------------------------------------------------------|
+| Requested memory      |   5122 MiB |   5203 MiB |  17356 MiB |  12234 MiB |
+|       from large pool |   5120 MiB |   5196 MiB |   7385 MiB |   2264 MiB |
+|       from small pool |      1 MiB |     54 MiB |   9971 MiB |   9969 MiB |
+|---------------------------------------------------------------------------|
+| GPU reserved memory   |   5270 MiB |   5270 MiB |   5270 MiB |      0 B   |
+|       from large pool |   5210 MiB |   5210 MiB |   5210 MiB |      0 B   |
+|       from small pool |     60 MiB |     60 MiB |     60 MiB |      0 B   |
+|---------------------------------------------------------------------------|
+| Non-releasable memory |   9564 KiB |  72936 KiB |  13319 MiB |  13310 MiB |
+|       from large pool |   9464 KiB |  70792 KiB |   3027 MiB |   3018 MiB |
+|       from small pool |    100 KiB |  20176 KiB |  10292 MiB |  10292 MiB |
+|---------------------------------------------------------------------------|
+| Allocations           |     365    |     444    |   74464    |   74099    |
+|       from large pool |     171    |     220    |    1938    |    1767    |
+|       from small pool |     194    |     273    |   72526    |   72332    |
+|---------------------------------------------------------------------------|
+| Active allocs         |     365    |     444    |   74464    |   74099    |
+|       from large pool |     171    |     220    |    1938    |    1767    |
+|       from small pool |     194    |     273    |   72526    |   72332    |
+|---------------------------------------------------------------------------|
+| GPU reserved segments |     181    |     181    |     181    |       0    |
+|       from large pool |     151    |     151    |     151    |       0    |
+|       from small pool |      30    |      30    |      30    |       0    |
+|---------------------------------------------------------------------------|
+| Non-releasable allocs |       3    |      44    |   31771    |   31768    |
+|       from large pool |       2    |      23    |     515    |     513    |
+|       from small pool |       1    |      42    |   31256    |   31255    |
+|---------------------------------------------------------------------------|
+| Oversize allocations  |       0    |       0    |       0    |       0    |
+|---------------------------------------------------------------------------|
+| Oversize GPU segments |       0    |       0    |       0    |       0    |
+|===========================================================================|
+
+
+[RESULTS]
+Sequence 1:
+Are forests in danger from global warming? And are they responsible for it?
+
+The answer is that the answer is yes.
+
+The reason is that the world’s forests are dying.
+
+And the only thing that will save them from death is a new green revolution.
+
+And that revolution will be led by the most powerful force in the history of the world: the people.
+
+It is the people, in fact, who will save the forests from global warming
+
+Sequence 2:
+Are forests in danger from global warming? And are they responsible for it?
+
+The answer to both questions is no. But they are not the same.
+
+The answer to the first question is that climate change is not happening. There is no “climate change” as we understand the term. It is not a “climate” that has changed, but a “change” in the weather, or more precisely, the weather patterns.
+
+The answer to
+
+[INFO] Total time elapsed: 5.70 seconds
+
