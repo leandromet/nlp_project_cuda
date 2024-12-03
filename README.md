@@ -1,8 +1,8 @@
 ## Using natural language models with python
 
-firstly not Ubuntu to create an isolated environment to execute python without using the main system.
+firstly on Ubuntu to create an isolated environment and execute python without using the system main env.
 
-I created a paste /nlp_project and inside it:
+I created a folder /nlp_project and inside it:
 ```bash
 sudo apt install python3-pip
 sudo apt install python3-venv
@@ -27,7 +27,7 @@ NVIDIA GeForce GTX 1660 Ti
 
 ```
 
-indicative that o torch is enabled and using o cuda na video board
+indicative that o torch is enabled and using o cuda on GPU
 
 ```python
 
