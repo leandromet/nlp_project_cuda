@@ -27,7 +27,7 @@ NVIDIA GeForce GTX 1660 Ti
 
 ```
 
-indicative that o torch is enabled and using o cuda on GPU
+indicative that torch is enabled and using o cuda on GPU
 
 ```python
 
