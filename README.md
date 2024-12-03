@@ -1,4 +1,4 @@
-## Using natural linguagem models with python
+## Using natural language models with python
 
 firstly not Ubuntu to create an isolated environment to execute python without using the main system.
 
