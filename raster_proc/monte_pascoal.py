@@ -13,6 +13,8 @@ from matplotlib.colors import ListedColormap
 import warnings
 import json
 from rasterio.transform import Affine
+import plotly.graph_objects as go
+from plotly.offline import plot
 
 # Suppress warnings
 warnings.filterwarnings('ignore')
@@ -169,6 +171,150 @@ def extract_monte_pascoal(vrt_path, output_dir):
         logging.error(f"Error processing Monte Pascoal: {str(e)}", exc_info=True)
         raise
 
+def create_decadal_sankey_diagrams(root, output_dir):
+    """Create Sankey diagrams showing both transitions and persistence of land cover classes."""
+    try:
+        data = root['data'][:]
+        years = list(range(1985, 2024))
+        decadal_windows = [(1985, 1995), (1995, 2005), (2005, 2015), (2015, 2023)]
+        
+        # Get all possible classes from the data
+        all_possible_classes = sorted(set(data.flatten()))
+        class_labels = {cls: LABELS.get(cls, f"Class {cls}") for cls in all_possible_classes}
+        class_colors = {cls: matplotlib.colors.to_rgb(COLOR_MAP.get(cls, "#999999")) 
+                       for cls in all_possible_classes}
+
+        for start_year, end_year in decadal_windows:
+            try:
+                start_idx = years.index(start_year)
+                end_idx = years.index(end_year)
+                
+                start_data = data[start_idx]
+                end_data = data[end_idx]
+                
+                # Calculate persistence (unchanged pixels)
+                persistence_mask = (start_data == end_data)
+                persisted_classes, persisted_counts = np.unique(start_data[persistence_mask], 
+                                                              return_counts=True)
+                
+                # Calculate transitions (changed pixels)
+                transition_mask = (start_data != end_data)
+                transition_pairs, transition_counts = np.unique(
+                    np.vstack((start_data[transition_mask], end_data[transition_mask])).T,
+                    axis=0,
+                    return_counts=True
+                )
+                
+                # Filter small transitions (<0.1% of total changes)
+                min_transitions = np.sum(transition_counts) * 0.001
+                significant_transitions = transition_counts > min_transitions
+                transition_pairs = transition_pairs[significant_transitions]
+                transition_counts = transition_counts[significant_transitions]
+                
+                # Combine all classes that appear in either persisted or transitioned data
+                all_classes = sorted(set(persisted_classes) | 
+                                   set(transition_pairs[:,0]) | 
+                                   set(transition_pairs[:,1]))
+                
+                # Create node structure - duplicate nodes for left/right sides
+                node_names = []
+                node_colors = []
+                node_positions = {}
+                
+                # Left nodes (start year)
+                for i, cls in enumerate(all_classes):
+                    label = f"{cls}: {class_labels[cls]} (Start)"
+                    node_names.append(label)
+                    node_positions[(cls, 'start')] = i
+                    rgb = class_colors[cls]
+                    node_colors.append(f"rgba({int(rgb[0]*255)}, {int(rgb[1]*255)}, {int(rgb[2]*255)}, 0.8)")
+                
+                # Right nodes (end year)
+                right_offset = len(all_classes)
+                for i, cls in enumerate(all_classes):
+                    label = f"{cls}: {class_labels[cls]} (End)"
+                    node_names.append(label)
+                    node_positions[(cls, 'end')] = right_offset + i
+                    rgb = class_colors[cls]
+                    node_colors.append(f"rgba({int(rgb[0]*255)}, {int(rgb[1]*255)}, {int(rgb[2]*255)}, 0.8)")
+                
+                # Create links
+                sources = []
+                targets = []
+                values = []
+                link_colors = []
+                
+                # Add persistence flows
+                for cls, count in zip(persisted_classes, persisted_counts):
+                    sources.append(node_positions[(cls, 'start')])
+                    targets.append(node_positions[(cls, 'end')])
+                    values.append(int(count))
+                    rgb = class_colors[cls]
+                    link_colors.append(f"rgba({int(rgb[0]*255)}, {int(rgb[1]*255)}, {int(rgb[2]*255)}, 0.4)")
+                
+                # Add transition flows
+                for (from_cls, to_cls), count in zip(transition_pairs, transition_counts):
+                    sources.append(node_positions[(from_cls, 'start')])
+                    targets.append(node_positions[(to_cls, 'end')])
+                    values.append(int(count))
+                    rgb = class_colors[from_cls]
+                    link_colors.append(f"rgba({int(rgb[0]*255)}, {int(rgb[1]*255)}, {int(rgb[2]*255)}, 0.6)")
+                
+                # Create the Sankey diagram
+                fig = go.Figure(go.Sankey(
+                    arrangement="snap",
+                    node=dict(
+                        pad=30,
+                        thickness=25,
+                        line=dict(color="black", width=0.5),
+                        label=node_names,
+                        color=node_colors,
+                        x=[0.1] * len(all_classes) + [0.9] * len(all_classes),  # Left/right positioning
+                        y=[i/(len(all_classes)+1) for i in range(len(all_classes))] * 2,  # Even spacing
+                        hoverinfo='all'
+                    ),
+                    link=dict(
+                        source=sources,
+                        target=targets,
+                        value=values,
+                        color=link_colors,
+                        hoverinfo='all'
+                    )
+                ))
+                
+                fig.update_layout(
+                    title_text=f"Land Cover Changes {start_year}-{end_year}<br>"
+                             f"(Showing persistence and transitions)",
+                    font=dict(size=12, family="Arial"),
+                    height=1200,
+                    width=1600,
+                    margin=dict(l=100, r=100, b=100, t=120, pad=20)
+                )
+                
+                # Save files
+                html_path = os.path.join(output_dir, f'transitions_{start_year}_{end_year}.html')
+                png_path = os.path.join(output_dir, f'transitions_{start_year}_{end_year}.png')
+                
+                plot(fig, filename=html_path, auto_open=False, include_plotlyjs='cdn')
+                
+                try:
+                    fig.write_image(png_path, scale=2, engine="kaleido")
+                    logging.info(f"Saved diagram to {png_path}")
+                except Exception as e:
+                    logging.warning(f"Could not save static image: {str(e)}")
+                
+                logging.info(f"Created diagram for {start_year}-{end_year} with persistence")
+                
+            except Exception as e:
+                logging.error(f"Error creating {start_year}-{end_year} diagram: {str(e)}", exc_info=True)
+                
+    except Exception as e:
+        logging.error(f"Error in decadal Sankey diagrams: {str(e)}", exc_info=True)
+        raise
+
+
+
+    
 def visualize_results(output_dir):
     try:
         zarr_path = os.path.join(output_dir, 'data.zarr')
@@ -318,6 +464,19 @@ def visualize_results(output_dir):
         plt.close()
         
         logging.info("Visualization complete")
+        
+    except Exception as e:
+        logging.error(f"Error visualizing results: {str(e)}", exc_info=True)
+        raise
+
+    try:
+        zarr_path = os.path.join(output_dir, 'data.zarr')
+        root = zarr.open(zarr_path, mode='r')
+        
+        # [Keep your existing visualizations...]
+        
+        # Create decadal Sankey diagrams
+        create_decadal_sankey_diagrams(root, output_dir)
         
     except Exception as e:
         logging.error(f"Error visualizing results: {str(e)}", exc_info=True)
