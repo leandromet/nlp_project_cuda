@@ -138,6 +138,12 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# Project-specific ignored files and folders
+*.zarr/
+*.zarr
+raster_proc/grid_results/
+
+
 # pytype static type analyzer
 .pytype/
 
