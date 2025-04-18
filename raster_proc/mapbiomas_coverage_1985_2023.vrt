@@ -1,0 +1,745 @@
+<VRTDataset rasterXSize="155241" rasterYSize="158828">
+  <SRS dataAxisToSRSAxisMapping="2,1">GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AXIS["Latitude",NORTH],AXIS["Longitude",EAST],AUTHORITY["EPSG","4326"]]</SRS>
+  <GeoTransform> -7.4897665634163999e+01,  2.6949458523585642e-04,  0.0000000000000000e+00,  7.9374240189516803e+00,  0.0000000000000000e+00, -2.6949458523585642e-04</GeoTransform>
+  <VRTRasterBand dataType="Byte" band="1">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">50</MDI>
+      <MDI key="STATISTICS_MEAN">8.5396592375106</MDI>
+      <MDI key="STATISTICS_STDDEV">8.5143088878856</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_1985.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="2">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">50</MDI>
+      <MDI key="STATISTICS_MEAN">8.5786734285333</MDI>
+      <MDI key="STATISTICS_STDDEV">8.4560358756702</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_1986.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="3">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">50</MDI>
+      <MDI key="STATISTICS_MEAN">8.6679122736777</MDI>
+      <MDI key="STATISTICS_STDDEV">8.5548085109938</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_1987.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="4">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">50</MDI>
+      <MDI key="STATISTICS_MEAN">8.7535477556831</MDI>
+      <MDI key="STATISTICS_STDDEV">8.6702897734129</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_1988.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="5">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">50</MDI>
+      <MDI key="STATISTICS_MEAN">8.8774856532764</MDI>
+      <MDI key="STATISTICS_STDDEV">8.8090614617492</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_1989.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="6">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">50</MDI>
+      <MDI key="STATISTICS_MEAN">8.943057965212</MDI>
+      <MDI key="STATISTICS_STDDEV">8.9238692616801</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_1990.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="7">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">50</MDI>
+      <MDI key="STATISTICS_MEAN">9.0991592152676</MDI>
+      <MDI key="STATISTICS_STDDEV">9.1565463243191</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_1991.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="8">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">50</MDI>
+      <MDI key="STATISTICS_MEAN">9.1393300413719</MDI>
+      <MDI key="STATISTICS_STDDEV">9.1741741213459</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_1992.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="9">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">50</MDI>
+      <MDI key="STATISTICS_MEAN">9.2133991725611</MDI>
+      <MDI key="STATISTICS_STDDEV">9.2540819169918</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_1993.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="10">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">50</MDI>
+      <MDI key="STATISTICS_MEAN">9.2266559900351</MDI>
+      <MDI key="STATISTICS_STDDEV">9.2549011756341</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_1994.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="11">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">50</MDI>
+      <MDI key="STATISTICS_MEAN">9.3086881089016</MDI>
+      <MDI key="STATISTICS_STDDEV">9.3137954925377</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_1995.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="12">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">50</MDI>
+      <MDI key="STATISTICS_MEAN">9.3543307086614</MDI>
+      <MDI key="STATISTICS_STDDEV">9.3451180642202</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_1996.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="13">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">50</MDI>
+      <MDI key="STATISTICS_MEAN">9.4088260153921</MDI>
+      <MDI key="STATISTICS_STDDEV">9.3910522852389</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_1997.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="14">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">50</MDI>
+      <MDI key="STATISTICS_MEAN">9.4198585346323</MDI>
+      <MDI key="STATISTICS_STDDEV">9.3892721341505</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_1998.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="15">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">50</MDI>
+      <MDI key="STATISTICS_MEAN">9.528404288447</MDI>
+      <MDI key="STATISTICS_STDDEV">9.5098049473038</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_1999.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="16">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">62</MDI>
+      <MDI key="STATISTICS_MEAN">9.5469994216825</MDI>
+      <MDI key="STATISTICS_STDDEV">9.5389748528564</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_2000.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="17">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">62</MDI>
+      <MDI key="STATISTICS_MEAN">9.5777837092397</MDI>
+      <MDI key="STATISTICS_STDDEV">9.5721212807622</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_2001.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="18">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">62</MDI>
+      <MDI key="STATISTICS_MEAN">9.6426887317051</MDI>
+      <MDI key="STATISTICS_STDDEV">9.6092343572365</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_2002.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="19">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">62</MDI>
+      <MDI key="STATISTICS_MEAN">9.7173361804351</MDI>
+      <MDI key="STATISTICS_STDDEV">9.6435653146011</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_2003.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="20">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">62</MDI>
+      <MDI key="STATISTICS_MEAN">9.8320209973753</MDI>
+      <MDI key="STATISTICS_STDDEV">9.7693943259583</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_2004.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="21">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">62</MDI>
+      <MDI key="STATISTICS_MEAN">9.9175675074514</MDI>
+      <MDI key="STATISTICS_STDDEV">9.877221836859</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_2005.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="22">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">62</MDI>
+      <MDI key="STATISTICS_MEAN">9.9943057965212</MDI>
+      <MDI key="STATISTICS_STDDEV">9.9916003495612</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_2006.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="23">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">62</MDI>
+      <MDI key="STATISTICS_MEAN">10.043729703279</MDI>
+      <MDI key="STATISTICS_STDDEV">10.050108041003</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_2007.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="24">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">62</MDI>
+      <MDI key="STATISTICS_MEAN">10.087236976734</MDI>
+      <MDI key="STATISTICS_STDDEV">10.093446408784</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_2008.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="25">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">62</MDI>
+      <MDI key="STATISTICS_MEAN">10.103696783665</MDI>
+      <MDI key="STATISTICS_STDDEV">10.105967488907</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_2009.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="26">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">62</MDI>
+      <MDI key="STATISTICS_MEAN">10.131945371235</MDI>
+      <MDI key="STATISTICS_STDDEV">10.13622382839</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_2010.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="27">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">62</MDI>
+      <MDI key="STATISTICS_MEAN">10.161839939499</MDI>
+      <MDI key="STATISTICS_STDDEV">10.169752816005</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_2011.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="28">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">62</MDI>
+      <MDI key="STATISTICS_MEAN">10.191111704257</MDI>
+      <MDI key="STATISTICS_STDDEV">10.194511537519</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_2012.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="29">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">62</MDI>
+      <MDI key="STATISTICS_MEAN">10.231682904044</MDI>
+      <MDI key="STATISTICS_STDDEV">10.246656405879</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_2013.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="30">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">62</MDI>
+      <MDI key="STATISTICS_MEAN">10.279816717826</MDI>
+      <MDI key="STATISTICS_STDDEV">10.302571319468</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_2014.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="31">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">62</MDI>
+      <MDI key="STATISTICS_MEAN">10.334801370168</MDI>
+      <MDI key="STATISTICS_STDDEV">10.377796719381</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_2015.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="32">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">62</MDI>
+      <MDI key="STATISTICS_MEAN">10.388273499711</MDI>
+      <MDI key="STATISTICS_STDDEV">10.437647634395</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_2016.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="33">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">62</MDI>
+      <MDI key="STATISTICS_MEAN">10.455046932693</MDI>
+      <MDI key="STATISTICS_STDDEV">10.524997993483</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_2017.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="34">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">62</MDI>
+      <MDI key="STATISTICS_MEAN">10.484051781663</MDI>
+      <MDI key="STATISTICS_STDDEV">10.547737793875</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_2018.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="35">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">62</MDI>
+      <MDI key="STATISTICS_MEAN">10.53138484808</MDI>
+      <MDI key="STATISTICS_STDDEV">10.580133020586</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_2019.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="36">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">62</MDI>
+      <MDI key="STATISTICS_MEAN">10.567062591752</MDI>
+      <MDI key="STATISTICS_STDDEV">10.617143058708</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_2020.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="37">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">62</MDI>
+      <MDI key="STATISTICS_MEAN">10.615908180969</MDI>
+      <MDI key="STATISTICS_STDDEV">10.644161702768</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_2021.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="38">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">62</MDI>
+      <MDI key="STATISTICS_MEAN">10.69931936474</MDI>
+      <MDI key="STATISTICS_STDDEV">10.699272379424</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_2022.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="39">
+    <Metadata>
+      <MDI key="STATISTICS_APPROXIMATE">YES</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">63.67</MDI>
+      <MDI key="STATISTICS_MINIMUM">3</MDI>
+      <MDI key="STATISTICS_MAXIMUM">62</MDI>
+      <MDI key="STATISTICS_MEAN">10.732550380355</MDI>
+      <MDI key="STATISTICS_STDDEV">10.701304113655</MDI>
+    </Metadata>
+    <NoDataValue>0</NoDataValue>
+    <ComplexSource resampling="nearest">
+      <SourceFilename relativeToVRT="1" shared="0">brasil_coverage_2023.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="155241" RasterYSize="158828" DataType="Byte" BlockXSize="512" BlockYSize="512" />
+      <SrcRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <DstRect xOff="0" yOff="0" xSize="155241" ySize="158828" />
+      <NODATA>0</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+</VRTDataset>
