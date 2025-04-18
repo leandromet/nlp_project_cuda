@@ -1,6 +1,6 @@
 # Iguaçu National Park Land Cover Analysis
 
-![Iguaçu Land Cover Example](https://i.imgur.com/placeholder.png)
+![alt text](image.png)
 
 ## Overview
 
@@ -171,7 +171,7 @@ Created by Leandro Meneguelli Biondo for the UBCO PhD project, 2025.
 
 This Python script analyzes land cover change patterns across Brazil using MapBiomas data from 1985-2023. The analysis divides Brazil into 5-degree grid cells and processes each cell to identify land cover changes, transitions between classes, and persistence patterns.
 
-![Grid System Example](https://i.imgur.com/example.png)
+![alt text](image-1.png)
 
 ## Features
 
@@ -221,6 +221,8 @@ The script divides Brazil into 43 cells using a 5-degree grid system:
 Each cell is processed independently, allowing for parallel processing and manageable memory usage.
 
 ## Analysis Process
+
+![alt text](image-2.png)
 
 For each grid cell, the script:
 
@@ -304,7 +306,8 @@ Created by Leandro Meneguelli Biondo for the UBCO PhD project, 2025.
 
 This Python script combines and analyzes land cover data across Brazil from the MapBiomas dataset (1985-2023). It merges multiple Zarr datasets from grid-based processing into a comprehensive national dataset while implementing memory-efficient techniques for handling very large geospatial data.
 
-![Brazil Land Cover Example](https://i.imgur.com/example.png)
+
+![alt text](image-3.png)
 
 ## Features
 
