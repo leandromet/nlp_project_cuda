@@ -492,7 +492,7 @@ if __name__ == '__main__':
     OUTPUT_BASE_DIR = 'grid_results_robust'
     
     # Example 10x10 degree polygon
-    POLYGON_8x8 = [((-54, 0), (-46, 0), (-46, -8), (-54, -8), (-54, 0))]
+    POLYGON_8x8 = [((-50, -15), (-40, -15), (-40, -25), (-50, -25), (-50, -15))]
     
     try:
         os.makedirs(OUTPUT_BASE_DIR, exist_ok=True)
