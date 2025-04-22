@@ -30,8 +30,8 @@ def get_available_memory():
     """Calculate available memory in GB."""
     return psutil.virtual_memory().available / (1024 ** 3)
 TILE_SIZE = 256
-MAX_WORKERS = 20
-MEMORY_BUFFER_GB = 8
+MAX_WORKERS = 10
+MEMORY_BUFFER_GB = 5
 MAX_READ_RETRIES = 3
 RETRY_DELAY = 0.05  # seconds
 
@@ -399,9 +399,10 @@ def create_visualizations(zarr_path, output_dir):
     create_sankey_diagrams(root, output_dir)
 
 def create_landcover_map(root, output_dir):
-    """Create land cover visualization."""
+    """Create land cover visualization with PNGW for GIS compatibility."""
     grid_name = root.attrs['grid_name']
     last_year = root['last_year'][:]
+    transform = rasterio.transform.Affine(*json.loads(root.attrs['window_transform']))
     
     # Create colormap
     cmap = ListedColormap([COLOR_MAP.get(i, '#ffffff') for i in range(max(COLOR_MAP.keys()) + 1)])
@@ -417,40 +418,141 @@ def create_landcover_map(root, output_dir):
     plt.legend(handles=patches, bbox_to_anchor=(1.05, 1), loc='upper left')
     
     plt.tight_layout()
-    plt.savefig(os.path.join(output_dir, 'landcover_map.png'), dpi=450, bbox_inches='tight')
+    output_path = os.path.join(output_dir, 'landcover_map.png')
+    plt.savefig(output_path, dpi=450, bbox_inches='tight')
     plt.close()
+    
+    # Create PNGW file for georeferencing
+    pngw_path = output_path + 'w'
+    with open(pngw_path, 'w') as pngw_file:
+        pngw_file.write(f"{transform.a}\n")  # Pixel size in x-direction
+        pngw_file.write(f"{transform.b}\n")  # Rotation (usually 0)
+        pngw_file.write(f"{transform.d}\n")  # Rotation (usually 0)
+        pngw_file.write(f"{transform.e}\n")  # Pixel size in y-direction (negative)
+        pngw_file.write(f"{transform.c}\n")  # X-coordinate of the upper-left corner
+        pngw_file.write(f"{transform.f}\n")  # Y-coordinate of the upper-left corner
 
 def create_changes_map(root, output_dir):
-    """Create changes frequency visualization."""
+    """Create changes frequency visualization with PNGW for GIS compatibility."""
     grid_name = root.attrs['grid_name']
     changes = root['changes'][:]
+    transform = json.loads(root.attrs['window_transform'])
     
+    # Create the changes map
     plt.figure(figsize=(12, 10))
     plt.imshow(changes, cmap='gist_stern')
     plt.colorbar(label='Number of Changes (1985-2023)')
     plt.title(f"{grid_name} Change Frequency")
-    plt.savefig(os.path.join(output_dir, 'changes_map.png'), dpi=450)
+    
+    # Save the PNG file
+    output_path = os.path.join(output_dir, 'changes_map.png')
+    plt.savefig(output_path, dpi=450, bbox_inches='tight')
     plt.close()
+    
+    # Create PNGW file for georeferencing
+    pngw_path = output_path + 'w'
+    with open(pngw_path, 'w') as pngw_file:
+        pngw_file.write(f"{transform[0]}\n")  # Pixel size in x-direction
+        pngw_file.write(f"{transform[1]}\n")  # Rotation (usually 0)
+        pngw_file.write(f"{transform[2]}\n")  # Rotation (usually 0)
+        pngw_file.write(f"{transform[3]}\n")  # Pixel size in y-direction (negative)
+        pngw_file.write(f"{transform[4]}\n")  # X-coordinate of the upper-left corner
+        pngw_file.write(f"{transform[5]}\n")  # Y-coordinate of the upper-left corner
 
 def create_sankey_diagrams(root, output_dir):
-    """Create decadal Sankey diagrams."""
+    """Create decadal Sankey diagrams and save data to CSV and PNG."""
     grid_name = root.attrs['grid_name']
     transitions = root['transitions'][:]
     first_year = root['first_year'][:]
     last_year = root['last_year'][:]
     
-    # Create full-period Sankey
-    create_sankey(transitions, f"{grid_name} (1985-2023)", 
-                 os.path.join(output_dir, 'transitions_full.html'))
+    # Define decades
+    decades = [(1985, 1994), (1995, 2004), (2005, 2014), (2015, 2023)]
     
-    # You could add decadal breakdowns here if you stored yearly data
+    for start_year, end_year in decades:
+        # Filter transitions for the specific decade
+        decade_transitions = np.zeros_like(transitions)
+        for year in range(start_year, end_year + 1):
+            if year - 1985 + 1 < transitions.shape[0]:
+                decade_transitions += transitions[year - 1985]
+        
+        # Organize classes for the decade
+        organized_transitions = organize_classes(decade_transitions)
+        
+        # Create Sankey diagram for the decade
+        title = f"{grid_name} ({start_year}-{end_year})"
+        output_path_html = os.path.join(output_dir, f'transitions_{start_year}_{end_year}.html')
+        output_path_png = os.path.join(output_dir, f'transitions_{start_year}_{end_year}.png')
+        create_sankey(organized_transitions, title, output_path_html,
+                      os.path.join(output_dir, f'transitions_{start_year}_{end_year}.csv'))
+        
+        # Export Sankey diagram as PNG
+        fig = go.Figure(go.Sankey(
+            node=dict(
+                pad=15,
+                thickness=20,
+                line=dict(color="black", width=0.5),
+                label=[f"{i}: {LABELS.get(i, 'Unknown')}" for i in range(len(organized_transitions))],
+                color=[COLOR_MAP.get(i, '#999999') for i in range(len(organized_transitions))]
+            ),
+            link=dict(
+                source=[i for i in range(len(organized_transitions)) for j in range(len(organized_transitions))],
+                target=[j for i in range(len(organized_transitions)) for j in range(len(organized_transitions))],
+                value=organized_transitions.flatten()
+            )
+        ))
+        fig.write_image(output_path_png)
+    
+    # Organize classes for the full period
+    organized_full_transitions = organize_classes(transitions)
+    
+    # Create full-period Sankey
+    output_path_html_full = os.path.join(output_dir, 'transitions_full.html')
+    output_path_png_full = os.path.join(output_dir, 'transitions_full.png')
+    create_sankey(organized_full_transitions, f"{grid_name} (1985-2023)", 
+                  output_path_html_full,
+                  os.path.join(output_dir, 'transitions_full.csv'))
+    
+    # Export full-period Sankey diagram as PNG
+    fig = go.Figure(go.Sankey(
+        node=dict(
+            pad=15,
+            thickness=20,
+            line=dict(color="black", width=0.5),
+            label=[f"{i}: {LABELS.get(i, 'Unknown')}" for i in range(len(organized_full_transitions))],
+            color=[COLOR_MAP.get(i, '#999999') for i in range(len(organized_full_transitions))]
+        ),
+        link=dict(
+            source=[i for i in range(len(organized_full_transitions)) for j in range(len(organized_full_transitions))],
+            target=[j for i in range(len(organized_full_transitions)) for j in range(len(organized_full_transitions))],
+            value=organized_full_transitions.flatten()
+        )
+    ))
+    fig.write_image(output_path_png_full)
 
-def create_sankey(transition_matrix, title, output_path):
-    """Create a single Sankey diagram."""
+def organize_classes(transition_matrix):
+    """Organize classes by grouping similar transitions."""
+    # Example: Grouping similar classes (e.g., forest-related classes)
+    # No grouping, just organize classes for better visualization
+    class_order = sorted(LABELS.keys())
+    
+    # Initialize the organized transition matrix
+    organized_matrix = np.zeros_like(transition_matrix)
+    
+    # Reorder rows and columns based on the class order
+    for new_i, old_i in enumerate(class_order):
+        for new_j, old_j in enumerate(class_order):
+            organized_matrix[new_i, new_j] = transition_matrix[old_i, old_j]
+    
+    return organized_matrix
+    
+
+def create_sankey(transition_matrix, title, output_path, csv_output_path):
+    """Create a single Sankey diagram and save data to CSV and PNG."""
     # Filter small transitions
     threshold = np.sum(transition_matrix) * 0.001
     significant = transition_matrix > threshold
-    
+
     # Prepare nodes and links
     sources, targets, values = [], [], []
     for i in range(transition_matrix.shape[0]):
@@ -459,14 +561,20 @@ def create_sankey(transition_matrix, title, output_path):
                 sources.append(i)
                 targets.append(j)
                 values.append(transition_matrix[i, j])
-    
+
     # Create node labels with class information
-    node_labels = [f"{i}: {LABELS.get(i, 'Unknown')}" for i in set(sources).union(set(targets))]
-    
+    unique_nodes = sorted(set(sources).union(set(targets)))
+    node_mapping = {node: idx for idx, node in enumerate(unique_nodes)}
+    node_labels = [f"{node}: {LABELS.get(node, 'Unknown')}" for node in unique_nodes]
+
+    # Map sources and targets to new indices
+    mapped_sources = [node_mapping[s] for s in sources]
+    mapped_targets = [node_mapping[t] for t in targets]
+
     # Create colors
-    node_colors = [COLOR_MAP.get(i, '#999999') for i in set(sources).union(set(targets))]
-    link_colors = [COLOR_MAP.get(s, '#999999') for s in sources]
-    
+    node_colors = [COLOR_MAP.get(node, '#999999') for node in unique_nodes]
+    link_colors = [COLOR_MAP.get(unique_nodes[s], '#999999') for s in mapped_sources]
+
     # Create figure
     fig = go.Figure(go.Sankey(
         node=dict(
@@ -477,22 +585,32 @@ def create_sankey(transition_matrix, title, output_path):
             color=node_colors
         ),
         link=dict(
-            source=sources,
-            target=targets,
+            source=mapped_sources,
+            target=mapped_targets,
             value=values,
             color=link_colors
         )
     ))
-    
+
     fig.update_layout(title_text=title, font_size=10)
     plot(fig, filename=output_path, auto_open=False)
+
+    # Save transition data to CSV
+    with open(csv_output_path, 'w') as csv_file:
+        csv_file.write("Source,Target,Value\n")
+        for s, t, v in zip(sources, targets, values):
+            csv_file.write(f"{s},{t},{v}\n")
+
+    # Save Sankey diagram as PNG
+    png_output_path = output_path.replace('.html', '.png')
+    fig.write_image(png_output_path)
 
 if __name__ == '__main__':
     VRT_FILE = '/srv/extrassd/2025_mapbiomas/mapbiomas_coverage_1985_2023.vrt'
     OUTPUT_BASE_DIR = 'grid_results_robust'
     
     # Example 10x10 degree polygon
-    POLYGON_8x8 = [((-50, -15), (-40, -15), (-40, -25), (-50, -25), (-50, -15))]
+    POLYGON_8x8 = [((-48, -17), (-40, -17), (-40, -25), (-48, -25), (-48, -17))]
     
     try:
         os.makedirs(OUTPUT_BASE_DIR, exist_ok=True)
