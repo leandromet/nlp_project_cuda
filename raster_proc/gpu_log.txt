@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/mnt/951b3b84-3634-4233-a5b4-c63fcf8609ff/gitstore/leandromet/nlp_project_cuda/raster_proc/brazil_gpu_analyse_fulldata.py", line 184, in <module>
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+  File "<frozen os>", line 215, in makedirs
+  File "<frozen os>", line 215, in makedirs
+  File "<frozen os>", line 225, in makedirs
+PermissionError: [Errno 13] Permission denied: '/path'
