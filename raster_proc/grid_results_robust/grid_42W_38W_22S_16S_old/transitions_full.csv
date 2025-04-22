@@ -1,0 +1,18 @@
+From_Class,From_Label,To_Class,To_Label,Count,Percent
+0,No data,0,No data,153027640.0,46.31%
+15,Pasture,15,Pasture,64626790.0,19.56%
+15,Pasture,3,Forest Formation,3442927.0,1.04%
+15,Pasture,21,Mosaic of Uses,11382858.0,3.44%
+15,Pasture,9,Forest Plantation,4118486.0,1.25%
+15,Pasture,46,Coffee,1782764.0,0.54%
+3,Forest Formation,15,Pasture,4752298.0,1.44%
+3,Forest Formation,3,Forest Formation,31158912.0,9.43%
+3,Forest Formation,21,Mosaic of Uses,3891782.0,1.18%
+3,Forest Formation,9,Forest Plantation,1999493.0,0.61%
+21,Mosaic of Uses,15,Pasture,10184942.0,3.08%
+21,Mosaic of Uses,3,Forest Formation,5064646.0,1.53%
+21,Mosaic of Uses,21,Mosaic of Uses,8777274.0,2.66%
+4,Savanna Formation,15,Pasture,1809388.0,0.55%
+4,Savanna Formation,4,Savanna Formation,5333926.0,1.61%
+11,Wetland,11,Wetland,2177087.0,0.66%
+33,River, Lake and Ocean,33,River, Lake and Ocean,2077335.0,0.63%

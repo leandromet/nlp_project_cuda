@@ -1,0 +1,25 @@
+From_Class,From_Label,To_Class,To_Label,Count,Percent
+15,Pasture,9,Forest Plantation,44348.0,3.12%
+15,Pasture,3,Forest Formation,12018.0,0.84%
+15,Pasture,11,Wetland,9469.0,0.67%
+15,Pasture,21,Mosaic of Uses,436490.0,30.67%
+15,Pasture,50,Herbaceous Sandbank Vegetation,13593.0,0.96%
+15,Pasture,46,Coffee,9346.0,0.66%
+15,Pasture,20,Sugar Cane,26732.0,1.88%
+9,Forest Plantation,15,Pasture,15669.0,1.10%
+9,Forest Plantation,3,Forest Formation,8711.0,0.61%
+9,Forest Plantation,21,Mosaic of Uses,18843.0,1.32%
+3,Forest Formation,15,Pasture,14337.0,1.01%
+3,Forest Formation,9,Forest Plantation,15797.0,1.11%
+3,Forest Formation,21,Mosaic of Uses,66034.0,4.64%
+11,Wetland,15,Pasture,41416.0,2.91%
+11,Wetland,21,Mosaic of Uses,33955.0,2.39%
+11,Wetland,33,River, Lake and Ocean,27760.0,1.95%
+21,Mosaic of Uses,15,Pasture,302401.0,21.25%
+21,Mosaic of Uses,9,Forest Plantation,39996.0,2.81%
+21,Mosaic of Uses,3,Forest Formation,65689.0,4.62%
+21,Mosaic of Uses,11,Wetland,8370.0,0.59%
+21,Mosaic of Uses,33,River, Lake and Ocean,28387.0,1.99%
+21,Mosaic of Uses,49,Wooded Sandbank Vegetation,7171.0,0.50%
+33,River, Lake and Ocean,11,Wetland,27132.0,1.91%
+33,River, Lake and Ocean,21,Mosaic of Uses,21830.0,1.53%

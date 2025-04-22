@@ -1,0 +1,24 @@
+From_Class,From_Label,To_Class,To_Label,Count,Percent
+15,Pasture,9,Forest Plantation,106039.0,5.71%
+15,Pasture,3,Forest Formation,15886.0,0.86%
+15,Pasture,11,Wetland,38732.0,2.09%
+15,Pasture,21,Mosaic of Uses,430688.0,23.20%
+15,Pasture,46,Coffee,17383.0,0.94%
+9,Forest Plantation,15,Pasture,36119.0,1.95%
+9,Forest Plantation,3,Forest Formation,43902.0,2.36%
+9,Forest Plantation,21,Mosaic of Uses,41252.0,2.22%
+3,Forest Formation,15,Pasture,19302.0,1.04%
+3,Forest Formation,9,Forest Plantation,19420.0,1.05%
+3,Forest Formation,21,Mosaic of Uses,63583.0,3.42%
+11,Wetland,15,Pasture,92575.0,4.99%
+11,Wetland,21,Mosaic of Uses,49418.0,2.66%
+11,Wetland,33,River, Lake and Ocean,26443.0,1.42%
+21,Mosaic of Uses,15,Pasture,447900.0,24.12%
+21,Mosaic of Uses,9,Forest Plantation,60360.0,3.25%
+21,Mosaic of Uses,3,Forest Formation,51346.0,2.77%
+21,Mosaic of Uses,11,Wetland,38928.0,2.10%
+21,Mosaic of Uses,33,River, Lake and Ocean,17592.0,0.95%
+33,River, Lake and Ocean,11,Wetland,35560.0,1.92%
+33,River, Lake and Ocean,21,Mosaic of Uses,18045.0,0.97%
+50,Herbaceous Sandbank Vegetation,23,Beach and Sand,15429.0,0.83%
+23,Beach and Sand,50,Herbaceous Sandbank Vegetation,15116.0,0.81%
