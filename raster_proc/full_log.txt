@@ -1,0 +1,6 @@
+nohup: ignoring input
+2025-04-21 13:26:55,397 [INFO] Memory before visualization: svmem(total=98576740352, available=83058962432, percent=15.7, used=14190977024, free=74354106368, active=11790774272, inactive=7617044480, buffers=794226688, cached=9237430272, shared=329244672, slab=4009705472)
+2025-04-21 13:28:08,877 [INFO] Memory after visualization: svmem(total=98576740352, available=82737745920, percent=16.1, used=14511431680, free=71530377216, active=12030246912, inactive=10115178496, buffers=794673152, cached=11740258304, shared=329248768, slab=4013629440)
+2025-04-21 13:28:08,877 [INFO] Memory before Sankey: svmem(total=98576740352, available=82768924672, percent=16.0, used=14480252928, free=71561555968, active=11956441088, inactive=10115178496, buffers=794673152, cached=11740258304, shared=329248768, slab=4013629440)
+2025-04-21 13:33:03,340 [INFO] Memory after Sankey: svmem(total=98576740352, available=82765221888, percent=16.0, used=14488924160, free=68213506048, active=12084232192, inactive=13379325952, buffers=796590080, cached=15077720064, shared=325074944, slab=4093067264)
+2025-04-21 13:33:03,341 [INFO] ===== PROCESS COMPLETED =====

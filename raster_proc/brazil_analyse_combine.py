@@ -21,8 +21,26 @@ logging.basicConfig(
 )
 
 # Color mapping and labels (same as before)
-COLOR_MAP = {...}  # Keep your existing color map
-LABELS = {...}     # Keep your existing labels
+COLOR_MAP = {
+    0: "#ffffff", 1:"#1f8d49",  3: "#1f8d49", 4: "#7dc975", 5: "#04381d", 6: "#007785",
+    9: "#7a5900",  11: "#519799", 12: "#d6bc74", 15: "#edde8e", 20: "#db7093", 
+    21: "#ffefc3", 23: "#ffa07a", 24: "#d4271e", 
+    25: "#db4d4f", 29: "#ffaa5f", 30: "#9c0027",  31: "#091077", 
+    32: "#fc8114", 33: "#2532e4", 35: "#9065d0", 39: "#f5b3c8",
+    40: "#c71585", 41: "#f54ca9", 46: "#d68fe2", 47: "#9932cc", 48: "#e6ccff",
+    49: "#02d659", 50: "#ad5100", 62: "#ff69b4"
+}
+
+LABELS = {
+    0: "No data", 1: "Forest", 3: "Forest Formation", 4: "Savanna Formation", 5: "Mangrove", 6: "Floodable Forest",
+    9: "Forest Plantation",  11: "Wetland", 12: "Grassland", 15: "Pasture", 20: "Sugar Cane",
+    21: "Mosaic of Uses", 23: "Beach, Dune and Sand Spot", 24: "Urban Area",
+    25: "Other non Vegetated Areas", 29: "Rocky Outcrop", 30: "Mining", 31: "Aquaculture",
+    32: "Hypersaline Tidal Flat", 33: "River, Lake and Ocean", 35: "Palm Oil", 39: "Soybean",
+    40: "Rice", 41: "Other Temporary Crops", 46: "Coffee", 47: "Citrus", 48: "Other Perennial Crops",
+    49: "Wooded Sandbank Vegetation", 50: "Herbaceous Sandbank Vegetation", 62: "Cotton"
+}
+
 
 def combine_zarr_datasets(input_base_dir, output_dir, max_chunk_size=512):
     """Combine all individual grid zarr datasets into one comprehensive dataset using chunked processing."""

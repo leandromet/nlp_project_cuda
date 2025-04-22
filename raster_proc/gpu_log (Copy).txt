@@ -1,0 +1,10 @@
+2025-04-21 14:07:42,414 [INFO] Starting visualization...
+2025-04-21 14:07:42,414 [INFO] Memory before visualization: svmem(total=98576740352, available=82282545152, percent=16.5, used=14813237248, free=54381072384, active=15764451328, inactive=23034187776, buffers=863531008, cached=28518899712, shared=349245440, slab=4562722816)
+2025-04-21 14:08:43,467 [INFO] Memory after visualization: svmem(total=98576740352, available=82060771328, percent=16.8, used=15034019840, free=52514746368, active=15930707968, inactive=24678645760, buffers=863940608, cached=30164033536, shared=349274112, slab=4563189760)
+2025-04-21 14:08:43,468 [INFO] Starting parallel decade processing...
+2025-04-21 14:09:38,698 [INFO] Completed processing <Future at 0x7e8ec14b0080 state=finished returned NoneType>
+2025-04-21 14:09:38,763 [INFO] Completed processing <Future at 0x7e8ec5613560 state=finished returned NoneType>
+2025-04-21 14:09:38,779 [INFO] Completed processing <Future at 0x7e8ec5610650 state=finished returned NoneType>
+2025-04-21 14:09:38,788 [INFO] Completed processing <Future at 0x7e8ec5651400 state=finished returned NoneType>
+2025-04-21 14:09:38,996 [INFO] Starting Sankey diagram generation...
+2025-04-21 14:09:38,996 [INFO] Memory before Sankey: svmem(total=98576740352, available=82173558784, percent=16.6, used=14922182656, free=52624920576, active=15858794496, inactive=24680603648, buffers=864456704, cached=30165180416, shared=349294592, slab=4566585344)
