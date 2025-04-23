@@ -461,7 +461,12 @@ def create_visualizations(zarr_path, output_dir):
     create_sankey_diagrams(root, output_dir)
 
     # 4. Create decadal Sankey diagrams
-    create_decadal_sankey_diagrams(root, output_dir)
+   # create_decadal_sankey_diagrams(root, output_dir)
+    # 5. Create land cover maps for decades
+    create_landcover_maps_for_decades(root, output_dir)
+    # 6. Create changes maps for decades
+    create_changes_maps_for_decades(root, output_dir)
+
 
 def create_landcover_map(root, output_dir):
     """Create land cover visualization with PNGW for GIS compatibility."""
@@ -497,6 +502,55 @@ def create_landcover_map(root, output_dir):
         pngw_file.write(f"{transform.c}\n")  # X-coordinate of the upper-left corner
         pngw_file.write(f"{transform.f}\n")  # Y-coordinate of the upper-left corner
 
+def create_landcover_maps_for_decades(root, output_dir):
+    """Create land cover maps for the start year of each working decade."""
+    grid_name = root.attrs['grid_name']
+    transform = rasterio.transform.Affine(*json.loads(root.attrs['window_transform']))
+    
+    # Create colormap
+    cmap = ListedColormap([COLOR_MAP.get(i, '#ffffff') for i in range(max(COLOR_MAP.keys()) + 1)])
+    
+    # Define decades
+    decades = [
+        (1985, 1995),  # 1985-1994
+        (1995, 2005),  # 1995-2004
+        (2005, 2015),  # 2005-2014
+        (2015, 2023)   # 2015-2023
+    ]
+    
+    for start_year, _ in decades:
+        band_index = start_year - 1985  # Calculate band index based on start year
+        if band_index < 0 or band_index >= root['data'].shape[0]:
+            logging.warning(f"Start year {start_year} is out of range for available data.")
+            continue
+        
+        start_year_data = root['data'][band_index][:]
+        
+        plt.figure(figsize=(12, 20))
+        plt.imshow(start_year_data, cmap=cmap, vmin=0, vmax=max(COLOR_MAP.keys()))
+        plt.title(f"{grid_name} Land Cover {start_year}")
+        
+        # Create legend
+        from matplotlib.patches import Patch
+        patches = [Patch(color=COLOR_MAP[k], label=f"{k}: {LABELS[k]}") 
+                   for k in sorted(LABELS.keys()) if k in COLOR_MAP]
+        plt.legend(handles=patches, bbox_to_anchor=(1.05, 1), loc='upper left')
+        
+        plt.tight_layout()
+        output_path = os.path.join(output_dir, f'landcover_map_{start_year}.png')
+        plt.savefig(output_path, dpi=450, bbox_inches='tight')
+        plt.close()
+        
+        # Create PNGW file for georeferencing
+        pngw_path = output_path + 'w'
+        with open(pngw_path, 'w') as pngw_file:
+            pngw_file.write(f"{transform.a}\n")  # Pixel size in x-direction
+            pngw_file.write(f"{transform.b}\n")  # Rotation (usually 0)
+            pngw_file.write(f"{transform.d}\n")  # Rotation (usually 0)
+            pngw_file.write(f"{transform.e}\n")  # Pixel size in y-direction (negative)
+            pngw_file.write(f"{transform.c}\n")  # X-coordinate of the upper-left corner
+            pngw_file.write(f"{transform.f}\n")  # Y-coordinate of the upper-left corner
+
 def create_changes_map(root, output_dir):
     """Create changes frequency visualization with PNGW for GIS compatibility."""
     grid_name = root.attrs['grid_name']
@@ -524,6 +578,48 @@ def create_changes_map(root, output_dir):
         pngw_file.write(f"{transform[4]}\n")  # X-coordinate of the upper-left corner
         pngw_file.write(f"{transform[5]}\n")  # Y-coordinate of the upper-left corner
 
+def create_changes_maps_for_decades(root, output_dir):
+    """Create changes frequency maps for the first year of each decade and the last year of data."""
+    grid_name = root.attrs['grid_name']
+    changes = root['changes'][:]
+    transform = json.loads(root.attrs['window_transform'])
+    
+    # Define decades and the last year
+    years = list(range(1985, 1985 + changes.shape[0]))
+    decades = [1985 + i * 10 for i in range((years[-1] - 1985) // 10 + 1)]
+    decades.append(years[-1])  # Add the last year of data
+    
+    for year in decades:
+        # Get the changes for the specific year
+        year_index = year - 1985
+        if year_index < 0 or year_index >= changes.shape[0]:
+            logging.warning(f"Year {year} is out of range for available data.")
+            continue
+        
+        year_changes = changes[year_index]
+        
+        # Create the changes map
+        plt.figure(figsize=(12, 20))
+        plt.imshow(year_changes, cmap='gist_stern')
+        plt.colorbar(label=f'Number of Changes ({year})')
+        plt.title(f"{grid_name} Change Frequency {year}")
+        
+        # Save the PNG file
+        output_path = os.path.join(output_dir, f'changes_map_{year}.png')
+        plt.savefig(output_path, dpi=450, bbox_inches='tight')
+        plt.close()
+        
+        # Create PNGW file for georeferencing
+        pngw_path = output_path + 'w'
+        with open(pngw_path, 'w') as pngw_file:
+            pngw_file.write(f"{transform[0]}\n")  # Pixel size in x-direction
+            pngw_file.write(f"{transform[1]}\n")  # Rotation (usually 0)
+            pngw_file.write(f"{transform[2]}\n")  # Rotation (usually 0)
+            pngw_file.write(f"{transform[3]}\n")  # Pixel size in y-direction (negative)
+            pngw_file.write(f"{transform[4]}\n")  # X-coordinate of the upper-left corner
+            pngw_file.write(f"{transform[5]}\n")  # Y-coordinate of the upper-left corner
+
+
 def create_sankey_diagrams(root, output_dir):
     """Create organized Sankey diagrams with proper class alignment."""
     grid_name = root.attrs['grid_name']
@@ -544,76 +640,56 @@ def create_sankey_diagrams(root, output_dir):
         (1985, 1995),  # 1985-1994 (10 years)
         (1995, 2005),  # 1995-2004 (10 years)
         (2005, 2015),  # 2005-2014 (10 years)
-        (2015, 2023),   # 2015-2023 (9 years)
-        (1985, 2023)  # Full period (38 years)
+        (2015, 2023),  # 2015-2023 (9 years)
+        (1985, 2023)   # Full period (38 years)
     ]
-    
-    # Get all present classes (only those with labels)
-    present_classes = list(set(cls for data in yearly_data 
-                            for cls in np.unique(data) 
-                            if cls in LABELS))
-    
-    # Order classes by frequency (largest on top)
-    class_freq = defaultdict(int)
-    for data in yearly_data:
-        unique, counts = np.unique(data, return_counts=True)
-        for cls, cnt in zip(unique, counts):
-            if cls in LABELS:
-                class_freq[cls] += cnt
-    present_classes = sorted(present_classes, key=lambda x: -class_freq[x])
-    
-    # Create decade diagrams
+
+    all_classes = sorted(set(LABELS.keys()) - {0})  # Optional: exclude 'No data' (0)
+
     for start_year, end_year in decades:
         decade_indices = [i for i, y in enumerate(years) if start_year <= y <= end_year]
         if len(decade_indices) < 2:
             continue  # Skip if not enough data
         
-        # Calculate transitions across all year pairs in decade
-        decade_trans = np.zeros((len(present_classes), len(present_classes)))
+        transition_matrix = defaultdict(lambda: defaultdict(int))
+        observed_starts = set()
+        observed_ends = set()
+        total_count = 0
         
-        for i in range(len(decade_indices)-1):
+        for i in range(len(decade_indices) - 1):
             from_data = yearly_data[decade_indices[i]]
-            to_data = yearly_data[decade_indices[i+1]]
+            to_data = yearly_data[decade_indices[i + 1]]
             
-            for from_idx, from_cls in enumerate(present_classes):
-                mask = (from_data == from_cls)
-                if np.any(mask):
-                    to_values = to_data[mask]
-                    unique_to, counts = np.unique(to_values, return_counts=True)
-                    for to_cls, cnt in zip(unique_to, counts):
-                        if to_cls in present_classes:
-                            to_idx = present_classes.index(to_cls)
-                            decade_trans[from_idx, to_idx] += cnt
+            unique_transitions, counts = np.unique(
+                np.stack((from_data.flatten(), to_data.flatten()), axis=1), axis=0, return_counts=True
+            )
+            for (from_cls, to_cls), count in zip(unique_transitions, counts):
+                if from_cls in LABELS and to_cls in LABELS:
+                    transition_matrix[from_cls][to_cls] += count
+                    total_count += count
         
-        # Assign unique indices to each node in the Sankey
-        source_idx_map = {cls: i for i, cls in enumerate(present_classes)}
-        target_idx_map = {cls: i + len(present_classes) for i, cls in enumerate(present_classes)}
+        threshold = max(total_count * 0.001, 10)
 
-        # x and y positions
-        node_x = [0.1] * len(present_classes) + [0.9] * len(present_classes)
-        def calc_positions(flows):
-            """Calculate proportional positions for nodes based on flow sizes."""
-            total = sum(flows)
-            if total == 0:
-                return [0.5] * len(flows)  # Fallback if no flows
-            positions = []
-            cumulative = 0
-            for flow in flows:
-                positions.append((cumulative + flow / 2) / total)
-                cumulative += flow
-            return positions
+        # Build final class sets after filtering by threshold
+        for from_cls, to_dict in transition_matrix.items():
+            for to_cls, value in to_dict.items():
+                if value > threshold:
+                    observed_starts.add(from_cls)
+                    observed_ends.add(to_cls)
+
+        start_classes = [cls for cls in all_classes if cls in observed_starts]
+        end_classes = [cls for cls in all_classes if cls in observed_ends]
         
-        left_y = calc_positions([np.sum(decade_trans[source_idx_map[cls], :]) for cls in present_classes])
-        right_y = calc_positions([np.sum(decade_trans[:, source_idx_map[cls]]) for cls in present_classes])
-        node_y = left_y + right_y
+        # Map class IDs to Sankey node indices
+        source_idx_map = {cls: i for i, cls in enumerate(start_classes)}
+        target_idx_map = {cls: i + len(start_classes) for i, cls in enumerate(end_classes)}
 
-        # Create links
+        # Build links
         sources, targets, values, link_colors = [], [], [], []
-        threshold = max(np.sum(decade_trans) * 0.001, 10)  # Minimum threshold
 
-        for i, from_cls in enumerate(present_classes):
-            for j, to_cls in enumerate(present_classes):
-                value = decade_trans[i, j]
+        for from_cls in start_classes:
+            for to_cls in end_classes:
+                value = transition_matrix[from_cls][to_cls]
                 if value > threshold:
                     sources.append(source_idx_map[from_cls])
                     targets.append(target_idx_map[to_cls])
@@ -624,17 +700,26 @@ def create_sankey_diagrams(root, output_dir):
                         f"rgba({int(base_color[1:3], 16)}, {int(base_color[3:5], 16)}, {int(base_color[5:7], 16)}, {alpha})"
                     )
 
-        # Create the Sankey diagram
+        # Node labels and colors
+        labels = (
+            [f"{LABELS[cls]}" for cls in start_classes] +
+            [f"{LABELS[cls]}" for cls in end_classes]
+            # Optionally use suffixes:
+            # [f"{LABELS[cls]} (from)" for cls in start_classes] +
+            # [f"{LABELS[cls]} (to)" for cls in end_classes]
+        )
+        node_colors = [COLOR_MAP.get(cls, '#999999') for cls in start_classes + end_classes]
+
         fig = go.Figure(go.Sankey(
             arrangement="fixed",
             node=dict(
                 pad=30,
                 thickness=20,
                 line=dict(color="black", width=0.5),
-                label=[f"{cls}: {LABELS.get(cls, '?')}" for cls in present_classes] * 2,
-                color=[COLOR_MAP.get(cls, '#999999') for cls in present_classes] * 2,
-                x=node_x,
-                y=node_y,
+                label=labels,
+                color=node_colors,
+                x=[0.1] * len(start_classes) + [0.9] * len(end_classes),
+                y=list(np.linspace(0, 1, len(start_classes))) + list(np.linspace(0, 1, len(end_classes))),
                 hovertemplate="%{label}<extra></extra>"
             ),
             link=dict(
@@ -646,285 +731,200 @@ def create_sankey_diagrams(root, output_dir):
             )
         ))
 
-        # Update layout
         fig.update_layout(
             title_text=f"{grid_name} Land Cover Changes {start_year}-{end_year}",
             font=dict(size=12, family="Arial"),
-            height=max(1200, len(present_classes) * 60),
+            height=max(1200, len(start_classes + end_classes) * 60),
             width=1600,
             margin=dict(l=150, r=150, b=100, t=120, pad=20)
         )
 
-        # Save outputs
-        html_path = os.path.join(output_dir, f'new_transitions_{start_year}_{end_year}.html')
+        html_path = os.path.join(output_dir, f'transitions_{start_year}_{end_year}.html')
         plot(fig, filename=html_path, auto_open=False, include_plotlyjs='cdn')
         logging.info(f"Created diagram for {start_year}-{end_year}")
 
-
-def create_decadal_sankey_diagrams(root, output_dir):
-    """Create Sankey diagrams showing both persistence and transitions with proportional sizing."""
-    grid_name = root.attrs.get('grid_name', 'unknown_grid')
+    """Create Sankey diagrams with proper node alignment and proportional flow visualization."""
+    grid_name = root.attrs['grid_name']
     
-    try:
-        if 'changes' in root:
-            changes_data = root['changes'][:]
-        else:
-            raise ValueError("Missing 'changes' dataset in Zarr root")
-            
-        decadal_windows = [(1985, 1995), (1995, 2005), (2005, 2015), (2015, 2023)]
-        
-        # Get all classes from the data, excluding 0 (no data)
-        all_classes = sorted(set(np.unique(changes_data)) & set(LABELS.keys()))
-        all_classes = [cls for cls in all_classes if cls != 0]
-        
-        # Prepare labels and colors
-        class_labels = {cls: LABELS.get(cls, f"Class {cls}") for cls in all_classes}
-        class_colors = {cls: matplotlib.colors.to_rgb(COLOR_MAP.get(cls, "#999999")) 
-                       for cls in all_classes if cls in COLOR_MAP}
-        
-        # Add default colors for missing classes
-        for cls in all_classes:
-            if cls not in class_colors:
-                class_colors[cls] = matplotlib.colors.to_rgb("#999999")
-
-        for start_year, end_year in decadal_windows:
-            try:
-                # Calculate transition matrix (including self-transitions)
-                transition_matrix = np.zeros((len(all_classes), len(all_classes)))
-                
-                # Map class IDs to matrix indices
-                class_to_idx = {cls: i for i, cls in enumerate(all_classes)}
-                
-                # Populate transition matrix
-                # for val in changes_data.flatten():
-                #     if val != 0:  # Skip no data
-                #         from_cls, to_cls = val, val  # Default to self-transition
-                #         transition_matrix[class_to_idx[from_cls], class_to_idx[to_cls]] += 1
-                for from_cls, to_cls in changes_data.reshape(-1, 2):
-                    if from_cls in LABELS and to_cls in LABELS:
-                        if from_cls != 0 and to_cls != 0:  # Optional: filter out "no data"
-                            transition_matrix[class_to_idx[from_cls], class_to_idx[to_cls]] += 1
-
-                
-                # Calculate node sizes (sum of incoming and outgoing flows)
-                out_flows = np.sum(transition_matrix, axis=1)  # Sum of outgoing flows per class
-                in_flows = np.sum(transition_matrix, axis=0)    # Sum of incoming flows per class
-                
-                # Create node structure (left and right sides)
-                node_names = []
-                node_colors = []
-                node_positions = {}
-                
-                # Left nodes (source)
-                for i, cls in enumerate(all_classes):
-                    label = f"{cls}: {class_labels[cls]} (Start)"
-                    node_names.append(label)
-                    node_positions[(cls, 'start')] = i
-                    rgb = class_colors[cls]
-                    node_colors.append(f"rgba({int(rgb[0]*255)}, {int(rgb[1]*255)}, {int(rgb[2]*255)}, 0.8)")
-                
-                # Right nodes (target)
-                right_offset = len(all_classes)
-                for i, cls in enumerate(all_classes):
-                    label = f"{cls}: {class_labels[cls]} (End)"
-                    node_names.append(label)
-                    node_positions[(cls, 'end')] = right_offset + i
-                    rgb = class_colors[cls]
-                    node_colors.append(f"rgba({int(rgb[0]*255)}, {int(rgb[1]*255)}, {int(rgb[2]*255)}, 0.8)")
-                
-                # Calculate node positions proportional to flow sizes
-                def calc_positions(flows):
-                    total = sum(flows)
-                    if total == 0:
-                        return [0.5] * len(flows)  # Fallback if no flows
-                    positions = []
-                    cumulative = 0
-                    for flow in flows:
-                        positions.append((cumulative + flow/2) / total)
-                        cumulative += flow
-                    return positions
-                
-                left_y = calc_positions(out_flows)
-                right_y = calc_positions(in_flows)
-                
-                # Combine positions
-                node_x = [0.1] * len(all_classes) + [0.9] * len(all_classes)
-                node_y = left_y + right_y
-                
-                # Create links (include all transitions)
-                sources = []
-                targets = []
-                values = []
-                link_colors = []
-                
-                for i, from_cls in enumerate(all_classes):
-                    for j, to_cls in enumerate(all_classes):
-                        value = transition_matrix[i, j]
-                        if value > 0:
-                            sources.append(node_positions[(from_cls, 'start')])
-                            targets.append(node_positions[(to_cls, 'end')])
-                            values.append(int(value))
-                            # Use source color for links
-                            rgb = class_colors[from_cls]
-                            alpha = 0.4 if i == j else 0.6  # Lighter for self-transitions
-                            link_colors.append(f"rgba({int(rgb[0]*255)}, {int(rgb[1]*255)}, {int(rgb[2]*255)}, {alpha})")
-                
-                # Create the Sankey diagram
-                fig = go.Figure(go.Sankey(
-                    arrangement="fixed",
-                    node=dict(
-                        pad=30,
-                        thickness=20,
-                        line=dict(color="black", width=0.5),
-                        label=node_names,
-                        color=node_colors,
-                        x=node_x,
-                        y=node_y,
-                        customdata=[f"Out: {out_flows[i]:,}" for i in range(len(all_classes))] +
-                                   [f"In: {in_flows[i]:,}" for i in range(len(all_classes))],
-                        hovertemplate="%{label}<br>%{customdata}<extra></extra>"
-                    ),
-                    link=dict(
-                        source=[sources[i] for i in range(len(sources))],
-                        target=[targets[i] for i in range(len(targets))],
-                        value=values,
-                        color=link_colors,
-                        customdata=[f"{all_classes[sources[i]]} → {all_classes[targets[i] - len(all_classes)]}" 
-                                   for i in range(len(sources))],
-                        hovertemplate="%{customdata}<br>Count: %{value:,}<extra></extra>"
-                    )
-                ))
-                
-                # Update layout
-                fig.update_layout(
-                    title_text=f"{grid_name} Land Cover Changes {start_year}-{end_year}",
-                    font=dict(size=12, family="Arial"),
-                    height=max(1200, len(all_classes) * 60),
-                    width=1600,
-                    margin=dict(l=150, r=150, b=100, t=120, pad=20)
-                )
-                
-                # Save outputs
-                html_path = os.path.join(output_dir, f'old_transitions_{start_year}_{end_year}.html')
-                plot(fig, filename=html_path, auto_open=False, include_plotlyjs='cdn')
-                logging.info(f"Created diagram for {start_year}-{end_year}")
-                
-            except Exception as e:
-                logging.error(f"Error creating {start_year}-{end_year} diagram: {str(e)}", exc_info=True)
-                
-    except Exception as e:
-        logging.error(f"Error in decadal Sankey diagrams: {str(e)}", exc_info=True)
-        raise
-
-def create_sankey(transition_matrix, classes, title, output_html, output_csv):
-    """Create a Sankey diagram with properly aligned nodes and proportional sizing."""
+    # Get data as numpy arrays
+    if 'data' in root:
+        yearly_data = [np.asarray(root['data'][i][:]) for i in range(root['data'].shape[0])]
+        years = list(range(1985, 1985 + len(yearly_data)))
+    else:
+        yearly_data = [np.asarray(root['first_year'][:]), np.asarray(root['last_year'][:])]
+        years = [1985, 2023]
     
-    # Calculate total flows for positioning
-    total_flow = np.sum(transition_matrix)
-    if total_flow == 0:
-        logging.warning(f"No valid flows found for {title}")
-        return
-    
-    # Calculate node sizes (sum of incoming and outgoing flows)
-    out_flows = np.sum(transition_matrix, axis=1)  # Sum of outgoing flows per class
-    in_flows = np.sum(transition_matrix, axis=0)   # Sum of incoming flows per class
-    
-    # Calculate node positions proportional to flow sizes
-    def calc_positions(flows):
-        total = sum(flows)
-        if total == 0:
-            return [0.5] * len(flows)  # Fallback if no flows
-        positions = []
-        cumulative = 0
-        for flow in flows:
-            positions.append((cumulative + flow/2) / total)
-            cumulative += flow
-        return positions
-    
-    left_y = calc_positions(out_flows)  # Left nodes positioned by outgoing flow
-    right_y = calc_positions(in_flows)  # Right nodes positioned by incoming flow
-    
-    # Create node structure
-    node_x = [0.1] * len(classes) + [0.9] * len(classes)  # Left and right columns
-    node_y = left_y + right_y
-    
-    # Prepare link data (include all significant flows)
-    sources, targets, values, link_colors = [], [], [], []
-    threshold = max(total_flow * 0.001, 10)  # Minimum threshold
-    
-    for i, from_cls in enumerate(classes):
-        for j, to_cls in enumerate(classes):
-            value = transition_matrix[i, j]
-            if value > threshold:
-                sources.append(i)
-                targets.append(j + len(classes))  # Target nodes offset
-                values.append(value)
-                # Use source color with different alpha for self-transitions
-                base_color = COLOR_MAP.get(from_cls, '#999999')
-                alpha = 0.4 if i == j else 0.7  # Lighter for self-transitions
-                link_colors.append(f"rgba({int(base_color[1:3], 16)}, {int(base_color[3:5], 16)}, {int(base_color[5:7], 16)}, {alpha})")
-    
-    # Create node labels with flow information
-    node_labels = [
-        f"{cls}: {LABELS.get(cls, '?')}<br>Out: {out_flows[i]:,}"
-        for i, cls in enumerate(classes)
-    ] + [
-        f"{cls}: {LABELS.get(cls, '?')}<br>In: {in_flows[i]:,}"
-        for i, cls in enumerate(classes)
+    # Define analysis periods
+    periods = [
+        (1985, 1995),  # First decade
+        (1995, 2005),  # Second decade
+        (2005, 2015),  # Third decade
+        (2015, 2023),  # Recent period
+        (1985, 2023)   # Full period
     ]
     
-    # Node colors (same for left and right)
-    node_colors = [COLOR_MAP.get(cls, '#999999') for cls in classes]
-    
-    # Create the Sankey diagram
-    fig = go.Figure(go.Sankey(
-        arrangement="fixed",
-        node=dict(
-            pad=10,
-            thickness=10,
-            line=dict(color="black", width=0.3),
-            label=node_labels,
-            color=node_colors,
-            x=node_x,
-            y=node_y,
-            hovertemplate="%{label}<extra></extra>"
-        ),
-        link=dict(
-            source=sources,
-            target=targets,
-            value=values,
-            color=link_colors,
-            hovertemplate="From: %{source.label}<br>To: %{target.label}<br>Count: %{value:,}<extra></extra>"
-        )
-    ))
-    
-    # Update layout with dynamic sizing
-    fig.update_layout(
-        title_text=title,
-        font=dict(size=10, family="Arial"),
-        height=max(1000, len(classes) * 60),  # Dynamic height based on class count
-        width=1600,
-        margin=dict(l=100, r=100, b=50, t=80, pad=10)
-    )
-    
-    # Save outputs
-    plot(fig, filename=output_html, auto_open=False)
-    
-    # Save CSV with all transitions
-    with open(output_csv, 'w') as f:
-        f.write("From_Class,From_Label,To_Class,To_Label,Count,Percent\n")
-        for i, from_cls in enumerate(classes):
-            for j, to_cls in enumerate(classes):
-                value = transition_matrix[i, j]
-                if value > 0:
-                    percent = 100 * value / total_flow
-                    f.write(
-                        f"{from_cls},{LABELS.get(from_cls, '?')},"
-                        f"{to_cls},{LABELS.get(to_cls, '?')},"
-                        f"{value},{percent:.2f}%\n"
+    for start_year, end_year in periods:
+        period_indices = [i for i, y in enumerate(years) if start_year <= y <= end_year]
+        if len(period_indices) < 2:
+            continue  # Skip if not enough data
+        
+        # Calculate all transitions during this period
+        transition_counts = defaultdict(lambda: defaultdict(int))
+        start_classes = set()
+        end_classes = set()
+        
+        for i in range(len(period_indices) - 1):
+            from_data = yearly_data[period_indices[i]]
+            to_data = yearly_data[period_indices[i + 1]]
+            
+            # Find all transitions between classes
+            unique_pairs, counts = np.unique(
+                np.stack([from_data.flatten(), to_data.flatten()], axis=1),
+                axis=1, return_counts=True
+            )
+            
+            for (from_cls, to_cls), count in zip(unique_pairs, counts):
+                if from_cls in LABELS and to_cls in LABELS:  # Only include labeled classes
+                    transition_counts[from_cls][to_cls] += count
+                    start_classes.add(from_cls)
+                    end_classes.add(to_cls)
+        
+        if not start_classes or not end_classes:
+            continue  # Skip if no valid transitions found
+        
+        # Prepare all classes (union of start and end classes)
+        all_classes = sorted(start_classes.union(end_classes))
+        class_idx = {cls: i for i, cls in enumerate(all_classes)}
+        
+        # Calculate node sizes (total incoming and outgoing flows)
+        out_flows = defaultdict(int)
+        in_flows = defaultdict(int)
+        
+        for from_cls in transition_counts:
+            for to_cls, count in transition_counts[from_cls].items():
+                out_flows[from_cls] += count
+                in_flows[to_cls] += count
+        
+        # Calculate node positions proportional to flow sizes
+        def calc_positions(flows_dict, classes):
+            total = sum(flows_dict.get(cls, 0) for cls in classes)
+            if total == 0:
+                return [i/(len(classes)+1) for i in range(1, len(classes)+1)]  # Even spacing fallback
+            
+            positions = []
+            cumulative = 0
+            for cls in classes:
+                flow = flows_dict.get(cls, 0)
+                positions.append((cumulative + flow/2) / total)
+                cumulative += flow
+            return positions
+        
+        left_y = calc_positions(out_flows, all_classes)
+        right_y = calc_positions(in_flows, all_classes)
+        
+        # Create links
+        sources, targets, values, link_colors = [], [], [], []
+        total_flow = sum(out_flows.values())
+        threshold = max(total_flow * 0.001, 10)  # Minimum threshold
+        
+        for from_cls in transition_counts:
+            for to_cls, count in transition_counts[from_cls].items():
+                if count > threshold:
+                    sources.append(class_idx[from_cls])
+                    targets.append(class_idx[to_cls] + len(all_classes))  # Offset for right side
+                    values.append(count)
+                    base_color = COLOR_MAP.get(from_cls, '#999999')
+                    alpha = 0.4 if from_cls == to_cls else 0.7  # Lighter for self-transitions
+                    link_colors.append(
+                        f"rgba({int(base_color[1:3], 16)}, {int(base_color[3:5], 16)}, {int(base_color[5:7], 16)}, {alpha})"
                     )
-    
-    logging.info(f"Created Sankey diagram: {output_html}")
+        
+        # Create node labels with flow information
+        node_labels = [
+            f"{cls}: {LABELS[cls]}<br>Out: {out_flows.get(cls, 0):,}"
+            for cls in all_classes
+        ] + [
+            f"{cls}: {LABELS[cls]}<br>In: {in_flows.get(cls, 0):,}"
+            for cls in all_classes
+        ]
+        
+        # Create the Sankey diagram
+        fig = go.Figure(go.Sankey(
+            arrangement="fixed",
+            node=dict(
+                pad=30,
+                thickness=20,
+                line=dict(color="black", width=0.5),
+                label=node_labels,
+                color=[COLOR_MAP.get(cls, '#999999') for cls in all_classes * 2],
+                x=[0.1] * len(all_classes) + [0.9] * len(all_classes),
+                y=left_y + right_y,
+                hovertemplate="%{label}<extra></extra>"
+            ),
+            link=dict(
+                source=sources,
+                target=targets,
+                value=values,
+                color=link_colors,
+                hovertemplate="From: %{source.label}<br>To: %{target.label}<br>Count: %{value:,}<extra></extra>"
+            )
+        ))
+        
+        # Update layout
+        fig.update_layout(
+            title_text=f"{grid_name} Land Cover Changes {start_year}-{end_year}",
+            font=dict(size=12, family="Arial"),
+            height=max(1200, len(all_classes) * 60),
+            width=1600,
+            margin=dict(l=200, r=200, b=100, t=120, pad=20)
+        )
+        
+        # Save outputs
+        html_path = os.path.join(output_dir, f'transitions_{start_year}_{end_year}.html')
+        plot(fig, filename=html_path, auto_open=False, include_plotlyjs='cdn')
+        
+        
+        csv_path = os.path.join(output_dir, f'transitions_{start_year}_{end_year}.csv')
+        with open(csv_path, 'w') as f:
+            f.write("From_Class,From_Label,To_Class,To_Label,Count,Percent\n")
+            for from_cls in transition_counts:
+                for to_cls, count in transition_counts[from_cls].items():
+                    percent = 100 * count / total_flow if total_flow > 0 else 0
+                    f.write(
+                        f"{from_cls},{LABELS[from_cls]},{to_cls},{LABELS[to_cls]},"
+                        f"{count},{percent:.2f}%\n"
+                    )
+        
+        logging.info(f"Created diagram for {start_year}-{end_year}")
+
+        # Save transition matrix as PNG
+        transition_matrix = np.zeros((len(all_classes), len(all_classes)), dtype=np.uint64)
+        for from_cls in transition_counts:
+            for to_cls, count in transition_counts[from_cls].items():
+                transition_matrix[class_idx[from_cls], class_idx[to_cls]] = count
+
+        plt.figure(figsize=(12, 12))
+        plt.imshow(transition_matrix, cmap=ListedColormap([COLOR_MAP.get(i, '#ffffff') for i in range(max(COLOR_MAP.keys()) + 1)]), interpolation='nearest')
+        
+        # Add text labels to the matrix
+        for i in range(len(all_classes)):
+            for j in range(len(all_classes)):
+                value = transition_matrix[i, j]
+            if value > 0:
+                color = COLOR_MAP.get(all_classes[i], '#ffffff')
+                # Determine text color based on background brightness
+                brightness = (int(color[1:3], 16) * 0.299 + int(color[3:5], 16) * 0.587 + int(color[5:7], 16) * 0.114) / 255
+                text_color = 'white' if brightness < 0.5 else 'black'
+                plt.text(j, i, f"{value}", ha='center', va='center', fontsize=6, color=text_color)
+        plt.colorbar(label='Transition Count')
+        plt.xticks(ticks=np.arange(len(all_classes)), labels=[LABELS[cls] for cls in all_classes], rotation=90, fontsize=8, color='black')
+        plt.yticks(ticks=np.arange(len(all_classes)), labels=[LABELS[cls] for cls in all_classes], fontsize=8, color='black')
+        plt.title(f"Transition Matrix {start_year}-{end_year}", fontsize=14, color='black')
+        plt.tight_layout()
+
+        png_path = os.path.join(output_dir, f'transition_matrix_{start_year}_{end_year}.png')
+        plt.savefig(png_path, dpi=300, bbox_inches='tight')
+        plt.close()
 
 if __name__ == '__main__':
     VRT_FILE = '/srv/extrassd/2025_mapbiomas/mapbiomas_coverage_1985_2023.vrt'
