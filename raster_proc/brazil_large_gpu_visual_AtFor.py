@@ -47,7 +47,7 @@ COLOR_MAP = {
     9: "#7a5900", 10: "#d6bc74", 11: "#519799", 12: "#d6bc74", 13:"#ffffff", 14: "#ffefc3",
     15:"#edde8e", 18: "#e974ed", 19:"#c27ba0", 20: "#db7093",   
     21: "#ffefc3", 22:"#d4271e", 23: "#ffa07a", 24: "#d4271e", 25: "#db4d4f", 26:"#2532e4", 29: "#ffaa5f",
-    30: "#9c0027", 31: "#091077", 32: "#fc8114", 33: "#2532e4", 35: "#9065d0", 36:"#d082de",
+    30: "#9c0027", 31: "#091077", 32: "#fc8114", 33: "#259fe4", 35: "#9065d0", 36:"#d082de",
     39: "#f5b3c8", 40: "#c71585", 41: "#f54ca9", 46: "#d68fe2", 47: "#9932cc",
     48: "#e6ccff", 49: "#02d659", 50: "#ad5100", 62: "#ff69b4", 27: "#ffffff"
 }
@@ -585,118 +585,82 @@ def create_sankey_diagrams(root, output_dir):
                             to_idx = present_classes.index(to_cls)
                             decade_trans[from_idx, to_idx] += cnt
         
-        # Remove self-transitions
-        np.fill_diagonal(decade_trans, 0)
-        
-        # Save change matrix
-        change_matrix_csv = os.path.join(output_dir, f'change_matrix_{start_year}_{end_year}.csv')
-        with open(change_matrix_csv, 'w') as f:
-            f.write("From_Class,From_Label,To_Class,To_Label,Count\n")
-           
-            for j, to_cls in enumerate(present_classes):
-                if i < decade_trans.shape[0] and j < decade_trans.shape[1]:
-                    count = decade_trans[i, j]
-                else:
-                    logging.warning(f"Skipping out-of-bounds index: i={i}, j={j}")
-                    count = 0
-                if count > 0:
-                    f.write(f"{from_cls},{LABELS[from_cls]},{to_cls},{LABELS[to_cls]},{count}\n")
-        
-        # Create a graphical table of the change matrix
-        fig, ax = plt.subplots(figsize=(12, 8))
-        ax.axis('tight')
-        ax.axis('off')
-        
-        # Prepare table data
-        table_data = [["From/To"] + [LABELS[to_cls] for to_cls in present_classes]]
-        for i, from_cls in enumerate(present_classes):
-            row = [LABELS[from_cls]] + [int(decade_trans[i, j]) for j in range(len(present_classes))]
-            table_data.append(row)
-        
-        # Create table
-        table = ax.table(cellText=table_data, loc='center', cellLoc='center', colLoc='center')
+        # Assign unique indices to each node in the Sankey
+        source_idx_map = {cls: i for i, cls in enumerate(present_classes)}
+        target_idx_map = {cls: i + len(present_classes) for i, cls in enumerate(present_classes)}
 
-        # Apply colors to the table cells
-        for i, row in enumerate(table_data[1:], start=1):  # Skip header row
-            for j, cell_value in enumerate(row[1:], start=1):  # Skip first column
-                if i < j:  # Above the main diagonal (columns)
-                    cls = present_classes[j - 1]
-                    if cls in COLOR_MAP:
-                        color = COLOR_MAP[cls]
-                        table[(i, j)].set_facecolor(color)
-                        # Set text color based on brightness
-                        brightness = matplotlib.colors.rgb_to_hsv(matplotlib.colors.to_rgb(color))[2]
-                        table[(i, j)].get_text().set_color('white' if brightness < 0.6 else 'black')
-                elif i > j:  # Below the main diagonal (rows)
-                    cls = present_classes[i - 1]
-                    if cls in COLOR_MAP:
-                        color = COLOR_MAP[cls]
-                        table[(i, j)].set_facecolor(color)
-                        # Set text color based on brightness
-                        brightness = matplotlib.colors.rgb_to_hsv(matplotlib.colors.to_rgb(color))[2]
-                        table[(i, j)].get_text().set_color('white' if brightness < 0.6 else 'black')
-        for i, row in enumerate(table_data[1:], start=1):  # Skip header row
-            for j, cell_value in enumerate(row[1:], start=1):  # Skip first column
-                if i < j:  # Above the main diagonal (columns)
-                    cls = present_classes[j - 1]
-                    if cls in COLOR_MAP:
-                        table[(i, j)].set_facecolor(COLOR_MAP[cls])
-                elif i > j:  # Below the main diagonal (rows)
-                    cls = present_classes[i - 1]
-                    if cls in COLOR_MAP:
-                        table[(i, j)].set_facecolor(COLOR_MAP[cls])
-        table.auto_set_font_size(False)
-        table.set_fontsize(10)
-        table.auto_set_column_width(col=list(range(len(table_data[0]))))
+        # x and y positions
+        node_x = [0.1] * len(present_classes) + [0.9] * len(present_classes)
+        def calc_positions(flows):
+            """Calculate proportional positions for nodes based on flow sizes."""
+            total = sum(flows)
+            if total == 0:
+                return [0.5] * len(flows)  # Fallback if no flows
+            positions = []
+            cumulative = 0
+            for flow in flows:
+                positions.append((cumulative + flow / 2) / total)
+                cumulative += flow
+            return positions
         
-        # Save the table as an image
-        table_image_path = os.path.join(output_dir, f'change_matrix_{start_year}_{end_year}.png')
-        plt.savefig(table_image_path, dpi=300, bbox_inches='tight')
-        plt.close()
-        
-        # Create Sankey diagram
-        title = f"{grid_name} Land Cover Changes {start_year}-{end_year}"
-        output_html = os.path.join(output_dir, f'new_transitions_{start_year}_{end_year}.html')
-        output_csv = os.path.join(output_dir, f'new_transitions_{start_year}_{end_year}.csv')
-        
-        create_sankey(
-            transition_matrix=decade_trans,
-            classes=present_classes,
-            title=title,
-            output_html=output_html,
-            output_csv=output_csv
+        left_y = calc_positions([np.sum(decade_trans[source_idx_map[cls], :]) for cls in present_classes])
+        right_y = calc_positions([np.sum(decade_trans[:, source_idx_map[cls]]) for cls in present_classes])
+        node_y = left_y + right_y
+
+        # Create links
+        sources, targets, values, link_colors = [], [], [], []
+        threshold = max(np.sum(decade_trans) * 0.001, 10)  # Minimum threshold
+
+        for i, from_cls in enumerate(present_classes):
+            for j, to_cls in enumerate(present_classes):
+                value = decade_trans[i, j]
+                if value > threshold:
+                    sources.append(source_idx_map[from_cls])
+                    targets.append(target_idx_map[to_cls])
+                    values.append(value)
+                    base_color = COLOR_MAP.get(from_cls, '#999999')
+                    alpha = 0.4 if from_cls == to_cls else 0.7
+                    link_colors.append(
+                        f"rgba({int(base_color[1:3], 16)}, {int(base_color[3:5], 16)}, {int(base_color[5:7], 16)}, {alpha})"
+                    )
+
+        # Create the Sankey diagram
+        fig = go.Figure(go.Sankey(
+            arrangement="fixed",
+            node=dict(
+                pad=30,
+                thickness=20,
+                line=dict(color="black", width=0.5),
+                label=[f"{cls}: {LABELS.get(cls, '?')}" for cls in present_classes] * 2,
+                color=[COLOR_MAP.get(cls, '#999999') for cls in present_classes] * 2,
+                x=node_x,
+                y=node_y,
+                hovertemplate="%{label}<extra></extra>"
+            ),
+            link=dict(
+                source=sources,
+                target=targets,
+                value=values,
+                color=link_colors,
+                hovertemplate="From: %{source.label}<br>To: %{target.label}<br>Count: %{value:,}<extra></extra>"
+            )
+        ))
+
+        # Update layout
+        fig.update_layout(
+            title_text=f"{grid_name} Land Cover Changes {start_year}-{end_year}",
+            font=dict(size=12, family="Arial"),
+            height=max(1200, len(present_classes) * 60),
+            width=1600,
+            margin=dict(l=150, r=150, b=100, t=120, pad=20)
         )
-    
-    # Create full-period diagram (first to last year)
-    if len(yearly_data) >= 2:
-        full_trans = np.zeros((len(present_classes), len(present_classes)))
-        from_data = yearly_data[0]
-        to_data = yearly_data[-1]
-        
-        for from_idx, from_cls in enumerate(present_classes):
-            mask = (from_data == from_cls)
-            if np.any(mask):
-                to_values = to_data[mask]
-                unique_to, counts = np.unique(to_values, return_counts=True)
-                for to_cls, cnt in zip(unique_to, counts):
-                    if to_cls in present_classes:
-                        to_idx = present_classes.index(to_cls)
-                        full_trans[from_idx, to_idx] += cnt
-        
-        # Remove self-transitions
-        np.fill_diagonal(full_trans, 0)
-        
-        title_full = f"{grid_name} Land Cover Changes {years[0]}-{years[-1]}"
-        output_html_full = os.path.join(output_dir, 'transitions_full.html')
-        output_csv_full = os.path.join(output_dir, 'transitions_full.csv')
-        
-        create_sankey(
-            transition_matrix=full_trans,
-            classes=present_classes,
-            title=title_full,
-            output_html=output_html_full,
-            output_csv=output_csv_full
-        )
+
+        # Save outputs
+        html_path = os.path.join(output_dir, f'new_transitions_{start_year}_{end_year}.html')
+        plot(fig, filename=html_path, auto_open=False, include_plotlyjs='cdn')
+        logging.info(f"Created diagram for {start_year}-{end_year}")
+
+
 def create_decadal_sankey_diagrams(root, output_dir):
     """Create Sankey diagrams showing both persistence and transitions with proportional sizing."""
     grid_name = root.attrs.get('grid_name', 'unknown_grid')
@@ -816,17 +780,17 @@ def create_decadal_sankey_diagrams(root, output_dir):
                         color=node_colors,
                         x=node_x,
                         y=node_y,
-                        customdata=[f"Out: {out_flows[i]:,}<br>In: {in_flows[i]:,}" 
-                                  for i in range(len(all_classes))] * 2,
+                        customdata=[f"Out: {out_flows[i]:,}" for i in range(len(all_classes))] +
+                                   [f"In: {in_flows[i]:,}" for i in range(len(all_classes))],
                         hovertemplate="%{label}<br>%{customdata}<extra></extra>"
                     ),
                     link=dict(
-                        source=sources,
-                        target=targets,
+                        source=[sources[i] for i in range(len(sources))],
+                        target=[targets[i] for i in range(len(targets))],
                         value=values,
                         color=link_colors,
-                        customdata=[f"{all_classes[i//len(all_classes)]} → {all_classes[j%len(all_classes)]}"
-                                   for i, j in zip(sources, targets)],
+                        customdata=[f"{all_classes[sources[i]]} → {all_classes[targets[i] - len(all_classes)]}" 
+                                   for i in range(len(sources))],
                         hovertemplate="%{customdata}<br>Count: %{value:,}<extra></extra>"
                     )
                 ))
@@ -841,7 +805,7 @@ def create_decadal_sankey_diagrams(root, output_dir):
                 )
                 
                 # Save outputs
-                html_path = os.path.join(output_dir, f'transitions_{start_year}_{end_year}.html')
+                html_path = os.path.join(output_dir, f'old_transitions_{start_year}_{end_year}.html')
                 plot(fig, filename=html_path, auto_open=False, include_plotlyjs='cdn')
                 logging.info(f"Created diagram for {start_year}-{end_year}")
                 
