@@ -588,11 +588,45 @@ def create_sankey_diagrams(root, output_dir):
         change_matrix_csv = os.path.join(output_dir, f'change_matrix_{start_year}_{end_year}.csv')
         with open(change_matrix_csv, 'w') as f:
             f.write("From_Class,From_Label,To_Class,To_Label,Count\n")
-            for i, from_cls in enumerate(present_classes):
-                for j, to_cls in enumerate(present_classes):
-                    count = decade_trans[i, j]
-                    if count > 0:
-                        f.write(f"{from_cls},{LABELS[from_cls]},{to_cls},{LABELS[to_cls]},{count}\n")
+           
+            for j, to_cls in enumerate(present_classes):
+                count = decade_trans[i, j]
+                if count > 0:
+                    f.write(f"{from_cls},{LABELS[from_cls]},{to_cls},{LABELS[to_cls]},{count}\n")
+        
+        # Create a graphical table of the change matrix
+        fig, ax = plt.subplots(figsize=(12, 8))
+        ax.axis('tight')
+        ax.axis('off')
+        
+        # Prepare table data
+        table_data = [["From/To"] + [LABELS[to_cls] for to_cls in present_classes]]
+        for i, from_cls in enumerate(present_classes):
+            row = [LABELS[from_cls]] + [int(decade_trans[i, j]) for j in range(len(present_classes))]
+            table_data.append(row)
+        
+        # Create table
+        table = ax.table(cellText=table_data, loc='center', cellLoc='center', colLoc='center')
+
+        # Apply colors to the table cells
+        for i, row in enumerate(table_data[1:], start=1):  # Skip header row
+            for j, cell_value in enumerate(row[1:], start=1):  # Skip first column
+                if i < j:  # Above the main diagonal (columns)
+                    cls = present_classes[j - 1]
+                    if cls in COLOR_MAP:
+                        table[(i, j)].set_facecolor(COLOR_MAP[cls])
+                elif i > j:  # Below the main diagonal (rows)
+                    cls = present_classes[i - 1]
+                    if cls in COLOR_MAP:
+                        table[(i, j)].set_facecolor(COLOR_MAP[cls])
+        table.auto_set_font_size(False)
+        table.set_fontsize(10)
+        table.auto_set_column_width(col=list(range(len(table_data[0]))))
+        
+        # Save the table as an image
+        table_image_path = os.path.join(output_dir, f'change_matrix_{start_year}_{end_year}.png')
+        plt.savefig(table_image_path, dpi=300, bbox_inches='tight')
+        plt.close()
         
         # Create Sankey diagram
         title = f"{grid_name} Land Cover Changes {start_year}-{end_year}"
@@ -638,97 +672,102 @@ def create_sankey_diagrams(root, output_dir):
             output_csv=output_csv_full
         )
 def create_decadal_sankey_diagrams(root, output_dir):
-    """Create Sankey diagrams showing both transitions and persistence of land cover classes."""
+    """Create Sankey diagrams ignoring class 0 (no data) with value-proportional nodes."""
     grid_name = root.attrs.get('grid_name', 'unknown_grid')
     
     try:
         if 'changes' in root:
-            changes_data = root['changes'][:]  # Use 'changes' dataset
+            changes_data = root['changes'][:]
         else:
-            raise ValueError("The Zarr root does not contain 'changes'. Unable to proceed with decadal Sankey diagrams.")
+            raise ValueError("Missing 'changes' dataset in Zarr root")
             
         decadal_windows = [(1985, 1995), (1995, 2005), (2005, 2015), (2015, 2023)]
         
-        # Get all possible classes from the data
+        # Get all possible classes from the data, excluding 0 (no data)
         all_possible_classes = sorted(set(np.unique(changes_data)))
+        all_possible_classes = [cls for cls in all_possible_classes if cls != 0]  # Exclude class 0
+        
         class_labels = {cls: LABELS.get(cls, f"Class {cls}") for cls in all_possible_classes}
         class_colors = {cls: matplotlib.colors.to_rgb(COLOR_MAP.get(cls, "#999999")) 
                                for cls in all_possible_classes if cls in COLOR_MAP}
         
-        # Add a default color for missing classes
+        # Add default colors for missing classes
         for cls in all_possible_classes:
             if cls not in class_colors:
-                logging.warning(f"Class {cls} is missing in COLOR_MAP. Assigning default color.")
                 class_colors[cls] = matplotlib.colors.to_rgb("#999999")
 
         for start_year, end_year in decadal_windows:
             try:
-                # Calculate persistence (unchanged pixels)
+                # Calculate persistence (unchanged pixels), excluding class 0
                 persistence_mask = (changes_data == 0)
                 persisted_classes, persisted_counts = np.unique(changes_data[persistence_mask], 
                                                               return_counts=True)
+                # Filter out class 0 from persisted classes
+                persisted_classes = [cls for cls in persisted_classes if cls != 0]
+                persisted_counts = [cnt for cls, cnt in zip(persisted_classes, persisted_counts) if cls != 0]
                 
-                # Calculate transitions (changed pixels)
+                # Calculate transitions (changed pixels), excluding transitions involving class 0
                 transition_mask = (changes_data > 0)
                 transition_pairs, transition_counts = np.unique(
                     np.vstack((changes_data[transition_mask], changes_data[transition_mask])).T,
                     axis=0,
                     return_counts=True
                 )
+                # Filter out transitions involving class 0
+                valid_transitions = [(f, t) for f, t in transition_pairs if f != 0 and t != 0]
+                transition_counts = [cnt for (f, t), cnt in zip(transition_pairs, transition_counts) 
+                                   if f != 0 and t != 0]
                 
-                # No need to filter small transitions (<0.01% of total changes)
-                # min_transitions = np.sum(transition_counts) * 0.0001
-                # significant_transitions = transition_counts > min_transitions
-                # transition_pairs = transition_pairs[significant_transitions]
-                # transition_counts = transition_counts[significant_transitions]
-          
+                # Calculate total flow for each class (incoming + outgoing)
+                class_flows = defaultdict(float)
                 
-                # Combine all classes that appear in either persisted or transitioned data
-                all_classes = {}
-                for cls in persisted_classes:
-                    label = LABELS.get(cls, f"Class {cls}")
-                    if label not in all_classes:
-                        all_classes[label] = cls
-                    else:
-                        all_classes[label] = min(all_classes[label], cls)  # Prefer smaller class ID for duplicates
+                # Add persistence flows (already filtered)
+                for cls, count in zip(persisted_classes, persisted_counts):
+                    class_flows[cls] += count
                 
-                for from_cls, to_cls in transition_pairs:
-                    from_label = LABELS.get(from_cls, f"Class {from_cls}")
-                    to_label = LABELS.get(to_cls, f"Class {to_cls}")
-                    
-                    if from_label not in all_classes:
-                        all_classes[from_label] = from_cls
-                    else:
-                        all_classes[from_label] = min(all_classes[from_label], from_cls)
-                    
-                    if to_label not in all_classes:
-                        all_classes[to_label] = to_cls
-                    else:
-                        all_classes[to_label] = min(all_classes[to_label], to_cls)
+                # Add transition flows (already filtered)
+                for (from_cls, to_cls), count in zip(valid_transitions, transition_counts):
+                    class_flows[from_cls] += count
+                    class_flows[to_cls] += count
                 
-                # Sort classes by their labels
-                all_classes = {label: cls for label, cls in sorted(all_classes.items())}
-                # Create node structure - duplicate nodes for left/right sides
+                # Sort classes by total flow (descending)
+                sorted_classes = sorted(class_flows.keys(), key=lambda x: -class_flows[x])
+                num_classes = len(sorted_classes)
+                
+                # Create node structure
                 node_names = []
                 node_colors = []
                 node_positions = {}
-
-                # Left nodes (start year)
-                for i, cls in enumerate(all_classes.values()):
-                    label = f"{cls}: {class_labels.get(cls, f'Unknown Class {cls}')} (Start)"
-                    node_names.append(label)
-                    node_positions[(cls, 'start')] = i
-                    rgb = class_colors[cls]
-                    node_colors.append(f"rgba({int(rgb[0]*255)}, {int(rgb[1]*255)}, {int(rgb[2]*255)}, 0.8)")
-
-                # Right nodes (end year)
-                right_offset = len(all_classes)
-                for i, cls in enumerate(all_classes.values()):
-                    label = f"{cls}: {class_labels.get(cls, f'Unknown Class {cls}')} (End)"
-                    node_names.append(label)
-                    node_positions[(cls, 'end')] = right_offset + i
-                    rgb = class_colors[cls]
-                    node_colors.append(f"rgba({int(rgb[0]*255)}, {int(rgb[1]*255)}, {int(rgb[2]*255)}, 0.8)")
+                node_values = []
+                
+                # Create nodes for both sides
+                for side in ['start', 'end']:
+                    for i, cls in enumerate(sorted_classes):
+                        label = f"{cls}: {class_labels.get(cls, f'Unknown Class {cls}')} ({side.capitalize()})"
+                        node_names.append(label)
+                        node_positions[(cls, side)] = i if side == 'start' else i + num_classes
+                        rgb = class_colors[cls]
+                        node_colors.append(f"rgba({int(rgb[0]*255)}, {int(rgb[1]*255)}, {int(rgb[2]*255)}, 0.8)")
+                        node_values.append(class_flows[cls])
+                
+                # Calculate cumulative flows for positioning
+                total_flow = sum(class_flows.values())
+                if total_flow == 0:
+                    logging.warning(f"No valid transitions found for {start_year}-{end_year}")
+                    continue
+                
+                cumulative_flow = 0
+                y_positions = []
+                
+                for cls in sorted_classes:
+                    # Calculate center position for this node
+                    y_pos = (cumulative_flow + class_flows[cls]/2) / total_flow
+                    y_positions.append(y_pos)
+                    cumulative_flow += class_flows[cls]
+                
+                # Apply to both sides
+                node_y = y_positions + y_positions
+                node_x = [0.1] * num_classes + [0.9] * num_classes
                 
                 # Create links
                 sources = []
@@ -738,29 +777,24 @@ def create_decadal_sankey_diagrams(root, output_dir):
                 
                 # Add persistence flows
                 for cls, count in zip(persisted_classes, persisted_counts):
-                    sources.append(node_positions[(cls, 'start')])
-                    targets.append(node_positions[(cls, 'end')])
-                    values.append(int(count))
-                    rgb = class_colors[cls]
-                    link_colors.append(f"rgba({int(rgb[0]*255)}, {int(rgb[1]*255)}, {int(rgb[2]*255)}, 0.4)")
+                    if (cls, 'start') in node_positions and (cls, 'end') in node_positions:
+                        sources.append(node_positions[(cls, 'start')])
+                        targets.append(node_positions[(cls, 'end')])
+                        values.append(int(count))
+                        rgb = class_colors[cls]
+                        link_colors.append(f"rgba({int(rgb[0]*255)}, {int(rgb[1]*255)}, {int(rgb[2]*255)}, 0.4)")
                 
                 # Add transition flows
-                for (from_cls, to_cls), count in zip(transition_pairs, transition_counts):
-                    if from_cls in node_positions and to_cls in node_positions:
+                for (from_cls, to_cls), count in zip(valid_transitions, transition_counts):
+                    if (from_cls, 'start') in node_positions and (to_cls, 'end') in node_positions:
                         sources.append(node_positions[(from_cls, 'start')])
                         targets.append(node_positions[(to_cls, 'end')])
                         values.append(int(count))
-                        rgb = class_colors.get(from_cls, (0.6, 0.6, 0.6))  # Default color if missing
+                        rgb = class_colors.get(from_cls, (0.6, 0.6, 0.6))
                         link_colors.append(f"rgba({int(rgb[0]*255)}, {int(rgb[1]*255)}, {int(rgb[2]*255)}, 0.6)")
-                    sources.append(node_positions[(from_cls, 'start')])
-                    targets.append(node_positions[(to_cls, 'end')])
-                    values.append(int(count))
-                    rgb = class_colors[from_cls]
-                    link_colors.append(f"rgba({int(rgb[0]*255)}, {int(rgb[1]*255)}, {int(rgb[2]*255)}, 0.6)")
                 
                 # Create the Sankey diagram
                 fig = go.Figure(go.Sankey(
-                # Add transition flows
                     arrangement="fixed",
                     node=dict(
                         pad=30,
@@ -768,9 +802,10 @@ def create_decadal_sankey_diagrams(root, output_dir):
                         line=dict(color="black", width=0.5),
                         label=node_names,
                         color=node_colors,
-                        x=[0.1] * len(node_names) + [0.9] * len(node_names),  # Left and right columns
-                        y=[i / len(node_names) for i in range(len(node_names))] + 
-                          [i / len(node_names) for i in range(len(node_names))]
+                        x=node_x,
+                        y=node_y,
+                        customdata=node_values,
+                        hovertemplate="%{label}<br>Total Flow: %{customdata:,}<extra></extra>"
                     ),
                     link=dict(
                         source=sources,
@@ -779,73 +814,18 @@ def create_decadal_sankey_diagrams(root, output_dir):
                         color=link_colors
                     )
                 ))
-                # Set node positions
-                fig.update_traces(
-                    node=dict(
-                        x=[0.1] * len(node_names) + [0.9] * len(node_names),  # Left and right columns
-                        y=[i / len(node_names) for i in range(len(node_names))] + 
-                          [i / len(node_names) for i in range(len(node_names))]
-                    )
-                )
-                # Set node colors
-                fig.update_traces(
-                    node=dict(
-                        color=node_colors
-                    )
-                )
-                # Set link colors
-                fig.update_traces(
-                    link=dict(
-                        color=link_colors
-                    )
-                )
-                # Set node labels
-                fig.update_traces(
-                    node=dict(
-                        label=node_names
-                    )
-                )
-                # Set link values
-                fig.update_traces(
-                    link=dict(
-                        value=values
-                    )
-                )
-                # Set link sources and targets
-                fig.update_traces(
-                    link=dict(
-                        source=sources,
-                        target=targets
-                    )
-                )
-                # Set link colors   
-                fig.update_traces(
-                    link=dict(
-                        color=link_colors
-                    )
-                )
-                
-                 # Ensure transitions to other classes are included
-                for (from_cls, to_cls), count in zip(transition_pairs, transition_counts):
-                    if from_cls != to_cls:  # Exclude same-to-same transitions
-                        sources.append(node_positions[(from_cls, 'start')])
-                        targets.append(node_positions[(to_cls, 'end')])
-                        values.append(int(count))
-                        rgb = class_colors[from_cls]
-                        link_colors.append(f"rgba({int(rgb[0]*255)}, {int(rgb[1]*255)}, {int(rgb[2]*255)}, 0.6)")
                 
                 # Update layout
-
                 fig.update_layout(
                     title_text=f"{grid_name} Land Cover Changes {start_year}-{end_year}<br>"
-                             f"(Showing persistence and transitions)",
+                             f"(Excluding No Data, Node heights proportional to flow)",
                     font=dict(size=12, family="Arial"),
-                    height=1200,
+                    height=max(1200, num_classes * 60),
                     width=1600,
-                    margin=dict(l=100, r=100, b=100, t=120, pad=20)
+                    margin=dict(l=150, r=150, b=100, t=120, pad=20)
                 )
                 
-                # Save files
+                # Save outputs
                 html_path = os.path.join(output_dir, f'transitions_{start_year}_{end_year}.html')
                 png_path = os.path.join(output_dir, f'transitions_{start_year}_{end_year}.png')
                 
@@ -857,14 +837,13 @@ def create_decadal_sankey_diagrams(root, output_dir):
                 except Exception as e:
                     logging.warning(f"Could not save static image: {str(e)}")
                 
-                logging.info(f"Created diagram for {start_year}-{end_year} with persistence")
-                
             except Exception as e:
                 logging.error(f"Error creating {start_year}-{end_year} diagram: {str(e)}", exc_info=True)
                 
     except Exception as e:
         logging.error(f"Error in decadal Sankey diagrams: {str(e)}", exc_info=True)
         raise
+
 
 def create_sankey(transition_matrix, classes, title, output_html, output_csv):
     """Create a Sankey diagram with proper left-right separation."""

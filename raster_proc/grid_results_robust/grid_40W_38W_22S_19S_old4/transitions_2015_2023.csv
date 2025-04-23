@@ -1,0 +1,159 @@
+From_Class,From_Label,To_Class,To_Label,Count,Percent
+15,Pasture,11,Wetland,6446.0,1.17%
+15,Pasture,3,Forest Formation,4584.0,0.83%
+15,Pasture,21,Mosaic of Uses,168972.0,30.60%
+15,Pasture,33,River Lake and Ocean,3878.0,0.70%
+15,Pasture,50,Herbaceous Sandbank Vegetation,12629.0,2.29%
+15,Pasture,49,Wooded Sandbank Vegetation,1621.0,0.29%
+15,Pasture,23,Beach and Sand,435.0,0.08%
+15,Pasture,9,Forest Plantation,1487.0,0.27%
+15,Pasture,24,Urban Area,363.0,0.07%
+15,Pasture,25,Other non Vegetated Areas,879.0,0.16%
+15,Pasture,46,Coffee,984.0,0.18%
+15,Pasture,20,Sugar Cane,6008.0,1.09%
+15,Pasture,41,Other Temporary Crops,920.0,0.17%
+15,Pasture,48,Other Perennial Crops,424.0,0.08%
+15,Pasture,31,Aquaculture,8.0,0.00%
+11,Wetland,15,Pasture,32019.0,5.80%
+11,Wetland,3,Forest Formation,190.0,0.03%
+11,Wetland,21,Mosaic of Uses,15796.0,2.86%
+11,Wetland,33,River Lake and Ocean,19358.0,3.51%
+11,Wetland,50,Herbaceous Sandbank Vegetation,147.0,0.03%
+11,Wetland,49,Wooded Sandbank Vegetation,123.0,0.02%
+11,Wetland,23,Beach and Sand,276.0,0.05%
+11,Wetland,9,Forest Plantation,973.0,0.18%
+11,Wetland,24,Urban Area,177.0,0.03%
+11,Wetland,5,Mangrove,98.0,0.02%
+11,Wetland,25,Other non Vegetated Areas,285.0,0.05%
+11,Wetland,46,Coffee,22.0,0.00%
+11,Wetland,20,Sugar Cane,32.0,0.01%
+11,Wetland,32,Hypersaline Tidal Flat,451.0,0.08%
+11,Wetland,48,Other Perennial Crops,20.0,0.00%
+11,Wetland,31,Aquaculture,1.0,0.00%
+3,Forest Formation,15,Pasture,6760.0,1.22%
+3,Forest Formation,11,Wetland,119.0,0.02%
+3,Forest Formation,21,Mosaic of Uses,15536.0,2.81%
+3,Forest Formation,33,River Lake and Ocean,1517.0,0.27%
+3,Forest Formation,50,Herbaceous Sandbank Vegetation,2.0,0.00%
+3,Forest Formation,49,Wooded Sandbank Vegetation,17.0,0.00%
+3,Forest Formation,9,Forest Plantation,1481.0,0.27%
+3,Forest Formation,5,Mangrove,149.0,0.03%
+3,Forest Formation,25,Other non Vegetated Areas,2.0,0.00%
+3,Forest Formation,46,Coffee,8.0,0.00%
+3,Forest Formation,32,Hypersaline Tidal Flat,8.0,0.00%
+3,Forest Formation,41,Other Temporary Crops,221.0,0.04%
+3,Forest Formation,48,Other Perennial Crops,2.0,0.00%
+21,Mosaic of Uses,15,Pasture,109194.0,19.77%
+21,Mosaic of Uses,11,Wetland,4249.0,0.77%
+21,Mosaic of Uses,3,Forest Formation,15271.0,2.77%
+21,Mosaic of Uses,33,River Lake and Ocean,20391.0,3.69%
+21,Mosaic of Uses,50,Herbaceous Sandbank Vegetation,3676.0,0.67%
+21,Mosaic of Uses,49,Wooded Sandbank Vegetation,6706.0,1.21%
+21,Mosaic of Uses,23,Beach and Sand,337.0,0.06%
+21,Mosaic of Uses,9,Forest Plantation,1933.0,0.35%
+21,Mosaic of Uses,24,Urban Area,85.0,0.02%
+21,Mosaic of Uses,5,Mangrove,26.0,0.00%
+21,Mosaic of Uses,25,Other non Vegetated Areas,1363.0,0.25%
+21,Mosaic of Uses,46,Coffee,284.0,0.05%
+21,Mosaic of Uses,20,Sugar Cane,22.0,0.00%
+21,Mosaic of Uses,32,Hypersaline Tidal Flat,8.0,0.00%
+21,Mosaic of Uses,41,Other Temporary Crops,160.0,0.03%
+21,Mosaic of Uses,48,Other Perennial Crops,43.0,0.01%
+21,Mosaic of Uses,31,Aquaculture,2.0,0.00%
+33,River Lake and Ocean,15,Pasture,1685.0,0.31%
+33,River Lake and Ocean,11,Wetland,20689.0,3.75%
+33,River Lake and Ocean,3,Forest Formation,2052.0,0.37%
+33,River Lake and Ocean,21,Mosaic of Uses,16697.0,3.02%
+33,River Lake and Ocean,50,Herbaceous Sandbank Vegetation,391.0,0.07%
+33,River Lake and Ocean,49,Wooded Sandbank Vegetation,291.0,0.05%
+33,River Lake and Ocean,23,Beach and Sand,612.0,0.11%
+33,River Lake and Ocean,9,Forest Plantation,69.0,0.01%
+33,River Lake and Ocean,24,Urban Area,78.0,0.01%
+33,River Lake and Ocean,5,Mangrove,17.0,0.00%
+33,River Lake and Ocean,25,Other non Vegetated Areas,2823.0,0.51%
+33,River Lake and Ocean,20,Sugar Cane,3.0,0.00%
+33,River Lake and Ocean,32,Hypersaline Tidal Flat,10.0,0.00%
+50,Herbaceous Sandbank Vegetation,15,Pasture,5420.0,0.98%
+50,Herbaceous Sandbank Vegetation,11,Wetland,83.0,0.02%
+50,Herbaceous Sandbank Vegetation,21,Mosaic of Uses,2427.0,0.44%
+50,Herbaceous Sandbank Vegetation,33,River Lake and Ocean,390.0,0.07%
+50,Herbaceous Sandbank Vegetation,49,Wooded Sandbank Vegetation,9.0,0.00%
+50,Herbaceous Sandbank Vegetation,23,Beach and Sand,1907.0,0.35%
+50,Herbaceous Sandbank Vegetation,9,Forest Plantation,87.0,0.02%
+50,Herbaceous Sandbank Vegetation,24,Urban Area,50.0,0.01%
+50,Herbaceous Sandbank Vegetation,25,Other non Vegetated Areas,163.0,0.03%
+49,Wooded Sandbank Vegetation,15,Pasture,629.0,0.11%
+49,Wooded Sandbank Vegetation,11,Wetland,84.0,0.02%
+49,Wooded Sandbank Vegetation,3,Forest Formation,15.0,0.00%
+49,Wooded Sandbank Vegetation,21,Mosaic of Uses,2712.0,0.49%
+49,Wooded Sandbank Vegetation,33,River Lake and Ocean,178.0,0.03%
+49,Wooded Sandbank Vegetation,50,Herbaceous Sandbank Vegetation,17.0,0.00%
+49,Wooded Sandbank Vegetation,23,Beach and Sand,15.0,0.00%
+49,Wooded Sandbank Vegetation,9,Forest Plantation,397.0,0.07%
+49,Wooded Sandbank Vegetation,5,Mangrove,8.0,0.00%
+49,Wooded Sandbank Vegetation,25,Other non Vegetated Areas,9.0,0.00%
+49,Wooded Sandbank Vegetation,46,Coffee,2.0,0.00%
+49,Wooded Sandbank Vegetation,41,Other Temporary Crops,115.0,0.02%
+23,Beach and Sand,15,Pasture,1557.0,0.28%
+23,Beach and Sand,11,Wetland,2529.0,0.46%
+23,Beach and Sand,3,Forest Formation,1.0,0.00%
+23,Beach and Sand,21,Mosaic of Uses,1397.0,0.25%
+23,Beach and Sand,33,River Lake and Ocean,838.0,0.15%
+23,Beach and Sand,50,Herbaceous Sandbank Vegetation,4207.0,0.76%
+23,Beach and Sand,49,Wooded Sandbank Vegetation,10.0,0.00%
+23,Beach and Sand,9,Forest Plantation,82.0,0.01%
+23,Beach and Sand,24,Urban Area,130.0,0.02%
+23,Beach and Sand,25,Other non Vegetated Areas,541.0,0.10%
+9,Forest Plantation,15,Pasture,800.0,0.14%
+9,Forest Plantation,11,Wetland,26.0,0.00%
+9,Forest Plantation,3,Forest Formation,253.0,0.05%
+9,Forest Plantation,21,Mosaic of Uses,1423.0,0.26%
+9,Forest Plantation,33,River Lake and Ocean,1.0,0.00%
+9,Forest Plantation,50,Herbaceous Sandbank Vegetation,63.0,0.01%
+9,Forest Plantation,49,Wooded Sandbank Vegetation,280.0,0.05%
+9,Forest Plantation,23,Beach and Sand,1.0,0.00%
+9,Forest Plantation,25,Other non Vegetated Areas,11.0,0.00%
+9,Forest Plantation,46,Coffee,1.0,0.00%
+9,Forest Plantation,20,Sugar Cane,6.0,0.00%
+9,Forest Plantation,41,Other Temporary Crops,1.0,0.00%
+24,Urban Area,15,Pasture,16.0,0.00%
+24,Urban Area,21,Mosaic of Uses,9.0,0.00%
+24,Urban Area,33,River Lake and Ocean,17.0,0.00%
+24,Urban Area,50,Herbaceous Sandbank Vegetation,4.0,0.00%
+24,Urban Area,23,Beach and Sand,73.0,0.01%
+5,Mangrove,11,Wetland,114.0,0.02%
+5,Mangrove,3,Forest Formation,167.0,0.03%
+5,Mangrove,21,Mosaic of Uses,35.0,0.01%
+5,Mangrove,33,River Lake and Ocean,45.0,0.01%
+5,Mangrove,49,Wooded Sandbank Vegetation,50.0,0.01%
+5,Mangrove,32,Hypersaline Tidal Flat,78.0,0.01%
+25,Other non Vegetated Areas,15,Pasture,121.0,0.02%
+25,Other non Vegetated Areas,11,Wetland,59.0,0.01%
+25,Other non Vegetated Areas,3,Forest Formation,2.0,0.00%
+25,Other non Vegetated Areas,21,Mosaic of Uses,283.0,0.05%
+25,Other non Vegetated Areas,33,River Lake and Ocean,2373.0,0.43%
+25,Other non Vegetated Areas,50,Herbaceous Sandbank Vegetation,222.0,0.04%
+25,Other non Vegetated Areas,49,Wooded Sandbank Vegetation,3.0,0.00%
+25,Other non Vegetated Areas,23,Beach and Sand,423.0,0.08%
+25,Other non Vegetated Areas,9,Forest Plantation,17.0,0.00%
+46,Coffee,15,Pasture,2258.0,0.41%
+46,Coffee,11,Wetland,605.0,0.11%
+46,Coffee,3,Forest Formation,31.0,0.01%
+46,Coffee,21,Mosaic of Uses,881.0,0.16%
+46,Coffee,33,River Lake and Ocean,16.0,0.00%
+46,Coffee,50,Herbaceous Sandbank Vegetation,1.0,0.00%
+46,Coffee,49,Wooded Sandbank Vegetation,7.0,0.00%
+46,Coffee,9,Forest Plantation,2.0,0.00%
+20,Sugar Cane,15,Pasture,226.0,0.04%
+20,Sugar Cane,11,Wetland,2.0,0.00%
+20,Sugar Cane,21,Mosaic of Uses,20.0,0.00%
+32,Hypersaline Tidal Flat,11,Wetland,427.0,0.08%
+32,Hypersaline Tidal Flat,3,Forest Formation,18.0,0.00%
+32,Hypersaline Tidal Flat,21,Mosaic of Uses,9.0,0.00%
+32,Hypersaline Tidal Flat,33,River Lake and Ocean,35.0,0.01%
+32,Hypersaline Tidal Flat,24,Urban Area,41.0,0.01%
+32,Hypersaline Tidal Flat,5,Mangrove,33.0,0.01%
+48,Other Perennial Crops,15,Pasture,2.0,0.00%
+48,Other Perennial Crops,21,Mosaic of Uses,3.0,0.00%
+31,Aquaculture,11,Wetland,1.0,0.00%
+31,Aquaculture,21,Mosaic of Uses,10.0,0.00%
