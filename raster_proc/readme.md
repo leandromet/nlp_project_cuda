@@ -38,6 +38,10 @@ The brazil_color_table_amazon.py script provides a robust framework for extracti
   ```
 - MapBiomas Collection data as a VRT file
 
+careful, this script can be very resource hungry!! Try smaller windows first (1x1 degree), I managed to handle 8x8 but not 10x10 degrees with 20 cores and 90GB RAM plus a RTX4060 8GB.
+
+![Resource usage during an 8x8 run](<Screenshot From 2025-04-21 22-07-02.png>)
+
 ## Configuration Parameters
 
 | Parameter | Default | Description |
