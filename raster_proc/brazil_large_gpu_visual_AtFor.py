@@ -626,7 +626,7 @@ def create_sankey_diagrams(root, output_dir):
                         table[(i, j)].set_facecolor(color)
                         # Set text color based on brightness
                         brightness = matplotlib.colors.rgb_to_hsv(matplotlib.colors.to_rgb(color))[2]
-                        table[(i, j)].get_text().set_color('white' if brightness < 0.5 else 'black')
+                        table[(i, j)].get_text().set_color('white' if brightness < 0.6 else 'black')
                 elif i > j:  # Below the main diagonal (rows)
                     cls = present_classes[i - 1]
                     if cls in COLOR_MAP:
@@ -634,7 +634,7 @@ def create_sankey_diagrams(root, output_dir):
                         table[(i, j)].set_facecolor(color)
                         # Set text color based on brightness
                         brightness = matplotlib.colors.rgb_to_hsv(matplotlib.colors.to_rgb(color))[2]
-                        table[(i, j)].get_text().set_color('white' if brightness < 0.5 else 'black')
+                        table[(i, j)].get_text().set_color('white' if brightness < 0.6 else 'black')
         for i, row in enumerate(table_data[1:], start=1):  # Skip header row
             for j, cell_value in enumerate(row[1:], start=1):  # Skip first column
                 if i < j:  # Above the main diagonal (columns)
@@ -656,8 +656,8 @@ def create_sankey_diagrams(root, output_dir):
         
         # Create Sankey diagram
         title = f"{grid_name} Land Cover Changes {start_year}-{end_year}"
-        output_html = os.path.join(output_dir, f'transitions_{start_year}_{end_year}.html')
-        output_csv = os.path.join(output_dir, f'transitions_{start_year}_{end_year}.csv')
+        output_html = os.path.join(output_dir, f'new_transitions_{start_year}_{end_year}.html')
+        output_csv = os.path.join(output_dir, f'new_transitions_{start_year}_{end_year}.csv')
         
         create_sankey(
             transition_matrix=decade_trans,
@@ -853,75 +853,100 @@ def create_decadal_sankey_diagrams(root, output_dir):
         raise
 
 def create_sankey(transition_matrix, classes, title, output_html, output_csv):
-    """Create a Sankey diagram with properly aligned left (source) and right (target) nodes."""
+    """Create a Sankey diagram with properly aligned nodes and proportional sizing."""
     
-    # Define minimum threshold to filter insignificant flows
+    # Calculate total flows for positioning
     total_flow = np.sum(transition_matrix)
-    threshold = max(total_flow * 0.001, 10)
+    if total_flow == 0:
+        logging.warning(f"No valid flows found for {title}")
+        return
     
-    # Prepare link data
+    # Calculate node sizes (sum of incoming and outgoing flows)
+    out_flows = np.sum(transition_matrix, axis=1)  # Sum of outgoing flows per class
+    in_flows = np.sum(transition_matrix, axis=0)   # Sum of incoming flows per class
+    
+    # Calculate node positions proportional to flow sizes
+    def calc_positions(flows):
+        total = sum(flows)
+        if total == 0:
+            return [0.5] * len(flows)  # Fallback if no flows
+        positions = []
+        cumulative = 0
+        for flow in flows:
+            positions.append((cumulative + flow/2) / total)
+            cumulative += flow
+        return positions
+    
+    left_y = calc_positions(out_flows)  # Left nodes positioned by outgoing flow
+    right_y = calc_positions(in_flows)  # Right nodes positioned by incoming flow
+    
+    # Create node structure
+    node_x = [0.1] * len(classes) + [0.9] * len(classes)  # Left and right columns
+    node_y = left_y + right_y
+    
+    # Prepare link data (include all significant flows)
     sources, targets, values, link_colors = [], [], [], []
+    threshold = max(total_flow * 0.001, 10)  # Minimum threshold
+    
     for i, from_cls in enumerate(classes):
         for j, to_cls in enumerate(classes):
             value = transition_matrix[i, j]
             if value > threshold:
-                sources.append(i)                        # source index
-                targets.append(j + len(classes))         # target is offset by len(classes)
+                sources.append(i)
+                targets.append(j + len(classes))  # Target nodes offset
                 values.append(value)
-                link_colors.append(COLOR_MAP.get(from_cls, '#999999'))
-
-    # Calculate y-positions (uniform spacing)
-    num_classes = len(classes)
-    y_spacing = np.linspace(0.1, 0.9, num_classes)
-    node_x = [0.1] * num_classes + [0.9] * num_classes
-    node_y = np.concatenate([y_spacing, y_spacing])
-
-    # Create node labels with flow counts
-    left_counts = np.sum(transition_matrix, axis=1)
-    right_counts = np.sum(transition_matrix, axis=0)
+                # Use source color with different alpha for self-transitions
+                base_color = COLOR_MAP.get(from_cls, '#999999')
+                alpha = 0.4 if i == j else 0.7  # Lighter for self-transitions
+                link_colors.append(f"rgba({int(base_color[1:3], 16)}, {int(base_color[3:5], 16)}, {int(base_color[5:7], 16)}, {alpha})")
     
+    # Create node labels with flow information
     node_labels = [
-        f"{cls}: {LABELS.get(cls, '?')} ({left_counts[i]:,})"
+        f"{cls}: {LABELS.get(cls, '?')}<br>Out: {out_flows[i]:,}"
         for i, cls in enumerate(classes)
     ] + [
-        f"{cls}: {LABELS.get(cls, '?')} ({right_counts[i]:,})"
+        f"{cls}: {LABELS.get(cls, '?')}<br>In: {in_flows[i]:,}"
         for i, cls in enumerate(classes)
     ]
-
-    # Node colors: use the same class colors for left and right
-    node_colors = [COLOR_MAP.get(cls, '#999999') for cls in classes] * 2
-
-    # Build figure
+    
+    # Node colors (same for left and right)
+    node_colors = [COLOR_MAP.get(cls, '#999999') for cls in classes]
+    
+    # Create the Sankey diagram
     fig = go.Figure(go.Sankey(
         arrangement="fixed",
         node=dict(
-            pad=30,
-            thickness=20,
-            line=dict(color="black", width=0.5),
+            pad=10,
+            thickness=10,
+            line=dict(color="black", width=0.3),
             label=node_labels,
             color=node_colors,
             x=node_x,
-            y=node_y.tolist()
+            y=node_y,
+            hovertemplate="%{label}<extra></extra>"
         ),
         link=dict(
             source=sources,
             target=targets,
             value=values,
-            color=link_colors
+            color=link_colors,
+            hovertemplate="From: %{source.label}<br>To: %{target.label}<br>Count: %{value:,}<extra></extra>"
         )
     ))
-
+    
+    # Update layout with dynamic sizing
     fig.update_layout(
         title_text=title,
-        font_size=10,
-        height=max(3000, len(classes) * 120),
-        width=1400,
-        margin=dict(l=150, r=150, b=100, t=100)
+        font=dict(size=10, family="Arial"),
+        height=max(1000, len(classes) * 60),  # Dynamic height based on class count
+        width=1600,
+        margin=dict(l=100, r=100, b=50, t=80, pad=10)
     )
-
+    
+    # Save outputs
     plot(fig, filename=output_html, auto_open=False)
-
-    # Save CSV with all transitions (no threshold)
+    
+    # Save CSV with all transitions
     with open(output_csv, 'w') as f:
         f.write("From_Class,From_Label,To_Class,To_Label,Count,Percent\n")
         for i, from_cls in enumerate(classes):
@@ -934,9 +959,8 @@ def create_sankey(transition_matrix, classes, title, output_html, output_csv):
                         f"{to_cls},{LABELS.get(to_cls, '?')},"
                         f"{value},{percent:.2f}%\n"
                     )
-
-    logging.info(f"Sankey diagram saved to {output_html} and data to {output_csv}")
-
+    
+    logging.info(f"Created Sankey diagram: {output_html}")
 
 if __name__ == '__main__':
     VRT_FILE = '/srv/extrassd/2025_mapbiomas/mapbiomas_coverage_1985_2023.vrt'
@@ -945,7 +969,7 @@ if __name__ == '__main__':
 
     
     # Example 10x10 degree polygon
-    POLYGON_8x8 = [((-41, -21), (-41, -18), (-40, -18), (-40, -21), (-41, -21))]
+    POLYGON_8x8 = [((-41, -21), (-41, -19), (-40, -19), (-40, -21), (-41, -21))]
     
     try:
         os.makedirs(OUTPUT_BASE_DIR, exist_ok=True)
