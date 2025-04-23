@@ -969,7 +969,7 @@ if __name__ == '__main__':
 
     
     # Example 10x10 degree polygon
-    POLYGON_8x8 = [((-41, -21), (-41, -19), (-40, -19), (-40, -21), (-41, -21))]
+    POLYGON_8x8 = [((-42, -16), (-38, -16), (-38, -22), (-38, -16), (-42, -16))]
     
     try:
         os.makedirs(OUTPUT_BASE_DIR, exist_ok=True)

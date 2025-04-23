@@ -1,0 +1,155 @@
+From_Class,From_Label,To_Class,To_Label,Count,Percent
+3,Forest Formation,15,Pasture,21974743.0,59.71%
+3,Forest Formation,6,Floodable Forest,6087.0,0.02%
+3,Forest Formation,33,River Lake and Ocean,15391.0,0.04%
+3,Forest Formation,11,Wetland,36786.0,0.10%
+3,Forest Formation,4,Savanna Formation,45056.0,0.12%
+3,Forest Formation,41,Other Temporary Crops,50017.0,0.14%
+3,Forest Formation,12,Grassland,18133.0,0.05%
+3,Forest Formation,39,Soybean,755.0,0.00%
+3,Forest Formation,24,Urban Area,1049.0,0.00%
+3,Forest Formation,29,Rocky Outcrop,678.0,0.00%
+3,Forest Formation,30,Mining,1351.0,0.00%
+3,Forest Formation,25,Other non Vegetated Areas,37.0,0.00%
+3,Forest Formation,9,Forest Plantation,5.0,0.00%
+3,Forest Formation,0,No data,2.0,0.00%
+15,Pasture,3,Forest Formation,4019145.0,10.92%
+15,Pasture,6,Floodable Forest,488891.0,1.33%
+15,Pasture,33,River Lake and Ocean,107721.0,0.29%
+15,Pasture,11,Wetland,138023.0,0.38%
+15,Pasture,4,Savanna Formation,38829.0,0.11%
+15,Pasture,41,Other Temporary Crops,822384.0,2.23%
+15,Pasture,12,Grassland,40071.0,0.11%
+15,Pasture,39,Soybean,6331.0,0.02%
+15,Pasture,24,Urban Area,11120.0,0.03%
+15,Pasture,29,Rocky Outcrop,129.0,0.00%
+15,Pasture,30,Mining,3924.0,0.01%
+15,Pasture,25,Other non Vegetated Areas,2735.0,0.01%
+15,Pasture,9,Forest Plantation,20.0,0.00%
+15,Pasture,0,No data,2.0,0.00%
+6,Floodable Forest,3,Forest Formation,3632.0,0.01%
+6,Floodable Forest,15,Pasture,919437.0,2.50%
+6,Floodable Forest,33,River Lake and Ocean,342534.0,0.93%
+6,Floodable Forest,11,Wetland,375359.0,1.02%
+6,Floodable Forest,4,Savanna Formation,52.0,0.00%
+6,Floodable Forest,41,Other Temporary Crops,3784.0,0.01%
+6,Floodable Forest,12,Grassland,67.0,0.00%
+6,Floodable Forest,39,Soybean,3.0,0.00%
+6,Floodable Forest,24,Urban Area,189.0,0.00%
+6,Floodable Forest,30,Mining,523.0,0.00%
+6,Floodable Forest,25,Other non Vegetated Areas,13.0,0.00%
+6,Floodable Forest,9,Forest Plantation,6.0,0.00%
+6,Floodable Forest,0,No data,2.0,0.00%
+33,River Lake and Ocean,3,Forest Formation,17250.0,0.05%
+33,River Lake and Ocean,15,Pasture,130367.0,0.35%
+33,River Lake and Ocean,6,Floodable Forest,394327.0,1.07%
+33,River Lake and Ocean,11,Wetland,2472452.0,6.72%
+33,River Lake and Ocean,4,Savanna Formation,76.0,0.00%
+33,River Lake and Ocean,41,Other Temporary Crops,4221.0,0.01%
+33,River Lake and Ocean,12,Grassland,151783.0,0.41%
+33,River Lake and Ocean,39,Soybean,10.0,0.00%
+33,River Lake and Ocean,24,Urban Area,803.0,0.00%
+33,River Lake and Ocean,29,Rocky Outcrop,50.0,0.00%
+33,River Lake and Ocean,30,Mining,8442.0,0.02%
+33,River Lake and Ocean,25,Other non Vegetated Areas,385.0,0.00%
+33,River Lake and Ocean,9,Forest Plantation,34.0,0.00%
+33,River Lake and Ocean,0,No data,2.0,0.00%
+11,Wetland,3,Forest Formation,30145.0,0.08%
+11,Wetland,15,Pasture,211603.0,0.57%
+11,Wetland,6,Floodable Forest,411656.0,1.12%
+11,Wetland,33,River Lake and Ocean,2759065.0,7.50%
+11,Wetland,4,Savanna Formation,359.0,0.00%
+11,Wetland,41,Other Temporary Crops,40531.0,0.11%
+11,Wetland,12,Grassland,7869.0,0.02%
+11,Wetland,39,Soybean,150.0,0.00%
+11,Wetland,24,Urban Area,444.0,0.00%
+11,Wetland,29,Rocky Outcrop,11.0,0.00%
+11,Wetland,30,Mining,425.0,0.00%
+11,Wetland,25,Other non Vegetated Areas,1753.0,0.00%
+11,Wetland,9,Forest Plantation,70.0,0.00%
+4,Savanna Formation,3,Forest Formation,2878.0,0.01%
+4,Savanna Formation,15,Pasture,88423.0,0.24%
+4,Savanna Formation,6,Floodable Forest,10.0,0.00%
+4,Savanna Formation,33,River Lake and Ocean,103.0,0.00%
+4,Savanna Formation,11,Wetland,413.0,0.00%
+4,Savanna Formation,41,Other Temporary Crops,96.0,0.00%
+4,Savanna Formation,12,Grassland,676.0,0.00%
+4,Savanna Formation,24,Urban Area,835.0,0.00%
+4,Savanna Formation,29,Rocky Outcrop,8.0,0.00%
+4,Savanna Formation,30,Mining,259.0,0.00%
+4,Savanna Formation,25,Other non Vegetated Areas,17.0,0.00%
+41,Other Temporary Crops,3,Forest Formation,1128.0,0.00%
+41,Other Temporary Crops,15,Pasture,170568.0,0.46%
+41,Other Temporary Crops,6,Floodable Forest,1502.0,0.00%
+41,Other Temporary Crops,33,River Lake and Ocean,3076.0,0.01%
+41,Other Temporary Crops,11,Wetland,20493.0,0.06%
+41,Other Temporary Crops,4,Savanna Formation,95.0,0.00%
+41,Other Temporary Crops,12,Grassland,724.0,0.00%
+41,Other Temporary Crops,39,Soybean,65386.0,0.18%
+41,Other Temporary Crops,24,Urban Area,383.0,0.00%
+41,Other Temporary Crops,29,Rocky Outcrop,2.0,0.00%
+12,Grassland,3,Forest Formation,5918.0,0.02%
+12,Grassland,15,Pasture,97344.0,0.26%
+12,Grassland,6,Floodable Forest,61.0,0.00%
+12,Grassland,33,River Lake and Ocean,127435.0,0.35%
+12,Grassland,11,Wetland,42554.0,0.12%
+12,Grassland,4,Savanna Formation,522.0,0.00%
+12,Grassland,41,Other Temporary Crops,7953.0,0.02%
+12,Grassland,39,Soybean,576.0,0.00%
+12,Grassland,24,Urban Area,585.0,0.00%
+12,Grassland,29,Rocky Outcrop,217.0,0.00%
+12,Grassland,30,Mining,1040.0,0.00%
+12,Grassland,25,Other non Vegetated Areas,1210.0,0.00%
+12,Grassland,9,Forest Plantation,1.0,0.00%
+12,Grassland,0,No data,1.0,0.00%
+39,Soybean,3,Forest Formation,2.0,0.00%
+39,Soybean,15,Pasture,223.0,0.00%
+39,Soybean,33,River Lake and Ocean,11.0,0.00%
+39,Soybean,11,Wetland,10.0,0.00%
+39,Soybean,41,Other Temporary Crops,6624.0,0.02%
+39,Soybean,12,Grassland,43.0,0.00%
+39,Soybean,24,Urban Area,11.0,0.00%
+24,Urban Area,3,Forest Formation,141.0,0.00%
+24,Urban Area,15,Pasture,607.0,0.00%
+24,Urban Area,6,Floodable Forest,36.0,0.00%
+24,Urban Area,33,River Lake and Ocean,749.0,0.00%
+24,Urban Area,11,Wetland,59.0,0.00%
+24,Urban Area,4,Savanna Formation,3.0,0.00%
+24,Urban Area,41,Other Temporary Crops,71.0,0.00%
+24,Urban Area,12,Grassland,39.0,0.00%
+24,Urban Area,39,Soybean,6.0,0.00%
+24,Urban Area,30,Mining,612.0,0.00%
+24,Urban Area,25,Other non Vegetated Areas,12.0,0.00%
+29,Rocky Outcrop,3,Forest Formation,343.0,0.00%
+29,Rocky Outcrop,15,Pasture,196.0,0.00%
+29,Rocky Outcrop,33,River Lake and Ocean,40.0,0.00%
+29,Rocky Outcrop,11,Wetland,14.0,0.00%
+29,Rocky Outcrop,4,Savanna Formation,7.0,0.00%
+29,Rocky Outcrop,41,Other Temporary Crops,6.0,0.00%
+29,Rocky Outcrop,12,Grassland,373.0,0.00%
+29,Rocky Outcrop,30,Mining,26.0,0.00%
+30,Mining,3,Forest Formation,3544.0,0.01%
+30,Mining,15,Pasture,11477.0,0.03%
+30,Mining,6,Floodable Forest,2895.0,0.01%
+30,Mining,33,River Lake and Ocean,4925.0,0.01%
+30,Mining,11,Wetland,927.0,0.00%
+30,Mining,4,Savanna Formation,56.0,0.00%
+30,Mining,12,Grassland,1338.0,0.00%
+30,Mining,24,Urban Area,467.0,0.00%
+25,Other non Vegetated Areas,3,Forest Formation,40.0,0.00%
+25,Other non Vegetated Areas,15,Pasture,2617.0,0.01%
+25,Other non Vegetated Areas,6,Floodable Forest,4.0,0.00%
+25,Other non Vegetated Areas,33,River Lake and Ocean,326.0,0.00%
+25,Other non Vegetated Areas,11,Wetland,1026.0,0.00%
+25,Other non Vegetated Areas,4,Savanna Formation,5.0,0.00%
+25,Other non Vegetated Areas,41,Other Temporary Crops,52.0,0.00%
+25,Other non Vegetated Areas,12,Grassland,2216.0,0.01%
+25,Other non Vegetated Areas,24,Urban Area,20.0,0.00%
+9,Forest Plantation,15,Pasture,4.0,0.00%
+9,Forest Plantation,6,Floodable Forest,1.0,0.00%
+9,Forest Plantation,33,River Lake and Ocean,2.0,0.00%
+9,Forest Plantation,11,Wetland,3.0,0.00%
+9,Forest Plantation,25,Other non Vegetated Areas,1.0,0.00%
+0,No data,15,Pasture,8.0,0.00%
+0,No data,33,River Lake and Ocean,1.0,0.00%
+0,No data,12,Grassland,1.0,0.00%
