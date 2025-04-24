@@ -1,0 +1,49 @@
+From_Class,From_Label,To_Class,To_Label,Count
+3,Forest Formation,11,Wetland,17
+3,Forest Formation,5,Mangrove,147
+3,Forest Formation,21,Mosaic of Uses,250
+3,Forest Formation,33,River Lake and Ocean,54
+3,Forest Formation,15,Pasture,166
+3,Forest Formation,24,Urban Area,13
+3,Forest Formation,9,Forest Plantation,26
+11,Wetland,3,Forest Formation,18
+11,Wetland,5,Mangrove,55
+11,Wetland,21,Mosaic of Uses,275
+11,Wetland,33,River Lake and Ocean,98
+11,Wetland,15,Pasture,50
+11,Wetland,24,Urban Area,21
+11,Wetland,9,Forest Plantation,10
+11,Wetland,32,Hypersaline Tidal Flat,51
+5,Mangrove,3,Forest Formation,125
+5,Mangrove,11,Wetland,50
+5,Mangrove,21,Mosaic of Uses,2
+5,Mangrove,33,River Lake and Ocean,126
+5,Mangrove,32,Hypersaline Tidal Flat,1
+21,Mosaic of Uses,3,Forest Formation,195
+21,Mosaic of Uses,11,Wetland,234
+21,Mosaic of Uses,5,Mangrove,1
+21,Mosaic of Uses,33,River Lake and Ocean,25
+21,Mosaic of Uses,15,Pasture,556
+21,Mosaic of Uses,24,Urban Area,108
+21,Mosaic of Uses,25,Other non Vegetated Areas,4
+33,River Lake and Ocean,3,Forest Formation,94
+33,River Lake and Ocean,11,Wetland,101
+33,River Lake and Ocean,5,Mangrove,193
+33,River Lake and Ocean,21,Mosaic of Uses,23
+33,River Lake and Ocean,24,Urban Area,1
+33,River Lake and Ocean,32,Hypersaline Tidal Flat,11
+33,River Lake and Ocean,25,Other non Vegetated Areas,7
+15,Pasture,3,Forest Formation,48
+15,Pasture,11,Wetland,23
+15,Pasture,21,Mosaic of Uses,456
+15,Pasture,24,Urban Area,33
+24,Urban Area,3,Forest Formation,1
+9,Forest Plantation,3,Forest Formation,22
+9,Forest Plantation,11,Wetland,26
+9,Forest Plantation,21,Mosaic of Uses,5
+32,Hypersaline Tidal Flat,11,Wetland,56
+32,Hypersaline Tidal Flat,5,Mangrove,1
+32,Hypersaline Tidal Flat,33,River Lake and Ocean,19
+25,Other non Vegetated Areas,11,Wetland,4
+25,Other non Vegetated Areas,21,Mosaic of Uses,3
+25,Other non Vegetated Areas,33,River Lake and Ocean,3
