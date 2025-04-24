@@ -147,7 +147,7 @@ def process_tile(task):
     except Exception as e:
         logging.warning(f"Tile {y},{x} failed: {str(e)}")
         return None
-                    
+    
 
 def calculate_changes_tile(args):
     """Calculate changes for a single tile with robust error handling."""
@@ -157,7 +157,61 @@ def calculate_changes_tile(args):
     changes = np.zeros((window.height, window.width), dtype='uint8')
     transition_matrix = np.zeros((256, 256), dtype='uint64')
     failed = False
+
+    try:
+        with rasterio.open(vrt_path) as src:
+            # Read first year with retries
+            try:
+                prev_data = robust_read(src, 1, window)
+            except Exception as e:
+                logging.warning(f"Failed reading tile {y},{x} (band 1): {str(e)}")
+                return None, None, (y, x), True  # Added failure flag
+            
+            # Process subsequent years
+            for year_idx in range(2, src.count + 1):
+                try:
+                    current_data = robust_read(src, year_idx, window)
+                except Exception as e:
+                    logging.warning(f"Failed reading tile {y},{x} (band {year_idx}): {str(e)}")
+                    return None, None, (y, x), True  # Added failure flag
+                
+                # Calculate changes between consecutive years
+                changed = prev_data != current_data
+                changes += changed.astype('uint8')
+                
+                # Update transition matrix
+                if np.any(changed):
+                    from_vals = prev_data[changed]
+                    to_vals = current_data[changed]
+                    
+                    # Stack and count unique transitions
+                    stacked = np.column_stack((from_vals, to_vals))
+                    unique_transitions, counts = np.unique(stacked, axis=0, return_counts=True)
+                    
+                    # Update transition matrix
+                    for (from_val, to_val), count in zip(unique_transitions, counts):
+                        if from_val < 256 and to_val < 256:  # Ensure within bounds
+                            transition_matrix[from_val, to_val] += count
+                
+                prev_data = current_data
+            
+            return changes, transition_matrix, (y, x), False  # Added success flag
+
+    except Exception as e:
+        logging.error(f"Critical error processing tile {y},{x}: {str(e)}")
+        return None, None, (y, x), True  # Added failure flag
     
+
+
+    """Calculate changes for a single tile with robust error handling and proper Zarr storage."""
+    tile_idx, vrt_path, window, temp_dir = args
+    y, x = tile_idx
+    
+    # Initialize arrays
+    changes = np.zeros((window.height, window.width), dtype='uint8')
+    transition_matrix = np.zeros((256, 256), dtype='uint64')
+    failed = False
+
     try:
         with rasterio.open(vrt_path) as src:
             # Read first year with retries
@@ -177,53 +231,47 @@ def calculate_changes_tile(args):
                     failed = True
                     break
                 
-                # Calculate changes
+                # Calculate changes between consecutive years
                 changed = prev_data != current_data
-                changes += changed
+                changes += changed.astype('uint8')
                 
                 # Update transition matrix
                 if np.any(changed):
                     from_vals = prev_data[changed]
                     to_vals = current_data[changed]
                     
-                    # Ensure transitions are correctly aggregated without duplication
-                    unique_transitions, counts = np.unique(
-                        np.stack((from_vals, to_vals), axis=1), axis=0, return_counts=True
-                    )
+                    # Stack and count unique transitions efficiently
+                    stacked = np.column_stack((from_vals, to_vals))
+                    unique_transitions, counts = np.unique(stacked, axis=0, return_counts=True)
+                    
+                    # Update transition matrix
                     for (from_val, to_val), count in zip(unique_transitions, counts):
-                        transition_matrix[from_val, to_val] += count
+                        if from_val < 256 and to_val < 256:  # Ensure within bounds
+                            transition_matrix[from_val, to_val] += count
                 
                 prev_data = current_data
-            for year_idx in range(2, src.count + 1):
-                try:
-                    current_data = robust_read(src, year_idx, window)
-                except Exception as e:
-                    logging.warning(f"Failed reading tile {y},{x} (band {year_idx}): {str(e)}")
-                    failed = True
-                    break
-                
-                # Calculate changes
-                changed = prev_data != current_data
-                changes += changed
-                
-                # Update transition matrix
-                if np.any(changed):
-                    from_vals = prev_data[changed]
-                    to_vals = current_data[changed]
-                    
-                    for from_val, to_val in zip(from_vals, to_vals):
-                        transition_matrix[from_val, to_val] += 1
-                
-                prev_data = current_data
-            
+
             if not failed:
-                return changes, transition_matrix, (y, x)
-            return None
+                # Create proper Zarr storage
+                zarr_folder = os.path.join(temp_dir, f'tile_{y}_{x}')
+                os.makedirs(zarr_folder, exist_ok=True)
+                
+                # Store changes array
+                changes_store = zarr.DirectoryStore(os.path.join(zarr_folder, 'changes'))
+                changes_array = zarr.zeros(changes.shape, chunks=(256, 256), dtype='uint8', store=changes_store)
+                changes_array[:] = changes
+                
+                # Store transitions array
+                transitions_store = zarr.DirectoryStore(os.path.join(zarr_folder, 'transitions'))
+                transitions_array = zarr.zeros(transition_matrix.shape, chunks=(64, 64), dtype='uint64', store=transitions_store)
+                transitions_array[:] = transition_matrix
+                
+                return changes, transition_matrix, (y, x), temp_dir
             
     except Exception as e:
-        logging.error(f"Critical error processing tile {y},{x}: {str(e)}")
-        return None
-
+        logging.error(f"Critical error processing tile {y},{x}: {str(e)}", exc_info=True)
+    
+    return None
 
 def extract_grid_data_with_polygon(vrt_path, geojson_path, output_base_dir):
     """Extract data for a specific polygon from a GeoJSON file, masking areas outside the polygon with zeros."""
@@ -340,7 +388,7 @@ def extract_grid_data_with_polygon(vrt_path, geojson_path, output_base_dir):
                             width=min(TILE_SIZE, full_window.width - x * TILE_SIZE),
                             height=min(TILE_SIZE, full_window.height - y * TILE_SIZE)
                         )
-                        tasks.append((y, x, vrt_path, tile_window, temp_dir))
+                        tasks.append(((y, x), vrt_path, tile_window, temp_dir))
 
                 full_changes = np.zeros((full_window.height, full_window.width), dtype='uint8')
                 full_transitions = np.zeros((256, 256), dtype='uint64')
@@ -349,20 +397,20 @@ def extract_grid_data_with_polygon(vrt_path, geojson_path, output_base_dir):
                 with ProcessPoolExecutor(max_workers=MAX_WORKERS) as executor:
                     futures = []
                     for task in tasks:
-                        futures.append(executor.submit(process_tile, task))
+                        futures.append(executor.submit(calculate_changes_tile, task))
 
                     progress = tqdm(as_completed(futures), total=len(futures), desc="Processing tiles")
                     for future in progress:
-                        result = future.result()
-                        if result is not None:
-                            changes, transitions, (y, x) = result
+                        changes, transitions, (y, x), tile_failed = future.result()  # Now getting 4 values
+                        
+                        if not tile_failed:
                             y_start = y * TILE_SIZE
                             x_start = x * TILE_SIZE
                             y_end = min(y_start + TILE_SIZE, full_window.height)
                             x_end = min(x_start + TILE_SIZE, full_window.width)
 
                             full_changes[y_start:y_end, x_start:x_end] = changes
-                            full_transitions += transitions  # Accumulate all transitions
+                            full_transitions += transitions
                         else:
                             failed_tiles.append((y, x))
                         progress.set_postfix(failed=len(failed_tiles))
@@ -456,14 +504,16 @@ def create_visualizations(zarr_path, output_dir):
     # 1. Create land cover map
     create_landcover_map(root, output_dir)
     
-    # 2. Create changes map
-    create_changes_map(root, output_dir)
+
     
     # 3. Create Sankey diagrams
     create_sankey_diagrams(root, output_dir)
 
     # 4. Create decadal Sankey diagrams
     create_decadal_sankey_diagrams(root, output_dir)
+
+    # 2. Create changes map
+    create_changes_map(root, output_dir)
 
 def create_landcover_map(root, output_dir):
     """Create land cover visualization with PNGW for GIS compatibility."""
@@ -498,23 +548,30 @@ def create_landcover_map(root, output_dir):
         pngw_file.write(f"{transform.e}\n")  # Pixel size in y-direction (negative)
         pngw_file.write(f"{transform.c}\n")  # X-coordinate of the upper-left corner
         pngw_file.write(f"{transform.f}\n")  # Y-coordinate of the upper-left corner
+
+
 def create_changes_map(root, output_dir):
     """Create changes frequency visualization with PNGW for GIS compatibility."""
     grid_name = root.attrs['grid_name']
-    changes = root['changes'][:].astype(float)  # Convert to float for better scaling
+    changes = root['changes'][:]  # Load the 'changes' array from the Zarr root
+
+    if np.all(changes == 0):
+        logging.warning("The changes array contains only zeros. Verify the data generation process.")
+
+    # Get the transform for georeferencing
     transform = rasterio.transform.Affine(*json.loads(root.attrs['window_transform']))
-    
+
     # Create the changes map
     plt.figure(figsize=(12, 20))
     plt.imshow(changes, cmap='gist_stern', interpolation='nearest')
     plt.colorbar(label='Number of Changes (1985-2023)')
     plt.title(f"{grid_name} Change Frequency")
-    
+
     # Save the PNG file
     output_path = os.path.join(output_dir, 'changes_map.png')
     plt.savefig(output_path, dpi=450, bbox_inches='tight')
     plt.close()
-    
+
     # Create PNGW file for georeferencing
     pngw_path = output_path + 'w'
     with open(pngw_path, 'w') as pngw_file:
@@ -524,6 +581,8 @@ def create_changes_map(root, output_dir):
         pngw_file.write(f"{transform.e}\n")  # Pixel size in y-direction (negative)
         pngw_file.write(f"{transform.c}\n")  # X-coordinate of the upper-left corner
         pngw_file.write(f"{transform.f}\n")  # Y-coordinate of the upper-left corner
+
+
 
 def create_sankey_diagrams(root, output_dir):
     """Create organized Sankey diagrams with proper class alignment using transitions matrix."""
@@ -946,7 +1005,11 @@ if __name__ == '__main__':
 
         # Use the extracted polygon coordinates and updated output directory
         zarr_path, grid_output_dir = extract_grid_data_with_polygon(VRT_FILE, geojson_path, output_dir_with_name)
-        create_visualizations(zarr_path, grid_output_dir)
+        # Ensure the 'changes' array is populated before creating visualizations
+        if 'changes' not in zarr.open(zarr_path, mode='r'):
+            logging.error("The 'changes' array is missing in the Zarr store. Ensure data is processed correctly.")
+        else:
+            create_visualizations(zarr_path, grid_output_dir)
         
         
         logging.info(f"Analysis complete. Results saved to {grid_output_dir}")
