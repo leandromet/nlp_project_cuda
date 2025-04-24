@@ -145,6 +145,7 @@ raster_proc/grid_results/
 raster_proc/grid_results_robust/
 raster_proc/indigenous_analysis/
 raster_proc/indigenous/
+raster_proc/indigenous_self/
 
 # pytype static type analyzer
 .pytype/
