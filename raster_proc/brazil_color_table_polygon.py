@@ -523,6 +523,16 @@ def create_landcover_map(root, output_dir):
                for k in sorted(LABELS.keys()) if k in COLOR_MAP]
     plt.legend(handles=patches, bbox_to_anchor=(1.05, 1), loc='upper left')
     
+    # Overlay the polygon name with a white contour
+    if 'terrai_nom' in root.attrs:
+        terrai_nom = root.attrs['terrai_nom']
+        plt.text(
+            0.5, 0.95, terrai_nom, 
+            fontsize=16, color='white', ha='center', va='center', 
+            transform=plt.gca().transAxes, 
+            bbox=dict(facecolor='black', edgecolor='white', boxstyle='round,pad=0.5')
+        )
+    
     plt.tight_layout()
     output_path = os.path.join(output_dir, 'landcover_map.png')
     plt.savefig(output_path, dpi=450, bbox_inches='tight')
@@ -537,6 +547,83 @@ def create_landcover_map(root, output_dir):
         pngw_file.write(f"{transform.e}\n")  # Pixel size in y-direction (negative)
         pngw_file.write(f"{transform.c}\n")  # X-coordinate of the upper-left corner
         pngw_file.write(f"{transform.f}\n")  # Y-coordinate of the upper-left corner
+
+
+
+    grid_name = root.attrs['grid_name']
+    last_year = root['last_year'][:]
+    transform = rasterio.transform.Affine(*json.loads(root.attrs['window_transform']))
+    
+    # Create colormap
+    cmap = ListedColormap([COLOR_MAP.get(i, '#ffffff') for i in range(max(COLOR_MAP.keys()) + 1)])
+    
+    plt.figure(figsize=(12, 20))
+    plt.imshow(last_year, cmap=cmap, vmin=0, vmax=max(COLOR_MAP.keys()))
+    plt.title(f"{grid_name} Land Cover")
+    
+    # Add polygon outline if GeoJSON path is provided
+    if geojson_path:
+        try:
+            gdf = gpd.read_file(geojson_path)
+            if not gdf.empty and 'geometry' in gdf.columns:
+                # Convert polygon to pixel coordinates
+                bounds = root.attrs['bounds']
+                xmin, ymin, xmax, ymax = bounds
+                width = last_year.shape[1]
+                height = last_year.shape[0]
+                
+                # Set the same extent as the previous image
+                plt.xlim(0, width)
+                plt.ylim(height, 0)
+                
+                # Create a patch for the polygon
+                for geom in gdf.geometry:
+                    if geom.geom_type == 'Polygon':
+                        # Convert coordinates to image space
+                        x, y = zip(*geom.exterior.coords)
+                        x_img = ((np.array(x) - xmin) / (xmax - xmin)) * width
+                        y_img = ((np.array(y) - ymin) / (ymax - ymin)) * height
+                        
+                        plt.plot(x_img, y_img, color='red', linewidth=2, alpha=0.8)
+                    elif geom.geom_type == 'MultiPolygon':
+                        for poly in geom.geoms:
+                            x, y = zip(*poly.exterior.coords)
+                            x_img = ((np.array(x) - xmin) / (xmax - xmin)) * width
+                            y_img = ((np.array(y) - ymin) / (ymax - ymin)) * height
+                            plt.plot(x_img, y_img, color='red', linewidth=2, alpha=0.8)
+        except Exception as e:
+            logging.warning(f"Could not overlay polygon: {str(e)}")
+    
+    # Create legend
+    patches = [Patch(color=COLOR_MAP[k], label=f"{k}: {LABELS[k]}") 
+               for k in sorted(LABELS.keys()) if k in COLOR_MAP]
+    plt.legend(handles=patches, bbox_to_anchor=(1.05, 1), loc='upper left')
+    
+    # Overlay the polygon name with a white contour
+    if 'terrai_nom' in root.attrs:
+        terrai_nom = root.attrs['terrai_nom']
+        plt.text(
+            0.5, 0.95, terrai_nom, 
+            fontsize=16, color='white', ha='center', va='center', 
+            transform=plt.gca().transAxes, 
+            bbox=dict(facecolor='black', edgecolor='white', boxstyle='round,pad=0.5')
+        )
+    
+    plt.tight_layout()
+    output_path = os.path.join(output_dir, 'location.png')
+    plt.savefig(output_path, dpi=450, bbox_inches='tight')
+    plt.close()
+    
+    # Create PNGW file for georeferencing
+    pngw_path = output_path + 'w'
+    with open(pngw_path, 'w') as pngw_file:
+        pngw_file.write(f"{transform.a}\n")  # Pixel size in x-direction
+        pngw_file.write(f"{transform.b}\n")  # Rotation (usually 0)
+        pngw_file.write(f"{transform.d}\n")  # Rotation (usually 0)
+        pngw_file.write(f"{transform.e}\n")  # Pixel size in y-direction (negative)
+        pngw_file.write(f"{transform.c}\n")  # X-coordinate of the upper-left corner
+        pngw_file.write(f"{transform.f}\n")  # Y-coordinate of the upper-left corner
+
 
 
 # def create_landcover_maps_for_periods(root, output_dir):
@@ -919,7 +1006,7 @@ def create_sankey(transition_matrix, classes, title, output_html, output_csv):
 
 if __name__ == '__main__':
     VRT_FILE = '/srv/extrassd/2025_mapbiomas/mapbiomas_coverage_1985_2023.vrt'
-    OUTPUT_BASE_DIR = 'grid_results_robust'
+    OUTPUT_BASE_DIR = 'indigenous'
 
 
     
