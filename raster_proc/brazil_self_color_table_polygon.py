@@ -157,18 +157,33 @@ def calculate_changes_tile(args):
     
     changes = np.zeros((window.height, window.width), dtype='uint8')
     transition_matrix = np.zeros((256, 256), dtype='uint64')
-    class_persistence = np.zeros((256,), dtype='uint64')  # To count persistent pixels per class
+    class_persistence = np.zeros((256,), dtype='uint64')  # Persistent pixels per class
+    class_initial = np.zeros((256,), dtype='uint64')      # Initial pixels per class
     failed = False
 
     try:
         with rasterio.open(vrt_path) as src:
             # Calculate class persistence
             persistence_mask, reference_classes = calculate_class_persistence(src, window)
+            first_year = robust_read(src, 1, window)
+
+             # Count initial pixels per class
+            unique, counts = np.unique(first_year, return_counts=True)
+            for cls, cnt in zip(unique, counts):
+                if cls < 256:  # Ensure within bounds
+                    class_initial[cls] += cnt
+            
+            # Calculate class persistence
+            persistence_mask = np.ones_like(first_year, dtype=bool)
+            for year_idx in range(2, src.count + 1):
+                current = robust_read(src, year_idx, window)
+                persistence_mask &= (first_year == current)
             
             # Count persistent pixels per class
-            for cls in np.unique(reference_classes):
+            for cls in np.unique(first_year):
                 if cls < 256:  # Ensure within bounds
-                    class_persistence[cls] += np.sum((reference_classes == cls) & persistence_mask)
+                    class_persistence[cls] += np.sum((first_year == cls) & persistence_mask)
+
             # Read first year with retries
             try:
                 prev_data = robust_read(src, 1, window)
@@ -204,11 +219,11 @@ def calculate_changes_tile(args):
                 
                 prev_data = current_data
             
-            return changes, transition_matrix, class_persistence, (y, x), False
+            return changes, transition_matrix, class_persistence, class_initial, (y, x), False
 
     except Exception as e:
         logging.error(f"Critical error processing tile {y,x}: {str(e)}")
-        return None, None, None, (y, x), True
+        return None, None, None, None, (y, x), True
     
 
 
@@ -401,7 +416,8 @@ def extract_grid_data_with_polygon(vrt_path, geojson_path, output_base_dir):
 
                 full_changes = np.zeros((full_window.height, full_window.width), dtype='uint8')
                 full_transitions = np.zeros((256, 256), dtype='uint64')
-                full_persistence = np.zeros((256,), dtype='uint64')  # For persistent pixel counts
+                full_persistence = np.zeros((256,), dtype='uint64')  # Persistent pixels
+                full_initial = np.zeros((256,), dtype='uint64')      # Initial pixels
                 failed_tiles = []
 
                 with ProcessPoolExecutor(max_workers=MAX_WORKERS) as executor:
@@ -411,7 +427,7 @@ def extract_grid_data_with_polygon(vrt_path, geojson_path, output_base_dir):
 
                     progress = tqdm(as_completed(futures), total=len(futures), desc="Processing tiles")
                     for future in tqdm(as_completed(futures), total=len(futures)):
-                        changes, transitions, persistence, (y, x), tile_failed = future.result()  # Now getting 4 values
+                        changes, transitions, persistence, initial, (y, x), tile_failed = future.result() # Now getting 4 values
                         
                         if not tile_failed:
                             y_start = y * TILE_SIZE
@@ -422,6 +438,7 @@ def extract_grid_data_with_polygon(vrt_path, geojson_path, output_base_dir):
                             full_changes[y_start:y_end, x_start:x_end] = changes
                             full_transitions += transitions
                             full_persistence += persistence
+                            full_initial += initial
                         else:
                             failed_tiles.append((y, x))
                         progress.set_postfix(failed=len(failed_tiles))
@@ -448,17 +465,17 @@ def extract_grid_data_with_polygon(vrt_path, geojson_path, output_base_dir):
                 )
                 changes_array[:] = full_changes
 
-                # Store persistence counts
-                persistence_array = root.zeros(
-                    'persistence_counts',
-                    shape=full_persistence.shape,
-                    dtype='uint64'
-                )
-                persistence_array[:] = full_persistence
+                # Store persistence and initial counts
+                root.zeros('persistence_counts', shape=full_persistence.shape, dtype='uint64')[:] = full_persistence
+                root.zeros('initial_counts', shape=full_initial.shape, dtype='uint64')[:] = full_initial
                 
-                # Add class labels to attributes
+                # Add metadata
                 persistence_dict = {str(cls): int(count) for cls, count in enumerate(full_persistence) if count > 0}
-                root.attrs['persistence_by_class'] = json.dumps(persistence_dict)
+                initial_dict = {str(cls): int(count) for cls, count in enumerate(full_initial) if count > 0}
+                root.attrs.update({
+                    'persistence_by_class': json.dumps(persistence_dict),
+                    'initial_by_class': json.dumps(initial_dict)
+                })
 
 
 
@@ -711,43 +728,80 @@ def create_landcover_map(root, output_dir):
 #         except Exception as e:
 #             logging.error(f"Failed to create land cover map for {start_year}: {str(e)}")
 def create_persistence_visualization(root, output_dir):
-    """Create visualizations showing persistent pixels by class."""
+    """Create stacked bar chart showing persistent and changed pixels by class."""
     persistence_counts = np.array(root['persistence_counts'][:])
+    initial_counts = np.array(root['initial_counts'][:])
     grid_name = root.attrs.get('grid_name', 'unknown_grid')
     
-    # Filter to only classes with persistence and that we have labels for
-    persistent_classes = [cls for cls in np.where(persistence_counts > 0)[0] if cls in LABELS]
+    # Calculate changed counts (initial - persistent)
+    changed_counts = initial_counts - persistence_counts
     
-    if not persistent_classes:
-        logging.warning("No persistent classes found for visualization")
+    # Filter to only classes we have labels for and that have data
+    valid_classes = [cls for cls in range(len(initial_counts)) 
+                   if (initial_counts[cls] > 0) and (cls in LABELS)]
+    
+    if not valid_classes:
+        logging.warning("No valid classes found for persistence visualization")
         return
     
-    # Create bar chart of persistent pixels by class
-    plt.figure(figsize=(12, 8))
-    classes = persistent_classes
-    counts = [persistence_counts[cls] for cls in classes]
-    colors = [COLOR_MAP.get(cls, '#999999') for cls in classes]
-    labels = [f"{cls}: {LABELS[cls]}" for cls in classes]
+    # Sort classes by initial count (descending)
+    valid_classes.sort(key=lambda x: -initial_counts[x])
     
-    plt.bar(labels, counts, color=colors)
-    plt.title(f"{grid_name} Persistent Pixels by Class (1985-2023)")
-    plt.ylabel("Number of Persistent Pixels")
+    # Prepare data for plotting
+    classes = valid_classes
+    labels = [f"{cls}: {LABELS[cls]}" for cls in classes]
+    persistent = [persistence_counts[cls] for cls in classes]
+    changed = [changed_counts[cls] for cls in classes]
+    colors = [COLOR_MAP.get(cls, '#999999') for cls in classes]
+    
+    # Create stacked bar chart
+    plt.figure(figsize=(14, 10))
+    
+    # Plot changed portion first (bottom)
+    bars_changed = plt.bar(labels, changed, color=colors, 
+                          alpha=0.6, label='Changed')
+    
+    # Plot persistent portion on top
+    bars_persistent = plt.bar(labels, persistent, bottom=changed, 
+                             color=colors, alpha=1.0, label='Persistent')
+    
+    # Add value labels
+    for bar_changed, bar_persistent in zip(bars_changed, bars_persistent):
+        # Only label if there's enough space
+        if bar_changed.get_height() > 0.1 * max(initial_counts):
+            plt.text(bar_changed.get_x() + bar_changed.get_width()/2.,
+                    bar_changed.get_height()/2.,
+                    f"{int(bar_changed.get_height()):,}",
+                    ha='center', va='center', color='white', fontsize=8)
+        
+        if bar_persistent.get_height() > 0.1 * max(initial_counts):
+            plt.text(bar_persistent.get_x() + bar_persistent.get_width()/2.,
+                    bar_changed.get_height() + bar_persistent.get_height()/2.,
+                    f"{int(bar_persistent.get_height()):,}",
+                    ha='center', va='center', color='white', fontsize=8)
+    
+    plt.title(f"{grid_name} Land Cover Persistence by Class (1985-2023)")
+    plt.ylabel("Number of Pixels")
     plt.xticks(rotation=45, ha='right')
+    plt.legend()
     plt.tight_layout()
     
     # Save the plot
-    output_path = os.path.join(output_dir, 'class_persistence.png')
+    output_path = os.path.join(output_dir, 'class_persistence_stacked.png')
     plt.savefig(output_path, dpi=300, bbox_inches='tight')
     plt.close()
     
-    # Save persistence statistics to CSV
-    csv_path = os.path.join(output_dir, 'class_persistence.csv')
+    # Save detailed statistics to CSV
+    csv_path = os.path.join(output_dir, 'class_persistence_stacked.csv')
     with open(csv_path, 'w') as f:
-        f.write("Class,Label,Color,Persistent_Pixels\n")
-        for cls in persistent_classes:
-            f.write(f"{cls},{LABELS[cls]},{COLOR_MAP.get(cls, '#FFFFFF')},{persistence_counts[cls]}\n")
+        f.write("Class,Label,Color,Initial_Pixels,Persistent_Pixels,Changed_Pixels,Persistent_Percent\n")
+        for cls in classes:
+            persistent_pct = 100 * persistence_counts[cls] / initial_counts[cls] if initial_counts[cls] > 0 else 0
+            f.write(f"{cls},{LABELS[cls]},{COLOR_MAP.get(cls, '#FFFFFF')},"
+                   f"{initial_counts[cls]},{persistence_counts[cls]},"
+                   f"{changed_counts[cls]},{persistent_pct:.1f}%\n")
     
-    logging.info(f"Saved class persistence visualization to {output_path}")
+    logging.info(f"Saved stacked persistence visualization to {output_path}")
 
 def create_changes_map(root, output_dir):
     """Create changes frequency visualization with PNGW for GIS compatibility."""
