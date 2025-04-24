@@ -1,0 +1,49 @@
+From_Class,From_Label,To_Class,To_Label,Count,Percent
+3,Forest Formation,11,Wetland,15,0.44%
+3,Forest Formation,5,Mangrove,132,3.86%
+3,Forest Formation,21,Mosaic of Uses,225,6.57%
+3,Forest Formation,33,River Lake and Ocean,48,1.40%
+3,Forest Formation,15,Pasture,149,4.35%
+3,Forest Formation,24,Urban Area,12,0.35%
+3,Forest Formation,9,Forest Plantation,23,0.67%
+11,Wetland,3,Forest Formation,16,0.47%
+11,Wetland,5,Mangrove,49,1.43%
+11,Wetland,21,Mosaic of Uses,247,7.22%
+11,Wetland,33,River Lake and Ocean,88,2.57%
+11,Wetland,15,Pasture,45,1.31%
+11,Wetland,24,Urban Area,19,0.56%
+11,Wetland,9,Forest Plantation,9,0.26%
+11,Wetland,32,Hypersaline Tidal Flat,45,1.31%
+5,Mangrove,3,Forest Formation,112,3.27%
+5,Mangrove,11,Wetland,45,1.31%
+5,Mangrove,21,Mosaic of Uses,1,0.03%
+5,Mangrove,33,River Lake and Ocean,113,3.30%
+5,Mangrove,32,Hypersaline Tidal Flat,1,0.03%
+21,Mosaic of Uses,3,Forest Formation,175,5.11%
+21,Mosaic of Uses,11,Wetland,211,6.16%
+21,Mosaic of Uses,5,Mangrove,1,0.03%
+21,Mosaic of Uses,33,River Lake and Ocean,23,0.67%
+21,Mosaic of Uses,15,Pasture,501,14.64%
+21,Mosaic of Uses,24,Urban Area,97,2.83%
+21,Mosaic of Uses,25,Other non Vegetated Areas,4,0.12%
+33,River Lake and Ocean,3,Forest Formation,85,2.48%
+33,River Lake and Ocean,11,Wetland,91,2.66%
+33,River Lake and Ocean,5,Mangrove,174,5.08%
+33,River Lake and Ocean,21,Mosaic of Uses,21,0.61%
+33,River Lake and Ocean,24,Urban Area,1,0.03%
+33,River Lake and Ocean,32,Hypersaline Tidal Flat,10,0.29%
+33,River Lake and Ocean,25,Other non Vegetated Areas,6,0.18%
+15,Pasture,3,Forest Formation,43,1.26%
+15,Pasture,11,Wetland,21,0.61%
+15,Pasture,21,Mosaic of Uses,410,11.98%
+15,Pasture,24,Urban Area,30,0.88%
+24,Urban Area,3,Forest Formation,1,0.03%
+9,Forest Plantation,3,Forest Formation,20,0.58%
+9,Forest Plantation,11,Wetland,23,0.67%
+9,Forest Plantation,21,Mosaic of Uses,4,0.12%
+32,Hypersaline Tidal Flat,11,Wetland,50,1.46%
+32,Hypersaline Tidal Flat,5,Mangrove,1,0.03%
+32,Hypersaline Tidal Flat,33,River Lake and Ocean,17,0.50%
+25,Other non Vegetated Areas,11,Wetland,3,0.09%
+25,Other non Vegetated Areas,21,Mosaic of Uses,3,0.09%
+25,Other non Vegetated Areas,33,River Lake and Ocean,3,0.09%
