@@ -142,6 +142,7 @@ dmypy.json
 *.zarr/
 *.zarr
 raster_proc/grid_results/
+raster_proc/grid_results_robust/
 
 
 # pytype static type analyzer
