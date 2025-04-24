@@ -575,22 +575,22 @@ def create_landcover_map(root, output_dir):
                 # Set the same extent as the previous image
                 plt.xlim(0, width)
                 plt.ylim(height, 0)
-                
-                # Create a patch for the polygon
-                for geom in gdf.geometry:
-                    if geom.geom_type == 'Polygon':
-                        # Convert coordinates to image space
-                        x, y = zip(*geom.exterior.coords)
+            
+            # Create a patch for the polygon
+            for geom in gdf.geometry:
+                if geom.geom_type == 'Polygon':
+                    # Convert coordinates to image space
+                    x, y = zip(*geom.exterior.coords)
+                    x_img = ((np.array(x) - xmin) / (xmax - xmin)) * width
+                    y_img = height - ((np.array(y) - ymin) / (ymax - ymin)) * height
+                    
+                    plt.plot(x_img, y_img, color='red', linewidth=2, alpha=0.8)
+                elif geom.geom_type == 'MultiPolygon':
+                    for poly in geom.geoms:
+                        x, y = zip(*poly.exterior.coords)
                         x_img = ((np.array(x) - xmin) / (xmax - xmin)) * width
-                        y_img = ((np.array(y) - ymin) / (ymax - ymin)) * height
-                        
+                        y_img = height - ((np.array(y) - ymin) / (ymax - ymin)) * height
                         plt.plot(x_img, y_img, color='red', linewidth=2, alpha=0.8)
-                    elif geom.geom_type == 'MultiPolygon':
-                        for poly in geom.geoms:
-                            x, y = zip(*poly.exterior.coords)
-                            x_img = ((np.array(x) - xmin) / (xmax - xmin)) * width
-                            y_img = ((np.array(y) - ymin) / (ymax - ymin)) * height
-                            plt.plot(x_img, y_img, color='red', linewidth=2, alpha=0.8)
         except Exception as e:
             logging.warning(f"Could not overlay polygon: {str(e)}")
     
