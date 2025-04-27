@@ -1,0 +1,245 @@
+From_Class,From_Label,To_Class,To_Label,Count,Percent
+3,Forest Formation,4,Savanna Formation,472691,0.53%
+3,Forest Formation,5,Mangrove,10847,0.01%
+3,Forest Formation,9,Forest Plantation,9089,0.01%
+3,Forest Formation,11,Wetland,519,0.00%
+3,Forest Formation,12,Grassland,454,0.00%
+3,Forest Formation,15,Pasture,880028,0.98%
+3,Forest Formation,20,Sugar Cane,23230,0.03%
+3,Forest Formation,21,Mosaic of Uses,1407529,1.57%
+3,Forest Formation,23,Beach and Sand,48,0.00%
+3,Forest Formation,24,Urban Area,2090,0.00%
+3,Forest Formation,25,Other non Vegetated Areas,379,0.00%
+3,Forest Formation,30,Mining,15,0.00%
+3,Forest Formation,32,Hypersaline Tidal Flat,79,0.00%
+3,Forest Formation,33,River Lake and Ocean,36400,0.04%
+3,Forest Formation,41,Other Temporary Crops,1109,0.00%
+3,Forest Formation,48,Other Perennial Crops,2168,0.00%
+3,Forest Formation,49,Wooded Sandbank Vegetation,34,0.00%
+4,Savanna Formation,3,Forest Formation,455770,0.51%
+4,Savanna Formation,9,Forest Plantation,627,0.00%
+4,Savanna Formation,11,Wetland,59,0.00%
+4,Savanna Formation,12,Grassland,58263,0.06%
+4,Savanna Formation,15,Pasture,10183486,11.34%
+4,Savanna Formation,20,Sugar Cane,18962,0.02%
+4,Savanna Formation,21,Mosaic of Uses,4664164,5.20%
+4,Savanna Formation,24,Urban Area,7360,0.01%
+4,Savanna Formation,25,Other non Vegetated Areas,12951,0.01%
+4,Savanna Formation,30,Mining,437,0.00%
+4,Savanna Formation,31,Aquaculture,14,0.00%
+4,Savanna Formation,33,River Lake and Ocean,172474,0.19%
+4,Savanna Formation,41,Other Temporary Crops,9395,0.01%
+4,Savanna Formation,48,Other Perennial Crops,21089,0.02%
+4,Savanna Formation,49,Wooded Sandbank Vegetation,1,0.00%
+5,Mangrove,3,Forest Formation,9735,0.01%
+5,Mangrove,11,Wetland,1195,0.00%
+5,Mangrove,15,Pasture,61,0.00%
+5,Mangrove,20,Sugar Cane,75,0.00%
+5,Mangrove,21,Mosaic of Uses,2469,0.00%
+5,Mangrove,23,Beach and Sand,26,0.00%
+5,Mangrove,24,Urban Area,51,0.00%
+5,Mangrove,25,Other non Vegetated Areas,1,0.00%
+5,Mangrove,31,Aquaculture,10,0.00%
+5,Mangrove,32,Hypersaline Tidal Flat,183,0.00%
+5,Mangrove,33,River Lake and Ocean,10532,0.01%
+5,Mangrove,49,Wooded Sandbank Vegetation,8259,0.01%
+9,Forest Plantation,3,Forest Formation,2334,0.00%
+9,Forest Plantation,4,Savanna Formation,262,0.00%
+9,Forest Plantation,15,Pasture,1145,0.00%
+9,Forest Plantation,20,Sugar Cane,222,0.00%
+9,Forest Plantation,21,Mosaic of Uses,1394,0.00%
+9,Forest Plantation,23,Beach and Sand,31,0.00%
+9,Forest Plantation,24,Urban Area,1,0.00%
+9,Forest Plantation,25,Other non Vegetated Areas,1,0.00%
+11,Wetland,3,Forest Formation,482,0.00%
+11,Wetland,4,Savanna Formation,65,0.00%
+11,Wetland,5,Mangrove,1286,0.00%
+11,Wetland,15,Pasture,45576,0.05%
+11,Wetland,20,Sugar Cane,1217,0.00%
+11,Wetland,21,Mosaic of Uses,47929,0.05%
+11,Wetland,23,Beach and Sand,1650,0.00%
+11,Wetland,24,Urban Area,551,0.00%
+11,Wetland,25,Other non Vegetated Areas,128,0.00%
+11,Wetland,31,Aquaculture,212,0.00%
+11,Wetland,32,Hypersaline Tidal Flat,1055,0.00%
+11,Wetland,33,River Lake and Ocean,71383,0.08%
+11,Wetland,41,Other Temporary Crops,58,0.00%
+11,Wetland,49,Wooded Sandbank Vegetation,584,0.00%
+12,Grassland,3,Forest Formation,176,0.00%
+12,Grassland,4,Savanna Formation,23749,0.03%
+12,Grassland,15,Pasture,143757,0.16%
+12,Grassland,20,Sugar Cane,7,0.00%
+12,Grassland,21,Mosaic of Uses,138129,0.15%
+12,Grassland,24,Urban Area,932,0.00%
+12,Grassland,25,Other non Vegetated Areas,5784,0.01%
+12,Grassland,30,Mining,96,0.00%
+12,Grassland,33,River Lake and Ocean,7133,0.01%
+12,Grassland,41,Other Temporary Crops,94,0.00%
+12,Grassland,48,Other Perennial Crops,53,0.00%
+15,Pasture,3,Forest Formation,612369,0.68%
+15,Pasture,4,Savanna Formation,7446445,8.30%
+15,Pasture,5,Mangrove,58,0.00%
+15,Pasture,9,Forest Plantation,3457,0.00%
+15,Pasture,11,Wetland,13457,0.01%
+15,Pasture,12,Grassland,93597,0.10%
+15,Pasture,20,Sugar Cane,650190,0.72%
+15,Pasture,21,Mosaic of Uses,18065151,20.12%
+15,Pasture,23,Beach and Sand,44719,0.05%
+15,Pasture,24,Urban Area,257366,0.29%
+15,Pasture,25,Other non Vegetated Areas,288501,0.32%
+15,Pasture,30,Mining,784,0.00%
+15,Pasture,31,Aquaculture,3713,0.00%
+15,Pasture,32,Hypersaline Tidal Flat,83,0.00%
+15,Pasture,33,River Lake and Ocean,183816,0.20%
+15,Pasture,41,Other Temporary Crops,1446787,1.61%
+15,Pasture,48,Other Perennial Crops,16213,0.02%
+15,Pasture,49,Wooded Sandbank Vegetation,11395,0.01%
+20,Sugar Cane,3,Forest Formation,29736,0.03%
+20,Sugar Cane,4,Savanna Formation,14008,0.02%
+20,Sugar Cane,5,Mangrove,93,0.00%
+20,Sugar Cane,9,Forest Plantation,1275,0.00%
+20,Sugar Cane,11,Wetland,718,0.00%
+20,Sugar Cane,12,Grassland,25,0.00%
+20,Sugar Cane,15,Pasture,1015380,1.13%
+20,Sugar Cane,21,Mosaic of Uses,1375129,1.53%
+20,Sugar Cane,23,Beach and Sand,571,0.00%
+20,Sugar Cane,24,Urban Area,33358,0.04%
+20,Sugar Cane,25,Other non Vegetated Areas,1012,0.00%
+20,Sugar Cane,30,Mining,36,0.00%
+20,Sugar Cane,31,Aquaculture,1088,0.00%
+20,Sugar Cane,32,Hypersaline Tidal Flat,197,0.00%
+20,Sugar Cane,33,River Lake and Ocean,18041,0.02%
+20,Sugar Cane,41,Other Temporary Crops,547,0.00%
+20,Sugar Cane,49,Wooded Sandbank Vegetation,28,0.00%
+21,Mosaic of Uses,3,Forest Formation,1533907,1.71%
+21,Mosaic of Uses,4,Savanna Formation,3775914,4.21%
+21,Mosaic of Uses,5,Mangrove,3368,0.00%
+21,Mosaic of Uses,9,Forest Plantation,6047,0.01%
+21,Mosaic of Uses,11,Wetland,24391,0.03%
+21,Mosaic of Uses,12,Grassland,122644,0.14%
+21,Mosaic of Uses,15,Pasture,28843689,32.13%
+21,Mosaic of Uses,20,Sugar Cane,1410872,1.57%
+21,Mosaic of Uses,23,Beach and Sand,16927,0.02%
+21,Mosaic of Uses,24,Urban Area,195811,0.22%
+21,Mosaic of Uses,25,Other non Vegetated Areas,142652,0.16%
+21,Mosaic of Uses,30,Mining,1036,0.00%
+21,Mosaic of Uses,31,Aquaculture,1574,0.00%
+21,Mosaic of Uses,32,Hypersaline Tidal Flat,692,0.00%
+21,Mosaic of Uses,33,River Lake and Ocean,477697,0.53%
+21,Mosaic of Uses,41,Other Temporary Crops,23849,0.03%
+21,Mosaic of Uses,48,Other Perennial Crops,3128,0.00%
+21,Mosaic of Uses,49,Wooded Sandbank Vegetation,58485,0.07%
+23,Beach and Sand,3,Forest Formation,17,0.00%
+23,Beach and Sand,5,Mangrove,21,0.00%
+23,Beach and Sand,11,Wetland,464,0.00%
+23,Beach and Sand,15,Pasture,35954,0.04%
+23,Beach and Sand,20,Sugar Cane,748,0.00%
+23,Beach and Sand,21,Mosaic of Uses,12261,0.01%
+23,Beach and Sand,24,Urban Area,5580,0.01%
+23,Beach and Sand,25,Other non Vegetated Areas,8850,0.01%
+23,Beach and Sand,33,River Lake and Ocean,10581,0.01%
+23,Beach and Sand,49,Wooded Sandbank Vegetation,4,0.00%
+24,Urban Area,3,Forest Formation,126,0.00%
+24,Urban Area,4,Savanna Formation,636,0.00%
+24,Urban Area,5,Mangrove,28,0.00%
+24,Urban Area,11,Wetland,3,0.00%
+24,Urban Area,12,Grassland,165,0.00%
+24,Urban Area,15,Pasture,5784,0.01%
+24,Urban Area,20,Sugar Cane,218,0.00%
+24,Urban Area,21,Mosaic of Uses,6032,0.01%
+24,Urban Area,23,Beach and Sand,4452,0.00%
+24,Urban Area,25,Other non Vegetated Areas,265,0.00%
+24,Urban Area,32,Hypersaline Tidal Flat,3,0.00%
+24,Urban Area,33,River Lake and Ocean,4848,0.01%
+24,Urban Area,41,Other Temporary Crops,36,0.00%
+24,Urban Area,48,Other Perennial Crops,51,0.00%
+24,Urban Area,49,Wooded Sandbank Vegetation,12,0.00%
+25,Other non Vegetated Areas,3,Forest Formation,204,0.00%
+25,Other non Vegetated Areas,4,Savanna Formation,15754,0.02%
+25,Other non Vegetated Areas,5,Mangrove,2,0.00%
+25,Other non Vegetated Areas,9,Forest Plantation,1,0.00%
+25,Other non Vegetated Areas,11,Wetland,31,0.00%
+25,Other non Vegetated Areas,12,Grassland,5079,0.01%
+25,Other non Vegetated Areas,15,Pasture,265975,0.30%
+25,Other non Vegetated Areas,20,Sugar Cane,1330,0.00%
+25,Other non Vegetated Areas,21,Mosaic of Uses,118788,0.13%
+25,Other non Vegetated Areas,23,Beach and Sand,12205,0.01%
+25,Other non Vegetated Areas,24,Urban Area,8522,0.01%
+25,Other non Vegetated Areas,30,Mining,11,0.00%
+25,Other non Vegetated Areas,33,River Lake and Ocean,39097,0.04%
+25,Other non Vegetated Areas,41,Other Temporary Crops,27635,0.03%
+25,Other non Vegetated Areas,48,Other Perennial Crops,26,0.00%
+25,Other non Vegetated Areas,49,Wooded Sandbank Vegetation,1,0.00%
+30,Mining,4,Savanna Formation,2,0.00%
+30,Mining,15,Pasture,4,0.00%
+30,Mining,21,Mosaic of Uses,7,0.00%
+31,Aquaculture,4,Savanna Formation,1,0.00%
+31,Aquaculture,5,Mangrove,3,0.00%
+31,Aquaculture,11,Wetland,60,0.00%
+31,Aquaculture,15,Pasture,179,0.00%
+31,Aquaculture,20,Sugar Cane,523,0.00%
+31,Aquaculture,21,Mosaic of Uses,918,0.00%
+31,Aquaculture,25,Other non Vegetated Areas,1,0.00%
+31,Aquaculture,33,River Lake and Ocean,3776,0.00%
+31,Aquaculture,49,Wooded Sandbank Vegetation,5,0.00%
+32,Hypersaline Tidal Flat,3,Forest Formation,42,0.00%
+32,Hypersaline Tidal Flat,5,Mangrove,535,0.00%
+32,Hypersaline Tidal Flat,11,Wetland,1646,0.00%
+32,Hypersaline Tidal Flat,15,Pasture,160,0.00%
+32,Hypersaline Tidal Flat,20,Sugar Cane,179,0.00%
+32,Hypersaline Tidal Flat,21,Mosaic of Uses,803,0.00%
+32,Hypersaline Tidal Flat,24,Urban Area,17,0.00%
+32,Hypersaline Tidal Flat,33,River Lake and Ocean,1255,0.00%
+32,Hypersaline Tidal Flat,49,Wooded Sandbank Vegetation,129,0.00%
+33,River Lake and Ocean,3,Forest Formation,41821,0.05%
+33,River Lake and Ocean,4,Savanna Formation,144854,0.16%
+33,River Lake and Ocean,5,Mangrove,15287,0.02%
+33,River Lake and Ocean,11,Wetland,71152,0.08%
+33,River Lake and Ocean,12,Grassland,8112,0.01%
+33,River Lake and Ocean,15,Pasture,182967,0.20%
+33,River Lake and Ocean,20,Sugar Cane,15852,0.02%
+33,River Lake and Ocean,21,Mosaic of Uses,464917,0.52%
+33,River Lake and Ocean,23,Beach and Sand,11685,0.01%
+33,River Lake and Ocean,24,Urban Area,7917,0.01%
+33,River Lake and Ocean,25,Other non Vegetated Areas,37566,0.04%
+33,River Lake and Ocean,31,Aquaculture,4906,0.01%
+33,River Lake and Ocean,32,Hypersaline Tidal Flat,1275,0.00%
+33,River Lake and Ocean,41,Other Temporary Crops,1058,0.00%
+33,River Lake and Ocean,48,Other Perennial Crops,173,0.00%
+33,River Lake and Ocean,49,Wooded Sandbank Vegetation,11230,0.01%
+41,Other Temporary Crops,3,Forest Formation,1116,0.00%
+41,Other Temporary Crops,4,Savanna Formation,9845,0.01%
+41,Other Temporary Crops,9,Forest Plantation,10,0.00%
+41,Other Temporary Crops,11,Wetland,107,0.00%
+41,Other Temporary Crops,12,Grassland,12,0.00%
+41,Other Temporary Crops,15,Pasture,727028,0.81%
+41,Other Temporary Crops,20,Sugar Cane,556,0.00%
+41,Other Temporary Crops,21,Mosaic of Uses,12390,0.01%
+41,Other Temporary Crops,24,Urban Area,1670,0.00%
+41,Other Temporary Crops,25,Other non Vegetated Areas,3441,0.00%
+41,Other Temporary Crops,30,Mining,65,0.00%
+41,Other Temporary Crops,31,Aquaculture,6,0.00%
+41,Other Temporary Crops,33,River Lake and Ocean,1373,0.00%
+41,Other Temporary Crops,48,Other Perennial Crops,475,0.00%
+48,Other Perennial Crops,3,Forest Formation,4312,0.00%
+48,Other Perennial Crops,4,Savanna Formation,31693,0.04%
+48,Other Perennial Crops,12,Grassland,19,0.00%
+48,Other Perennial Crops,15,Pasture,5140,0.01%
+48,Other Perennial Crops,21,Mosaic of Uses,1885,0.00%
+48,Other Perennial Crops,24,Urban Area,86,0.00%
+48,Other Perennial Crops,25,Other non Vegetated Areas,1,0.00%
+48,Other Perennial Crops,33,River Lake and Ocean,205,0.00%
+48,Other Perennial Crops,41,Other Temporary Crops,271,0.00%
+49,Wooded Sandbank Vegetation,3,Forest Formation,30,0.00%
+49,Wooded Sandbank Vegetation,4,Savanna Formation,2,0.00%
+49,Wooded Sandbank Vegetation,5,Mangrove,9472,0.01%
+49,Wooded Sandbank Vegetation,11,Wetland,573,0.00%
+49,Wooded Sandbank Vegetation,15,Pasture,12531,0.01%
+49,Wooded Sandbank Vegetation,20,Sugar Cane,89,0.00%
+49,Wooded Sandbank Vegetation,21,Mosaic of Uses,56842,0.06%
+49,Wooded Sandbank Vegetation,23,Beach and Sand,202,0.00%
+49,Wooded Sandbank Vegetation,24,Urban Area,282,0.00%
+49,Wooded Sandbank Vegetation,25,Other non Vegetated Areas,44,0.00%
+49,Wooded Sandbank Vegetation,31,Aquaculture,23,0.00%
+49,Wooded Sandbank Vegetation,32,Hypersaline Tidal Flat,42,0.00%
+49,Wooded Sandbank Vegetation,33,River Lake and Ocean,6653,0.01%

@@ -1,0 +1,23 @@
+Class,Label,Color,Initial_Pixels,Persistent_Pixels,Changed_Pixels,Persistent_Percent
+4,Savanna Formation,#7dc975,53711608,28406745,25304863,52.9%
+21,Mosaic of Uses,#ffefc3,29693910,1000996,28692914,3.4%
+0,No data,#ffffff,9252485,9248091,4394,100.0%
+15,Pasture,#edde8e,5949646,2761650,3187996,46.4%
+33,River Lake and Ocean,#259fe4,2220579,741309,1479270,33.4%
+3,Forest Formation,#1f8d49,963547,602371,361176,62.5%
+12,Grassland,#d6bc74,797536,3108,794428,0.4%
+20,Sugar Cane,#db7093,536631,517453,19178,96.4%
+23,Beach and Sand,#ffa07a,459614,226636,232978,49.3%
+25,Other non Vegetated Areas,#db4d4f,458520,15308,443212,3.3%
+41,Other Temporary Crops,#f54ca9,392782,148279,244503,37.8%
+31,Aquaculture,#091077,288338,242956,45382,84.3%
+24,Urban Area,#d4271e,235992,230522,5470,97.7%
+5,Mangrove,#04381d,155798,120847,34951,77.6%
+50,Herbaceous Sandbank Vegetation,#ad5100,114100,47395,66705,41.5%
+48,Other Perennial Crops,#e6ccff,88503,852,87651,1.0%
+11,Wetland,#519799,68313,30335,37978,44.4%
+32,Hypersaline Tidal Flat,#fc8114,63761,26222,37539,41.1%
+29,Rocky Outcrop,#ffaa5f,39822,39080,742,98.1%
+49,Wooded Sandbank Vegetation,#02d659,6494,2348,4146,36.2%
+30,Mining,#9c0027,621,620,1,99.8%
+9,Forest Plantation,#7a5900,543,11,532,2.0%

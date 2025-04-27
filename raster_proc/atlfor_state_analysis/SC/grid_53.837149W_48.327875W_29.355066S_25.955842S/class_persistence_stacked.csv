@@ -1,0 +1,22 @@
+Class,Label,Color,Initial_Pixels,Persistent_Pixels,Changed_Pixels,Persistent_Percent
+3,Forest Formation,#1f8d49,89958497,61094141,28864356,67.9%
+21,Mosaic of Uses,#ffefc3,40342557,5202507,35140050,12.9%
+41,Other Temporary Crops,#f54ca9,29997017,1806298,28190719,6.0%
+12,Grassland,#d6bc74,27341147,14466240,12874907,52.9%
+15,Pasture,#edde8e,24274188,3256997,21017191,13.4%
+0,No data,#ffffff,16407821,16399665,8156,100.0%
+39,Soybean,#f5b3c8,12179410,8583258,3596152,70.5%
+33,River Lake and Ocean,#259fe4,3959690,3211937,747753,81.1%
+9,Forest Plantation,#7a5900,3718677,2737152,981525,73.6%
+49,Wooded Sandbank Vegetation,#02d659,1823149,841158,981991,46.1%
+24,Urban Area,#d4271e,1471037,1453855,17182,98.8%
+25,Other non Vegetated Areas,#db4d4f,260474,6724,253750,2.6%
+11,Wetland,#519799,203856,121400,82456,59.6%
+40,Rice,#c71585,200318,96014,104304,47.9%
+23,Beach and Sand,#ffa07a,119691,58662,61029,49.0%
+5,Mangrove,#04381d,91351,54650,36701,59.8%
+29,Rocky Outcrop,#ffaa5f,47244,43270,3974,91.6%
+30,Mining,#9c0027,5839,5782,57,99.0%
+32,Hypersaline Tidal Flat,#fc8114,5466,590,4876,10.8%
+31,Aquaculture,#091077,1654,0,1654,0.0%
+50,Herbaceous Sandbank Vegetation,#ad5100,773,356,417,46.1%

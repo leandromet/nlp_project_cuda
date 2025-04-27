@@ -1,0 +1,23 @@
+Class,Label,Color,Initial_Pixels,Persistent_Pixels,Changed_Pixels,Persistent_Percent
+15,Pasture,#edde8e,52881036,33284549,19596487,62.9%
+3,Forest Formation,#1f8d49,26814415,21425067,5389348,79.9%
+21,Mosaic of Uses,#ffefc3,20810083,2175114,18634969,10.5%
+0,No data,#ffffff,17932732,17931082,1650,100.0%
+33,River Lake and Ocean,#259fe4,3443702,2942096,501606,85.4%
+12,Grassland,#d6bc74,2013507,1226154,787353,60.9%
+24,Urban Area,#d4271e,1689773,1676055,13718,99.2%
+41,Other Temporary Crops,#f54ca9,909842,460052,449790,50.6%
+11,Wetland,#519799,711393,312694,398699,44.0%
+46,Coffee,#d68fe2,595246,145235,450011,24.4%
+29,Rocky Outcrop,#ffaa5f,578729,498805,79924,86.2%
+49,Wooded Sandbank Vegetation,#02d659,388177,220921,167256,56.9%
+23,Beach and Sand,#ffa07a,368295,110632,257663,30.0%
+50,Herbaceous Sandbank Vegetation,#ad5100,310191,151107,159084,48.7%
+25,Other non Vegetated Areas,#db4d4f,213968,10585,203383,4.9%
+5,Mangrove,#04381d,94870,64452,30418,67.9%
+48,Other Perennial Crops,#e6ccff,83845,1704,82141,2.0%
+31,Aquaculture,#091077,28632,9479,19153,33.1%
+9,Forest Plantation,#7a5900,21582,7144,14438,33.1%
+32,Hypersaline Tidal Flat,#fc8114,18807,6939,11868,36.9%
+30,Mining,#9c0027,9969,7535,2434,75.6%
+4,Savanna Formation,#7dc975,182,137,45,75.3%
