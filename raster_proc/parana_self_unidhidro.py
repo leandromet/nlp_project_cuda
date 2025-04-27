@@ -572,6 +572,10 @@ def create_visualizations(zarr_path, output_dir):
     # 1. Create land cover map
     create_landcover_map(root, output_dir)
     # 2. Create land cover maps for each period
+
+    create_landcover_maps_for_decades(root, output_dir)
+
+
     #create_landcover_maps_for_periods(root, output_dir)
     
 
@@ -725,66 +729,60 @@ def create_landcover_maps_for_decades(root, output_dir):
             band_index = start_year - 1985  # Assuming the first band corresponds to 1985
             
             # Read the data for the specific year
-            year_data = root[f'band_{band_index}'][:]
+            with rasterio.open(root.attrs['vrt_path']) as src:
+                year_data = src.read(band_index + 1)  # Bands in rasterio are 1-based
             
             plt.figure(figsize=(12, 20))
             plt.imshow(year_data, cmap=cmap, vmin=0, vmax=max(COLOR_MAP.keys()))
             plt.title(f"{grid_name} Land Cover {start_year}")
-
-            if geojson_path:
-                try:
-                    gdf = gpd.read_file(geojson_path)
-                    if not gdf.empty and 'geometry' in gdf.columns:
-                        # Convert polygon to pixel coordinates
-                        bounds = root.attrs['bounds']
-                        xmin, ymin, xmax, ymax = bounds
-                        width = start_year.shape[1]
-                        height = start_year.shape[0]
-                        
-                        # Set the same extent as the previous image
-                        plt.xlim(0, width)
-                        plt.ylim(height, 0)
-                    
-                    # Create a patch for the polygon
-                    for geom in gdf.geometry:
-                        if geom.geom_type == 'Polygon':
-                            # Convert coordinates to image space
-                            x, y = zip(*geom.exterior.coords)
-                            x_img = ((np.array(x) - xmin) / (xmax - xmin)) * width
-                            y_img = height - ((np.array(y) - ymin) / (ymax - ymin)) * height
-                            
-                            plt.plot(x_img, y_img, color='red', linewidth=2, alpha=0.8)
-                        elif geom.geom_type == 'MultiPolygon':
-                            for poly in geom.geoms:
-                                x, y = zip(*poly.exterior.coords)
-                                x_img = ((np.array(x) - xmin) / (xmax - xmin)) * width
-                                y_img = height - ((np.array(y) - ymin) / (ymax - ymin)) * height
-                                plt.plot(x_img, y_img, color='red', linewidth=2, alpha=0.8)
-                except Exception as e:
-                    logging.warning(f"Could not overlay polygon: {str(e)}")
+            
+            # Overlay polygons if GeoJSON path is provided
+            overlay_polygons_on_map(root, plt, geojson_path)
             
             # Create legend
-            patches = [Patch(color=COLOR_MAP[k], label=f"{k}: {LABELS[k]}") 
-                       for k in sorted(LABELS.keys()) if k in COLOR_MAP]
-            plt.legend(handles=patches, bbox_to_anchor=(1.05, 1), loc='upper left')
+            create_legend(plt)
             
             plt.tight_layout()
             output_path = os.path.join(output_dir, f'landcover_map_{start_year}.png')
             plt.savefig(output_path, dpi=450, bbox_inches='tight')
             plt.close()
-            
-            # Create PNGW file for georeferencing
-            pngw_path = output_path + 'w'
-            with open(pngw_path, 'w') as pngw_file:
-                pngw_file.write(f"{transform.a}\n")  # Pixel size in x-direction
-                pngw_file.write(f"{transform.b}\n")  # Rotation (usually 0)
-                pngw_file.write(f"{transform.d}\n")  # Rotation (usually 0)
-                pngw_file.write(f"{transform.e}\n")  # Pixel size in y-direction (negative)
-                pngw_file.write(f"{transform.c}\n")  # X-coordinate of the upper-left corner
-                pngw_file.write(f"{transform.f}\n")  # Y-coordinate of the upper-left corner
-            
         except Exception as e:
             logging.error(f"Failed to create land cover map for {start_year}: {str(e)}")
+
+
+def overlay_polygons_on_map(root, plt, geojson_path):
+    """Overlay polygons from GeoJSON onto the map."""
+    if geojson_path:
+        try:
+            gdf = gpd.read_file(geojson_path)
+            if not gdf.empty and 'geometry' in gdf.columns:
+                bounds = root.attrs['bounds']
+                xmin, ymin, xmax, ymax = bounds
+                width, height = plt.gca().get_xlim()[1], plt.gca().get_ylim()[0]
+                
+                for geom in gdf.geometry:
+                    if geom.geom_type == 'Polygon':
+                        plot_polygon(geom, xmin, ymin, xmax, ymax, width, height, plt)
+                    elif geom.geom_type == 'MultiPolygon':
+                        for poly in geom.geoms:
+                            plot_polygon(poly, xmin, ymin, xmax, ymax, width, height, plt)
+        except Exception as e:
+            logging.warning(f"Could not overlay polygon: {str(e)}")
+
+
+def plot_polygon(polygon, xmin, ymin, xmax, ymax, width, height, plt):
+    """Plot a single polygon on the map."""
+    x, y = zip(*polygon.exterior.coords)
+    x_img = ((np.array(x) - xmin) / (xmax - xmin)) * width
+    y_img = height - ((np.array(y) - ymin) / (ymax - ymin)) * height
+    plt.plot(x_img, y_img, color='red', linewidth=2, alpha=0.8)
+
+
+def create_legend(plt):
+    """Create a legend for the land cover map."""
+    patches = [Patch(color=COLOR_MAP[k], label=f"{k}: {LABELS[k]}") 
+               for k in sorted(LABELS.keys()) if k in COLOR_MAP]
+    plt.legend(handles=patches, bbox_to_anchor=(1.05, 1), loc='upper left')
 
 
 # def create_landcover_maps_for_periods(root, output_dir):
