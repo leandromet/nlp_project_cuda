@@ -1,0 +1,21 @@
+Class,Label,Color,Initial_Pixels,Persistent_Pixels,Changed_Pixels,Persistent_Percent
+15,Pasture,#edde8e,19108040,12217701,6890339,63.9%
+21,Mosaic of Uses,#ffefc3,9735382,138064,9597318,1.4%
+4,Savanna Formation,#7dc975,9275620,2502291,6773329,27.0%
+0,No data,#ffffff,3782077,3766856,15221,99.6%
+3,Forest Formation,#1f8d49,2271511,737146,1534365,32.5%
+33,River Lake and Ocean,#259fe4,850667,562431,288236,66.1%
+20,Sugar Cane,#db7093,600791,553234,47557,92.1%
+11,Wetland,#519799,243695,116430,127265,47.8%
+5,Mangrove,#04381d,239065,196032,43033,82.0%
+12,Grassland,#d6bc74,225086,101895,123191,45.3%
+24,Urban Area,#d4271e,136850,133702,3148,97.7%
+23,Beach and Sand,#ffa07a,121054,48817,72237,40.3%
+49,Wooded Sandbank Vegetation,#02d659,48061,11144,36917,23.2%
+25,Other non Vegetated Areas,#db4d4f,42840,54,42786,0.1%
+32,Hypersaline Tidal Flat,#fc8114,27005,7508,19497,27.8%
+31,Aquaculture,#091077,11513,5446,6067,47.3%
+41,Other Temporary Crops,#f54ca9,6943,144,6799,2.1%
+9,Forest Plantation,#7a5900,2062,56,2006,2.7%
+48,Other Perennial Crops,#e6ccff,1660,0,1660,0.0%
+30,Mining,#9c0027,1342,1324,18,98.7%

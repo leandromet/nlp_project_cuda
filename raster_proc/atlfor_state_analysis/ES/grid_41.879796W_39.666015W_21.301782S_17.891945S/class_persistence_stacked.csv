@@ -1,0 +1,22 @@
+Class,Label,Color,Initial_Pixels,Persistent_Pixels,Changed_Pixels,Persistent_Percent
+15,Pasture,#edde8e,48267567,29032245,19235322,60.1%
+3,Forest Formation,#1f8d49,17747233,10786026,6961207,60.8%
+21,Mosaic of Uses,#ffefc3,12589058,1226148,11362910,9.7%
+0,No data,#ffffff,11798555,11797616,939,100.0%
+11,Wetland,#519799,1446329,764378,681951,52.8%
+33,River Lake and Ocean,#259fe4,1319019,1009651,309368,76.5%
+9,Forest Plantation,#7a5900,1227537,830762,396775,67.7%
+46,Coffee,#d68fe2,1138383,495984,642399,43.6%
+29,Rocky Outcrop,#ffaa5f,1029070,994023,35047,96.6%
+24,Urban Area,#d4271e,431542,425268,6274,98.5%
+49,Wooded Sandbank Vegetation,#02d659,221060,126164,94896,57.1%
+4,Savanna Formation,#7dc975,209902,135485,74417,64.5%
+48,Other Perennial Crops,#e6ccff,144637,12601,132036,8.7%
+50,Herbaceous Sandbank Vegetation,#ad5100,118753,83244,35509,70.1%
+41,Other Temporary Crops,#f54ca9,85159,39107,46052,45.9%
+25,Other non Vegetated Areas,#db4d4f,84928,2247,82681,2.6%
+5,Mangrove,#04381d,76022,62396,13626,82.1%
+23,Beach and Sand,#ffa07a,67634,15864,51770,23.5%
+32,Hypersaline Tidal Flat,#fc8114,8735,1987,6748,22.7%
+20,Sugar Cane,#db7093,7,0,7,0.0%
+30,Mining,#9c0027,6,0,6,0.0%

@@ -1,0 +1,20 @@
+Class,Label,Color,Initial_Pixels,Persistent_Pixels,Changed_Pixels,Persistent_Percent
+4,Savanna Formation,#7dc975,111416418,68019754,43396664,61.1%
+21,Mosaic of Uses,#ffefc3,45685532,5011673,40673859,11.0%
+15,Pasture,#edde8e,19869929,11572460,8297469,58.2%
+3,Forest Formation,#1f8d49,6502315,3477405,3024910,53.5%
+0,No data,#ffffff,6382278,6381668,610,100.0%
+20,Sugar Cane,#db7093,4328113,4144013,184100,95.7%
+33,River Lake and Ocean,#259fe4,2535374,1462530,1072844,57.7%
+12,Grassland,#d6bc74,837547,47801,789746,5.7%
+25,Other non Vegetated Areas,#db4d4f,703451,70526,632925,10.0%
+24,Urban Area,#d4271e,495926,491462,4464,99.1%
+48,Other Perennial Crops,#e6ccff,186331,43956,142375,23.6%
+5,Mangrove,#04381d,178453,153444,25009,86.0%
+41,Other Temporary Crops,#f54ca9,151250,6253,144997,4.1%
+11,Wetland,#519799,38457,11956,26501,31.1%
+32,Hypersaline Tidal Flat,#fc8114,12112,2166,9946,17.9%
+23,Beach and Sand,#ffa07a,6813,1470,5343,21.6%
+30,Mining,#9c0027,2955,2926,29,99.0%
+31,Aquaculture,#091077,2525,672,1853,26.6%
+9,Forest Plantation,#7a5900,157,0,157,0.0%
