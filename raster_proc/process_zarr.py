@@ -38,6 +38,9 @@ import os
 import argparse
 import pandas as pd
 from matplotlib.colors import ListedColormap
+import squarify
+from matplotlib.sankey import Sankey
+            
 
 
 # Configure logging
@@ -142,12 +145,15 @@ def create_persistence_visualization(root, output_dir, vis_type='stacked_bar', m
         create_grouped_bar(df, grid_name, output_dir)
     elif vis_type == 'grouped_treemap':
         create_grouped_bar_with_treemap(df, grid_name, output_dir)
+    elif vis_type == 'sankey':
+        create_sankey_diagram(df, grid_name, output_dir)
     elif vis_type == 'all':
         create_stacked_bar(df, grid_name, output_dir)
         create_pie_charts(df, grid_name, output_dir)
         create_horizontal_bar(df, grid_name, output_dir)
         create_grouped_bar(df, grid_name, output_dir)
         create_grouped_bar_with_treemap(df, grid_name, output_dir)
+        create_sankey_diagram(df, grid_name, output_dir)
         try:
             create_treemap(df, grid_name, output_dir)
         except ImportError:
@@ -401,14 +407,56 @@ def create_grouped_bar_with_treemap(df, grid_name, output_dir):
     plt.close()
     logging.info(f"Saved grouped bar with treemap to {output_path}")
 
+def create_sankey_diagram(df, grid_name, output_dir):
+    """Create a static Sankey diagram for persistence and change flows"""
 
+    # Prepare data for Sankey diagram
+    labels = df['Label'].tolist()
+    initial = df['Initial'].tolist()
+    persistent = df['Persistent'].tolist()
+    changed = df['Changed'].tolist()
+
+    # Create flows and labels for Sankey
+    flows = []
+    sankey_labels = []
+    colors = []
+
+    for i, label in enumerate(labels):
+        # Add flow for persistent pixels
+        flows.append(persistent[i])
+        sankey_labels.append(f"{label} (Persistent)")
+        colors.append(df['Color'].iloc[i])
+
+        # Add flow for changed pixels
+        flows.append(-changed[i])
+        sankey_labels.append(f"{label} (Changed)")
+        colors.append(df['Color'].iloc[i])
+
+    # Create Sankey diagram
+    fig, ax = plt.subplots(figsize=(14, 10))
+    sankey = Sankey(ax=ax, unit=None)
+
+    for i in range(0, len(flows), 2):
+        sankey.add(flows=[flows[i], flows[i + 1]],
+                    labels=[sankey_labels[i], sankey_labels[i + 1]],
+                    orientations=[0, 0],
+                    facecolor=colors[i // 2])
+
+    sankey.finish()
+    ax.set_title(f"{grid_name} Land Cover Persistence and Change Flows (1985-2023)")
+
+    # Save the plot
+    output_path = os.path.join(output_dir, 'class_persistence_sankey.png')
+    plt.savefig(output_path, dpi=300, bbox_inches='tight')
+    plt.close()
+    logging.info(f"Saved Sankey diagram visualization to {output_path}")
+
+    
+
+    
 def create_treemap(df, grid_name, output_dir):
     """Create treemap visualization for persistence statistics"""
-    try:
-        import squarify
-    except ImportError:
-        logging.error("squarify package is required for treemap visualization")
-        return
+    
     
     # Create a larger figure for the treemap
     plt.figure(figsize=(16, 12))
@@ -440,7 +488,7 @@ def main():
     parser = argparse.ArgumentParser(description='Generate persistence visualizations from Zarr data')
     parser.add_argument('zarr_path', help='Path to Zarr dataset containing persistence data')
     parser.add_argument('--output_dir', '-o', help='Output directory for visualizations (defaults to Zarr directory)')
-    parser.add_argument('--vis_type', '-v', default='all', choices=['stacked_bar', 'pie', 'horizontal_bar', 'treemap', 'grouped_bar', 'grouped_treemap', 'all'], 
+    parser.add_argument('--vis_type', '-v', default='all', choices=['stacked_bar', 'pie', 'horizontal_bar', 'treemap', 'grouped_bar', 'grouped_treemap', 'sankey', 'all'], 
                         help='Type of visualization to create')
     parser.add_argument('--min_pixels', '-m', type=int, default=1000, help='Minimum pixels to include a class')
     parser.add_argument('--top_n', '-n', type=int, default=15, help='Number of top classes to display')
