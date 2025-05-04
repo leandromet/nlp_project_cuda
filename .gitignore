@@ -148,6 +148,8 @@ raster_proc/indigenous/
 raster_proc/indigenous_self/
 raster_proc/mpi/
 raster_proc/parana_uni_hidro/
+raster_proc/mata_atlant_meso/
+raster_proc/atlfor_state_analysis/
 *.geojson
 
 # pytype static type analyzer
