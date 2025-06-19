@@ -150,6 +150,7 @@ raster_proc/mpi/
 raster_proc/parana_uni_hidro/
 raster_proc/mata_atlant_meso/
 raster_proc/atlfor_state_analysis/
+raster_proc/vassununga/
 *.geojson
 
 # pytype static type analyzer
