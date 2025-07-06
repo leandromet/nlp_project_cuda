@@ -63,7 +63,15 @@ The research focuses on indigenous territories within distinct biogeographic reg
 
 The selection process prioritizes territories that demonstrate contrasting forest cover patterns between indigenous lands and surrounding buffer zones, enabling robust comparative analysis of policy effectiveness across different contexts. The research framework systematically examines forest, land, and indigenous policies using established content analysis methods, with policy identification encompassing national, regional, and local levels that recognize multi-layered governance structures. The analysis covers policy objectives, target stakeholders, implementation mechanisms, enforcement procedures, and monitoring systems.
 
-This phase establishes the computational framework for geospatial analysis, including development of Python-based processing pipelines for handling large-scale remote sensing datasets. The framework utilizes open-source technologies including QGIS, PostgreSQL/PostGIS, R, and Python while leveraging existing datasets such as Hansen's Global Forest Change, MapBiomas, and government policy databases to ensure reproducibility and cost-effectiveness. Systematic outreach to indigenous organizations and communities explores collaboration opportunities following appropriate protocols for respectful engagement, with community partnerships that develop during this phase enhancing the research through local knowledge and validation, though the analytical framework ensures meaningful outcomes for all stakeholders whether direct collaboration occurs or not.
+This phase establishes the computational framework for geospatial analysis, including development of Python-based processing pipelines for handling large-scale remote sensing datasets. The framework utilizes open-source technologies including QGIS, PostgreSQL/PostGIS, R, and Python while leveraging existing datasets such as Hansen's Global Forest Change, MapBiomas, and government policy databases to ensure reproducibility and cost-effectiveness.
+
+**Indigenous Data Sovereignty Implementation**: Systematic outreach to indigenous organizations and communities will explore collaboration opportunities following appropriate protocols for respectful engagement. Public data sources will be presented to Indigenous partners with invitations for corrections, contextual information, and guidance on appropriate interpretation. Communities will be offered multiple engagement options, from full collaboration to territorial exclusion, with all approaches respecting Indigenous data sovereignty principles.
+
+**Community Engagement Protocols**: Research activities will follow Free, Prior, and Informed Consent protocols for all territory-specific analysis. Communities will have veto power over how their territories are represented, with options to opt out of case studies or request specific modifications to interpretations. Where communities decline engagement, territories will be excluded from analysis or included only with clear disclaimers indicating non-endorsement.
+
+**Ethics Framework Declaration**: While this study relies on publicly available remote sensing data, we recognize that Indigenous rights extend beyond data ownership to include governance over knowledge interpretation. We will proactively engage affected Nations to contextualize findings, correct misrepresentations, and honor requests for exclusion. All outputs will undergo Indigenous review where possible, ensuring that research benefits Indigenous communities while advancing scientific understanding of forest policy effectiveness.
+
+Community partnerships that develop during this phase will enhance the research through local knowledge and validation, but the analytical framework ensures meaningful outcomes for all stakeholders while respecting Indigenous rights and territorial jurisdiction regardless of engagement levels achieved.
 
 ## Phase 2: Integrated Analysis (Months 7-18)
 
@@ -131,24 +139,27 @@ The computational framework operates on a desktop system with 20 cores, 98GB RAM
 | **Literature Review** | ✓ | ✓ | ✓ | | | | | |
 | **Policy Document Collection** | ✓ | ✓ | | | | | | |
 | **Case Study Selection** | ✓ | ✓ | | | | | | |
+| **Indigenous Engagement Protocol** | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | **Data Acquisition** | ✓ | ✓ | ✓ | ✓ | | | | |
 | **Data Processing** | | ✓ | ✓ | ✓ | ✓ | | | |
 | **Methodology Development** | | ✓ | ✓ | ✓ | ✓ | | | |
-| **Stakeholder Engagement** | | | ✓ | ✓ | ✓ | ✓ | | |
+| **Community Consultation** | | ✓ | ✓ | ✓ | ✓ | ✓ | | |
 | **Case Study Analysis** | | | ✓ | ✓ | ✓ | ✓ | | |
+| **Indigenous Review Process** | | | | ✓ | ✓ | ✓ | ✓ | ✓ |
 | **Comparative Analysis** | | | | ✓ | ✓ | ✓ | ✓ | |
 | **Tool Development** | | | | | ✓ | ✓ | ✓ | |
 | **Thesis Writing** | | | | | ✓ | ✓ | ✓ | ✓ |
 | **Publication Preparation** | | | | | | ✓ | ✓ | ✓ |
-| **Dissemination** | | | | | | ✓ | ✓ | ✓ |
+| **Community Feedback Integration** | | | | | | ✓ | ✓ | ✓ |
 | **Defense Preparation** | | | | | | | ✓ | ✓ |
 
 **Key Milestones:**
 
-- **Month 6**: Complete research design and case study selection
-- **Month 12**: Complete policy analysis and initiate land cover analysis
-- **Month 18**: Complete integrated analysis and begin tool development
-- **Month 24**: Complete all deliverables and defend thesis
+- **Month 3**: Complete initial Indigenous community outreach and protocol establishment
+- **Month 6**: Complete research design, case study selection, and community engagement agreements
+- **Month 12**: Complete policy analysis, initiate land cover analysis, and conduct community verification of preliminary findings
+- **Month 18**: Complete integrated analysis, begin tool development, and conduct comprehensive Indigenous review
+- **Month 24**: Complete all deliverables with community approval and defend thesis
 
 ---
 
@@ -158,12 +169,12 @@ This research is designed to be cost-effective while prioritizing the developmen
 
 | **Budget Category** | **Amount** | **Justification** |
 |---------------------|------------|-------------------|
-| **Travel and Conferences** | $5,000 | Contingency for stakeholder meetings, field validation, and conference participation for knowledge dissemination |
-| **Publication and Dissemination** | $6,500 | Open-access publication fees for peer-reviewed journals ($4,500) and conference registration/presentation costs ($2,000) |
-| **Equipment and Technology** | $5,000 | Hardware upgrades, computing resources, and technology infrastructure maintenance |
-| **Software and Data Access** | $0 | Utilizing open-source software (QGIS, PostgreSQL, R, Python) and unrestricted datasets (Hansen's Global Forest Change, MapBiomas, government databases) |
-| **Training and Capacity Building** | $2,000 | Specialized training programs, workshops, and skill development opportunities |
-| **Total Estimated Cost** | **$18,500** | |
+| **Indigenous Engagement and Protocols** | $6,000 | Community consultations, protocol development, and respectful engagement processes including travel for territory visits, interpretation services, and culturally appropriate meeting facilitation |
+| **Travel and Conferences** | $4,000 | Additional travel for stakeholder meetings, field validation, and conference participation for knowledge dissemination |
+| **Publication and Dissemination** | $5,000 | Open-access publication fees for peer-reviewed journals and conference registration/presentation costs, including Indigenous-authored publications |
+| **Equipment and Technology** | $3,000 | Hardware upgrades, computing resources, and technology infrastructure maintenance |
+| **Training and Capacity Building** | $2,500 | Specialized training programs, workshops, and community-based skill development opportunities |
+| **Total Estimated Cost** | **$20,500** | |
 
 **Resource Optimization Strategy:**
 
@@ -226,7 +237,7 @@ Establishing direct causal relationships between policies and land cover changes
 
 The research implements systematic accuracy assessment and uncertainty quantification while combining multiple datasets and methodological approaches to cross-validate findings. Appropriate statistical methods account for uncertainty and control for confounding variables, with complete documentation of methodological choices, limitations, and assumptions ensuring transparency.
 
-The preliminary computational framework has been developed and tested using MapBiomas Collection 8 data for Brazilian indigenous territories. The analysis framework is documented in a 1,205-line Python script available under MIT license, demonstrating the feasibility and scalability of the proposed approach. Initial processing of 138 indigenous territories was completed in 70 minutes using desktop computing resources, validating the computational efficiency of the methodology. The framework is capable of processing 800x800 kilometer regions with 30-meter resolution, with complete technical documentation including processing architecture, validation procedures, and visualization capabilities available through the GitHub repository at https://github.com/leandromet/nlp_project_cuda.
+The preliminary computational framework has been developed and tested using MapBiomas Collection 8 data for Brazilian indigenous territories. The analysis framework is documented in a 1,205-line Python script available under MIT license, demonstrating the feasibility and scalability of the proposed approach. Initial processing of 138 indigenous territories was completed in 70 minutes using desktop computing resources, validating the computational efficiency of the methodology. The framework is capable of processing 800x800 kilometer regions with 30-meter resolution, with complete technical documentation including processing architecture, validation procedures, and visualization capabilities available through the GitHub repository at <https://github.com/leandromet/nlp_project_cuda>.
 
 ## Integration of Comprehensive Exam Papers
 
@@ -286,45 +297,53 @@ This foundation ensures that the PhD research can proceed efficiently while serv
 
 ### Indigenous Data Sovereignty Principles
 
+Research involving Indigenous territories requires careful attention to Indigenous data sovereignty principles, even when utilizing publicly available datasets. Indigenous rights extend beyond data ownership to encompass territorial representation, cultural interpretation, and policy implications that may affect Indigenous communities regardless of data source.
+
 #### CARE Principles
 
-The research framework embraces Collective Benefit by designing research to benefit indigenous communities, while respecting Authority to Control by ensuring indigenous communities maintain control over their data. The approach emphasizes Responsibility by holding researchers accountable to indigenous communities, and maintains Ethics by aligning research with indigenous values and ethical frameworks.
+The research framework embraces **Collective Benefit** by designing research to benefit indigenous communities and ensuring that research outcomes support Indigenous self-determination and land stewardship goals. **Authority to Control** is respected by ensuring indigenous communities maintain meaningful control over how their territories are represented and analyzed, including the right to review and modify interpretations of publicly available data affecting their lands.
+
+The approach emphasizes **Responsibility** by holding researchers accountable to indigenous communities for research conduct, interpretation, and dissemination, while maintaining **Ethics** by aligning research with indigenous values and ethical frameworks, including traditional governance systems and cultural protocols.
 
 #### OCAP Principles
 
-The research acknowledges Ownership by recognizing that indigenous communities own their data, while respecting Control by allowing communities to control data collection and use. Access principles ensure that communities determine who can access their data, while Possession rights guarantee that communities have the right to possess their data.
+The research acknowledges **Ownership** by recognizing that indigenous communities have inherent rights to their territories and the knowledge generated about them, while respecting **Control** by allowing communities to control how their territories are represented in research, even when using public datasets.
 
-## Implementation Strategies
+**Access** principles ensure that communities determine who can access territory-specific analysis and findings, while **Possession** rights guarantee that communities have the right to possess and control territory-specific data products and analytical outputs.
 
-### Community Protocols
+### Public Data Ethics Framework
 
-Research activities will follow Free, Prior, and Informed Consent protocols for all activities, while establishing community advisory structures for ongoing oversight. Data sharing agreements will prioritize community ownership, and the research design remains flexible and responsive to community needs.
+#### Risks of Extractive Research with Public Data
 
-### Knowledge Protection
+Using publicly available satellite imagery and government datasets without Indigenous engagement can lead to significant harm through misinterpretation, such as labeling culturally managed lands as "degraded" or "unused," and harmful policy impacts including conservation policies that restrict Indigenous land use or development policies that ignore traditional governance systems.
 
-The research framework maintains respect for confidential traditional knowledge while requiring community approval for all dissemination activities. Attribution and recognition of indigenous contributions will be prioritized, along with protection of intellectual property rights.
+The research recognizes that Hansen's Global Forest Change data and MapBiomas datasets, while publicly available, still depict Indigenous territories subject to inherent rights and jurisdiction under UNDRIP and national frameworks. Interpretations and policy recommendations derived from these datasets can significantly impact Indigenous communities, creating ethical obligations regardless of data source.
 
----
+#### Legal and Ethical Precedents
 
-## Expected Outcomes
+Canada's DRIPA (Declaration on the Rights of Indigenous Peoples Act) and Brazil's ongoing Marco Temporal debates demonstrate that even public land-use data can become contested in Indigenous rights cases. Academic best practices increasingly require Indigenous engagement for research affecting Indigenous lands, as reflected in SSHRC and Tri-Council guidelines.
 
-This research will generate multiple types of outputs designed to serve diverse stakeholder communities and ensure practical application of findings. The outcomes are structured to provide both immediate practical value and long-term analytical capacity for land management and policy development.
+### Implementation Strategies
 
-### Academic Outputs
+#### Indigenous Data Sovereignty Protocol for Public Data Research
 
-The PhD dissertation will provide comprehensive analysis integrating policy evaluation, land cover change assessment, and comparative case study findings. Three to four peer-reviewed publications will target policy analysis, remote sensing, and environmental management journals, while conference presentations will share findings at indigenous studies, environmental policy, and remote sensing conferences. Methodological contributions will document integrated analytical frameworks for policy-land cover analysis.
+Even when utilizing publicly available datasets such as Hansen's Global Forest Change and MapBiomas, this research implements a comprehensive protocol that recognizes Indigenous rights extend beyond data ownership to encompass governance over knowledge interpretation and territorial representation.
 
-### Practical Tools and Resources
+Prior to conducting any territory-specific analysis, the research will notify affected Indigenous Nations of our intent to study their territories, providing clear information about research objectives, methodologies, and potential outcomes. Sample maps and preliminary analyses will be provided for verification of accuracy and cultural appropriateness, ensuring technical interpretations align with Indigenous knowledge. Meaningful collaboration opportunities will be extended including contextualizing forest change causes, identifying traditional management practices, and contributing local knowledge to improve analytical accuracy.
 
-Land cover analysis software will provide user-friendly analytical tools for land managers to conduct ongoing monitoring, while policy evaluation frameworks will offer standardized approaches for assessing forest policy effectiveness. Decision support systems will create interactive platforms for comparing policy scenarios and outcomes, supported by comprehensive training materials that guide application of analytical methodologies across different contexts.
+Indigenous Nations maintain complete authority over their territorial representation in research outputs. If communities identify errors in public data interpretation such as misclassified cultural burns as "deforestation" or traditional harvesting areas as "degraded lands," the research will adjust methodology to incorporate Indigenous knowledge and correct misinterpretations. Indigenous perspectives will be cited in methodological limitations and data interpretation sections, with alternative interpretations documented that reflect traditional land management practices. Indigenous Nations retain complete authority to request their territory be excluded from comparative case studies, spatial analysis, maps, visualizations, interactive tools, policy recommendations, and academic publications without requirement for justification.
 
-### Policy and Management Outputs
+Indigenous partners will receive comprehensive review opportunities with drafts of all materials referencing their lands provided with 30-day minimum review windows, extended as needed. Communities may contribute contextual information such as "While satellite data shows X, our traditional knowledge indicates Y..." and will be invited to co-author relevant sections or publications where appropriate. Alternative output formats recognize diverse communication preferences including printed atlases, community workshops, oral presentation summaries, territory-specific reports delivered directly to Indigenous governments, and culturally appropriate materials designed with Indigenous communication protocols.
 
-Policy briefs will provide concise summaries of findings for government agencies and policy makers, while technical reports will deliver detailed analytical results for land management professionals. Best practices documentation will capture transferable insights for forest management and conservation, complemented by comparative analysis reports that offer cross-regional lessons for policy development.
+All processed datasets will be deposited with partner Nations' archives upon request, ensuring long-term community access. Technical documentation will accompany materials explaining analytical methods, limitations, and appropriate applications in plain language. Training will be provided for community members to utilize and modify analytical tools independently. Indigenous communities will maintain perpetual rights to ongoing access to updated analyses and technical support, authority to request changes to analytical parameters or interpretations, and control over how territory-specific data products are shared or distributed.
 
-### Community-Focused Outputs
+If meaningful engagement is not achieved despite systematic outreach efforts, research findings will include explicit statements such as "This analysis used publicly available data without Indigenous validation; results should be interpreted cautiously." Methodological limitations will be clearly documented when Indigenous knowledge is unavailable, with conservative interpretation of results affecting Indigenous territories without community input. A formal process will enable communities to submit corrections to published materials with commitment to rapid response, request removal of contested content from publicly accessible platforms, and maintain communication channels for continued feedback and relationship building.
 
-Community-accessible tools will provide simplified monitoring systems for indigenous land management, while capacity building materials will offer training resources for community-based land monitoring. Knowledge sharing platforms will create online resources for sharing experiences and lessons learned, supported by partnership frameworks that model respectful collaboration between communities and researchers.
+The research framework maintains respect for confidential traditional knowledge while requiring community approval for all territory-specific dissemination activities. Attribution and recognition of indigenous contributions will be prioritized, along with protection of intellectual property rights. Communities can opt out of being named in case studies or request specific territorial boundaries to be excluded from analysis. Where communities decline collaboration, territories will be excluded from analysis or included only with clear disclaimers indicating non-endorsement. Analysis will include Indigenous perspectives on land management practices, avoiding mischaracterization of traditional land use as degradation or abandonment.
+
+Indigenous partners may participate in research design, data interpretation, and output development through co-development approaches where territory-specific tools and resources are developed collaboratively, with communities maintaining control over analytical products. Alternative engagement levels include consultation models where communities review public data analysis and provide feedback on interpretations before publication, notification approaches where communities are informed of research activities and provided with territory-specific results, or territorial exclusion where communities decline engagement and territories are excluded from analysis entirely.
+
+The methodology incorporates Indigenous data sovereignty principles through community-controlled research protocols, with communities determining their level of engagement from full collaboration to territorial exclusion. The research framework ensures that even public data analysis respects Indigenous rights and territorial jurisdiction through flexible engagement that accommodates various levels of community engagement while maintaining ethical standards, community control over territory-specific interpretations and analytical products, and benefit sharing through practical tools, policy advocacy, and capacity building initiatives designed to serve Indigenous communities.
 
 ### Data and Knowledge Products
 
@@ -336,10 +355,319 @@ These outcomes are designed to ensure that research benefits extend beyond acade
 
 ## Conclusion
 
-This proposal represents a pragmatic approach to investigating forest policy and land management through an indigenous-centered lens while ensuring robust academic outcomes and practical impact for diverse stakeholders. By integrating insights from three comprehensive exam papers with evidence-based analytical methods, this project will generate valuable knowledge and practical tools for land managers, policy makers, and indigenous communities.
+This proposal represents a responsible approach to investigating forest policy and land management through an indigenous-centered lens while ensuring robust academic outcomes and practical impact for diverse stakeholders. The research framework explicitly addresses Indigenous data sovereignty principles, recognizing that even publicly available data requires careful attention to Indigenous rights and territorial jurisdiction.
 
-The 24-month timeline is designed to be feasible while maintaining analytical rigor, focusing on 4-6 case studies that enable meaningful comparison and transferable insights. The emphasis on tool development, accessible methodologies, and evidence-based policy recommendations ensures that research outcomes will have lasting positive impacts across multiple user communities.
+By integrating insights from three comprehensive exam papers with evidence-based analytical methods and Indigenous data sovereignty principles, this project will generate valuable knowledge and practical tools for land managers, policy makers, and indigenous communities. The ethical framework ensures that research benefits Indigenous communities while avoiding extractive research practices that can harm Indigenous interests.
+
+The 24-month timeline is designed to be feasible while maintaining both analytical rigor and ethical standards, focusing on 4-6 case studies that enable meaningful comparison and transferable insights. The flexible engagement model accommodates various levels of community participation while respecting Indigenous autonomy and territorial rights.
+
+The emphasis on Indigenous-governed tool development, culturally appropriate methodologies, and evidence-based policy recommendations ensures that research outcomes will have lasting positive impacts across multiple user communities while supporting Indigenous self-determination and land stewardship goals. This approach recognizes indigenous communities as essential partners in research rather than subjects of study, creating frameworks for respectful collaboration that can inform future research practices.
+
+The project's success will be measured through academic outputs, practical tool development, contributions to evidence-based policy making, and most importantly, the extent to which research outcomes support Indigenous land rights, self-determination, and traditional governance systems. This balanced approach represents effective, ethical environmental research that serves Indigenous communities while maintaining academic rigor and practical applicability for broader land management applications.
 
 This approach recognizes indigenous communities as important knowledge holders while creating robust analytical frameworks that can inform land management decisions regardless of direct community participation levels. The integration of policy analysis, remote sensing capabilities, and comparative evaluation represents a methodological innovation that can contribute to both academic understanding and practical land management applications.
 
 The project's success will be measured through academic outputs, practical tool development, and contributions to evidence-based policy making. The research design ensures valuable outcomes for indigenous self-determination, conservation efforts, and the strengthening of land management capacity across diverse institutional contexts. This balanced approach represents effective, ethical environmental research that serves multiple communities while maintaining academic rigor and practical applicability.
+
+---
+
+## Appendix: Tools for Operationalizing Indigenous Data Sovereignty Protocol
+
+### Communication Templates
+
+#### Template Outreach Email (to Nations)
+
+**Subject**: Research Proposal: Forest Change Analysis in [Nation Name] Territory - Seeking Your Input
+
+Dear [Nation Name] Leadership,
+
+We are doctoral researchers from [University] conducting forest policy analysis that may include territories under your jurisdiction. We are writing to inform you of our research and invite your participation in ensuring respectful and accurate representation.
+
+**Research Overview:**
+
+- Analyzing forest change trends using publicly available satellite data (Hansen Global Forest Change, MapBiomas)
+- Evaluating policy effectiveness across Indigenous territories in Brazil and British Columbia
+- Developing tools for community-based forest monitoring
+
+**Your Territory:**
+We are considering including analysis of [specific territory description] in our comparative study. However, we recognize that your Nation has inherent rights to control how your territory is represented in research.
+
+**Options for Engagement:**
+
+1. **Collaborative Partnership**: Work with us to interpret data and develop territory-specific tools
+2. **Review and Verification**: Provide feedback on our preliminary analysis before publication
+3. **Notification Only**: Receive updates on research progress with option to request changes
+4. **Territorial Exclusion**: Request that your territory be excluded from all analysis
+
+**What We Offer:**
+
+- Territory-specific analytical tools and maps for your own use
+- Training for community members in forest monitoring techniques
+- Co-authorship opportunities where appropriate
+- Complete control over how your territory is represented
+
+**Timeline:** We plan to begin analysis in [month/year] with preliminary results available for review in [month/year].
+
+**Next Steps:** We would welcome the opportunity to discuss this research with you via phone, video call, or in-person meeting at your convenience. We can also provide more detailed information about our methodology and data sources.
+
+We are committed to conducting research that benefits Indigenous communities and respects territorial sovereignty. Your guidance would be invaluable in ensuring our work meets these standards.
+
+Respectfully,
+[Researcher Name]
+[Contact Information]
+
+---
+
+#### Data Withdrawal Form (for communities opting out)
+
+##### Indigenous Nation Data Sovereignty Request Form
+
+**Nation/Community:** _________________________________
+
+**Territory/Lands Affected:** _________________________________
+
+**Date:** _________________________________
+
+**Withdrawal Requests:**
+☐ Please exclude our territory from all spatial analysis
+☐ Please exclude our territory from all maps and visualizations
+☐ Please exclude our territory from comparative case studies
+☐ Please exclude our territory from policy recommendations
+☐ Please exclude our territory from academic publications
+☐ Please exclude our territory from interactive tools and databases
+☐ Complete exclusion from all research outputs
+
+**Attribution Preferences:**
+☐ Do not name our Nation in any research outputs
+☐ We prefer to be cited as: _________________________________
+☐ Include disclaimer: "Analysis conducted without [Nation] endorsement"
+
+**Alternative Engagement Options:**
+☐ We may be interested in future collaboration under different terms
+☐ Please notify us of research results for our territory (confidential)
+☐ We would like to receive copies of any territory-specific analytical products
+☐ No further contact requested
+
+**Community Representative:**
+Name: _________________________________
+Title: _________________________________
+Contact: _________________________________
+Date: _________________________________
+
+**Researcher Response Commitment:**
+We acknowledge this request and commit to:
+
+- Immediate exclusion of specified territories from ongoing analysis
+- Removal of existing territory-specific products from all platforms
+- Notification of any research team members and collaborators
+- Confirmation of compliance within 30 days
+
+Researcher Signature: _________________________________
+Date: _________________________________
+
+---
+
+#### Public Data Disclaimer Templates
+
+**For Publications Without Indigenous Consultation:**
+
+"**Data Sovereignty Disclaimer**: This analysis utilizes publicly available datasets [specify: Hansen Global Forest Change, MapBiomas, etc.] without Indigenous community consultation. While these datasets are publicly accessible, they depict territories subject to Indigenous rights and jurisdiction. The [Nation Name] has not endorsed these findings, and interpretations may not reflect on-the-ground realities, traditional management practices, or Indigenous perspectives. Results should be interpreted cautiously and should not be used to make policy decisions affecting Indigenous territories without community consultation."
+
+**For Maps and Visualizations:**
+
+"**Territory Acknowledgment**: This map includes territories under Indigenous jurisdiction. Analysis conducted using public datasets without Indigenous validation. Interpretations may not reflect traditional land management practices or community perspectives. For policy applications, consult with affected Indigenous Nations."
+
+**For Academic Conference Presentations:**
+
+"**Indigenous Rights Acknowledgment**: This research analyzes territories subject to Indigenous rights and jurisdiction. Where Indigenous partners were not consulted, findings represent technical interpretations of public datasets only and should not be considered definitive assessments of land management practices or territorial conditions."
+
+---
+
+#### Review Process Template (for Indigenous partners)
+
+##### Territory-Specific Research Review Package
+
+**Nation:** _________________________________
+**Review Period:** _______ to _______ (minimum 30 days)
+**Reviewer Contact:** _________________________________
+
+**Materials for Review:**
+☐ Methodology description and data sources
+☐ Preliminary maps and visualizations of your territory
+☐ Statistical analysis and trend identification
+☐ Policy recommendations affecting your territory
+☐ Draft text referencing your territory
+☐ Proposed tools and resources for your use
+
+**Review Questions:**
+
+1. **Accuracy**: Do our technical interpretations align with your knowledge of territorial conditions?
+2. **Cultural Appropriateness**: Are there cultural considerations we should address in our analysis?
+3. **Misinterpretation Risks**: Are there ways our analysis might be misunderstood or misused?
+4. **Traditional Knowledge**: Are there traditional management practices we should acknowledge?
+5. **Policy Implications**: How might our findings impact your Nation's policy interests?
+
+**Feedback Options:**
+☐ Written comments on draft materials
+☐ Phone/video conference discussion
+☐ In-person meeting
+☐ Community workshop or presentation
+
+**Revision Commitment:**
+We commit to incorporating your feedback through:
+
+- Methodological adjustments to address technical concerns
+- Textual revisions to improve accuracy and cultural sensitivity
+- Additional disclaimers or contextual information as needed
+- Exclusion of contested content if requested
+
+**Timeline for Revisions:** _________________________________
+
+**Follow-up Review:** Would you like to review revised materials before publication?
+☐ Yes ☐ No
+
+---
+
+#### Data Return Package Template
+
+##### Territory-Specific Analytical Products
+
+**Delivered to:** _________________________________
+**Date:** _________________________________
+**Research Project:** _________________________________
+
+**Included Materials:**
+☐ Territory-specific forest change maps (2000-2023)
+☐ Land cover transition analysis and statistics
+☐ Policy timeline and implementation assessment
+☐ Comparative analysis with other territories (if applicable)
+☐ Interactive mapping tools and databases
+☐ Technical documentation and user guides
+
+**Data Formats:**
+☐ GIS shapefiles and raster data
+☐ PDF maps and reports
+☐ Interactive web-based tools
+☐ Raw statistical data (CSV/Excel)
+☐ Metadata and documentation
+
+**Technical Support:**
+☐ Training materials for using analytical tools
+☐ Contact information for technical assistance
+☐ Instructions for modifying or updating analysis
+☐ Troubleshooting guides and FAQs
+
+**Usage Rights:**
+
+- Your Nation maintains full ownership of territory-specific products
+- You may modify, distribute, or use these materials as you see fit
+- You may request updates or additional analysis at any time
+- You control access to and distribution of these materials
+
+**Ongoing Support:**
+We commit to providing:
+
+- Technical support for using analytical tools
+- Updates to analysis with new data as available
+- Additional training or capacity building as requested
+- Collaboration on future research projects if desired
+
+**Contact for Questions:** _________________________________
+
+---
+
+#### Post-Publication Redress Form
+
+##### Request for Research Content Correction or Removal
+
+**Nation/Community:** _________________________________
+**Date:** _________________________________
+**Publication/Output Affected:** _________________________________
+
+**Type of Request:**
+☐ Correction of factual errors
+☐ Addition of missing context or disclaimers
+☐ Removal of contested content
+☐ Attribution changes
+☐ Methodology clarification
+
+**Specific Issues:**
+
+[Provide detailed description of issues]
+
+**Requested Actions:**
+☐ Publish correction or clarification
+☐ Remove content from online platforms
+☐ Add community perspective or disclaimer
+☐ Revise methodology description
+☐ Provide right of response in same venue
+
+**Supporting Information:**
+(Attach relevant documentation, traditional knowledge, or alternative interpretations)
+
+**Community Representative:**
+Name: _________________________________
+Title: _________________________________
+Contact: _________________________________
+
+**Researcher Response Commitment:**
+We commit to:
+
+- Acknowledging receipt within 5 business days
+- Providing substantive response within 30 days
+- Taking requested corrective actions where appropriate
+- Maintaining ongoing dialogue to resolve concerns
+
+**Timeline for Resolution:** _________________________________
+
+**Follow-up Contact:** _________________________________
+
+---
+
+### Implementation Guidelines
+
+#### For Research Teams
+
+**Pre-Research Checklist:**
+
+- [ ] Identify all Indigenous territories in study area
+- [ ] Prepare outreach materials in appropriate languages
+- [ ] Establish community contact protocols
+- [ ] Develop territory-specific analytical capabilities
+- [ ] Create data withdrawal and revision procedures
+
+**During Research:**
+
+- [ ] Maintain regular communication with Indigenous partners
+- [ ] Document all community feedback and requests
+- [ ] Adjust methodology based on Indigenous input
+- [ ] Prepare territory-specific analytical products
+- [ ] Conduct regular reviews of ethical compliance
+
+**Post-Research:**
+
+- [ ] Deliver promised analytical products to communities
+- [ ] Provide ongoing technical support
+- [ ] Monitor for community feedback or concerns
+- [ ] Maintain relationships for future collaboration
+- [ ] Document lessons learned for future research
+
+#### For Indigenous Communities
+
+**Engagement Decision Framework:**
+
+1. **Assess Research Relevance**: Does this research affect your territorial interests?
+2. **Evaluate Researcher Credentials**: Are researchers committed to Indigenous data sovereignty?
+3. **Consider Community Capacity**: Do you have capacity to engage meaningfully?
+4. **Determine Engagement Level**: What level of involvement serves your interests best?
+5. **Establish Clear Expectations**: What do you want from this research relationship?
+
+**Questions to Ask Researchers:**
+
+- How will our territory be represented in your analysis?
+- What control do we have over research outputs?
+- How will this research benefit our community?
+- What happens if we disagree with your interpretations?
+- How do you ensure research doesn't harm our interests?
+
+This appendix provides practical tools for implementing the Indigenous Data Sovereignty Protocol, ensuring that ethical principles translate into concrete actions and respectful relationships between researchers and Indigenous communities.
