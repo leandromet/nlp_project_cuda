@@ -1,0 +1,16 @@
+{
+  "name": "ajuda_doc",
+  "version": "1.0.0",
+  "main": "capture_screenshots.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "puppeteer": "^24.11.2",
+    "sharp": "^0.34.2"
+  }
+}

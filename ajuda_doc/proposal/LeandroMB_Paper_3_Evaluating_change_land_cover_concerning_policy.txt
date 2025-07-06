@@ -1,0 +1,627 @@
+﻿EVALUATING CHANGES IN FOREST LAND COVER, CONCERNING POLICY IN BRAZIL AND CANADA
+Leandro Meneguelli Biondo - PhD student IGS/Sustainability
+Supervisor: Jon Corbett
+THE UNIVERSITY OF BRITISH COLUMBIA
+Okanagan
+April 2025
+Extended research paper 3 of 3 as part of the Comprehensive Examination Process for Doctoral Students in the Interdisciplinary Graduate Studies Program
+
+
+
+
+Abstract
+This paper examines the impact of land use and forest related policies on changes in forest cover over time in Brazil and Canada. I weave policy development with spatial data analysis, using remote sensing imagery and land cover classification products. I consider various policy instruments, including zoning regulations, environmental policies, and agricultural strategies. The focus of the paper is on examining policy effectiveness in achieving sustainable forest management.
+In the analysis, I highlight three key geographic areas, the Brazilian Amazon and the Atlantic Forest, and British Columbia forests alongside the forest policies in Brazil and Canada. I discuss potential land cover changes in these regions.
+I include case studies demonstrating how different policy approaches, historical contexts, and
+Socioeconomic factors influence land use outcomes to illustrate our findings. Additionally, I
+explore the role of customary law and Indigenous land rights in shaping contemporary forest
+management policies. This discussion suggests a methodology for evaluating the relationship
+between policy and land use change.
+Abstract        1
+Glossary of Technical Terms        2
+Introduction        6
+Originary People in the Americas - Indigenous Communities        12
+Forestry Historical Context        16
+Brazil - Amazon        18
+Brazil - Atlantic Forest        22
+Canada - British Columbia        25
+Background on the intersection of land use and policy.        25
+Political scales of land use policies        25
+Impacts of Key Land Use Policies: Examples and Case Studies        25
+Comprehensive Framework        25
+Establishing a Link Between Policy and Spatial Data        25
+Evaluating Policy Effectiveness Over Time        25
+Conclusion        25
+Bibliography        25
+
+
+
+
+
+
+
+
+
+
+  
+
+Figure 1 - Word cloud generated from libraries WordCloud and MatPlotLib with this document.
+
+
+________________
+Glossary of Technical Terms
+Aboriginal – A term formerly used in Canadian government documents to refer to Indigenous peoples, now becoming less common.
+Agri-environmental programs – Policies incentivizing farmers to adopt environmentally beneficial practices, often through financial mechanisms.
+Agriculture Ecological Zoning (AEZ) – A Brazilian policy organizing productive activities across landscapes.
+Agricultural Land Reserves (ALR) – Areas in British Columbia designated for farming, like Brazil’s AEZ.
+Baseline (policy evaluation) – Pre-policy land use patterns used as a reference to assess policy impacts.
+Caboclos – A Brazilian term for people of mixed Indigenous and Portuguese ancestry living inland.
+Caiçaras – A Brazilian term for people of mixed Indigenous and Portuguese ancestry living near the coast.
+Cause-and-effect relation – The link between policy interventions and land use outcomes, detectable through appropriate timeframes.
+Change detection methods – Techniques for identifying shifts in land cover over time.
+Command and control policies – Regulatory measures enforcing environmental goals.
+Dyna-CLUE – A GIS-based model simulating future land use changes under policy scenarios.
+ECO92 (Earth Summit) – The 1992 UN Conference on Environment and Development in Rio de Janeiro, shaping global environmental governance.
+Externalities – Unaccounted costs or benefits of decisions, contributing to market failures.
+First Nations – A contemporary term for Indigenous peoples in Canada (excluding Métis and Inuit).
+Forest and Range Practices Act – A 2005 BC law protecting old-growth forests, biodiversity, and cultural heritage.
+Forest Practices Code – A 1995 BC reform integrating forest management standards.
+Forest transition theory – Describes regions shifting from deforestation to forest regrowth due to socioeconomic or policy changes.
+GIS (Geographic Information Systems) – Tools for mapping and analyzing spatial policy impacts.
+Granularity of analysis – The level of detail (temporal or spatial) in policy evaluation.
+Ground surveys – Field observations validating remote sensing data.
+Horizontal integration (policy) – Cross-sectoral coordination of climate and development policies.
+Indian – A pejorative term for Indigenous peoples in Canada (still present in some laws).
+Indigenous Peoples – The preferred term in Canada and this paper for original inhabitants.
+Indígena – The correct Portuguese term for Indigenous people in Brazil.
+Índio – A pejorative Portuguese term for Indigenous people in Brazil.
+Integrated methodology – Combines policy analysis with spatial data (e.g., remote sensing) for land use assessment.
+Land cover classification – Categorizing land types using remote sensing or field data.
+Land degradation neutrality (LDN) – A goal to avoid, reduce, and reverse land degradation.
+Land-use planning – Coordinates sectoral objectives to balance land-use demands.
+Landscape biography – Examines long-term land use history and socio-ecological interactions.
+Landscape metrics – Quantitative measures (e.g., patch size) assessing fragmentation and policy effects.
+Lags – Delays between policy implementation and observable impacts.
+Law of the Atlantic Forest (Law 11.428/2006) – Brazilian law restricting forest management in the Atlantic biome.
+LuccME – A GIS model quantifying regional land use change dynamics.
+Mapping policy boundaries – GIS visualization of policy extents (e.g., protected areas).
+Market failures – When decision-makers ignore full costs/benefits, leading to unsustainable practices.
+Modelling land use change – Simulating policy impacts on land use via spatial models.
+National Spatial Plan (NSP) – Kenya’s framework for national development projects.
+Originary Peoples (Povos Originários) – Brazilian term for Indigenous Peoples.
+Overlay analysis – GIS technique layering datasets to identify policy conflicts/synergies.
+Path dependence – How historical conditions constrain future policy directions.
+Policy analysis – Evaluates objectives, strategies, and effectiveness of resource management.
+Policy coherence – Minimizes conflicts and synergies across governance levels.
+Policy gap analysis – Identifies unmet challenges (e.g., in BC’s Forest carbon policies).
+Policy mixes – Coordinated policies needed for sustainability (single instruments are insufficient).
+PPCDAm – Brazil’s 2004 action plan to curb Amazon deforestation.
+PRODES – Brazil’s deforestation monitoring program for the Legal Amazon.
+Proximity analysis – Examines how distance influences land use patterns.
+Protected Areas Strategy (PAS) – A 1993 BC initiative to expand protected lands.
+Options-net present value (NPV) – Assesses irreversible land use trade-offs (e.g., forestry conversions).
+REDD+ – International initiative to reduce deforestation emissions; Brazil’s version is ENREDD+.
+Remote sensing – Satellite/airborne imagery for land cover analysis.
+Scenario-based approaches – Tools projecting policy impacts under future conditions (e.g., climate change).
+Secondary vegetation / secondary forests – Regenerated forests, often unstable due to re-clearing.
+Soy and Beef Moratoria – Brazilian agreements banning products from newly deforested areas.
+Spatial correlation – Analyzes relationships between spatial variables (e.g., policy vs. deforestation).
+Spatial data analysis – Uses remote sensing to evaluate policy impacts spatially.
+Spatial models – Simulate policy-land use interactions (e.g., agent-based models).
+Sustainable Forest Management (SFM) – Balances environmental, social, and economic forest uses.
+TerraClass – Brazilian program classifying land use in deforested Amazon areas (pre-2008).
+Time-series satellite data – Sequential imagery tracking land cover dynamics.
+Vertical integration (policy) – Incorporates climate goals into sector-specific policies.
+
+
+
+
+Introduction
+The intersection of land use and policy is crucial for achieving sustainable development. This paper integrates concepts from previous analyses of policy (Paper 1 - Policy Analysis for a Changing Forest Region) and land use change (Paper 2 - Land Cover Change, Forest Analysis in Brazil and Canada) to propose a methodology for evaluating their interplay. I bring key concepts from policy analysis, such as policy gap analysis (e.g., BC's forest carbon mitigation policy), different policy instruments combination (e.g., South Korea's sustainability transitions), policy coherence, and scenario-based approaches (e.g., impacts of climate change and land use on South Korean forests). I also include contributions for this integrated analysis on land-use planning (e.g., Kenya's LDN objectives) and economic valuation methods (e.g., options-net present value). The evolution of forest-related policies from exploitation to sustainable management provides further context in both countries. (Gichenje et al., 2019; Piorr, 2003; Zerriffi et al., 2023)
+
+
+I drafted this last paper targeting a guided path to my research joining the evolution of rules on paper with changes detected in the territory with GIS tools. I will try to enable: the discussion of scenario-based approaches to evaluate the relationship between land use change and forest policies (Choe & Thorne, 2017; Lippe et al., 2022); The examination of policy mixes,in promoting sustainable forest management, as from initial studies I expect a complex bureaucratic causation relation to land usage swifts (Cunha et al., 2016); And investigate the interplay between climate change mitigation and adaptation in  policy (Di Gregorio et al., 2017; St-Laurent et al., 2021).
+ I initially planned to investigate Forestry policies and now I pursue forest and land use related policies. The difference is recognizing the ecosystemic changes occur from multiple policy structures. I must merge Forestry, Indigenous, Environmental, Agrarian, Territorial, and other policies to select related objectives and consequences that ended up influencing what I see in geospatial data.
+
+
+Policy Analysis
+In Paper 1 - Policy Analysis for a Changing Forest Region, I discussed the importance of public policies in outlining objectives and strategies for resource management and resolving associated issues. In forestry, these policies encompass regulations and goals to oversee the use and conservation of forest resources. Defining a policy's boundaries is crucial. It involves identifying the issues that the policy addresses, its geographic area, and the affected stakeholders. The boundaries can differ based on the analyst's perspective. For instance, one might focus on international relations, while another may prioritize local biodiversity impacts, and two viewpoints shall highlight distinct aspects of the same ruling. The policies are the result of social and governmental processes with varying forces influencing it and unrelated rules may affect the same subject, as well as one "Forest policy" can reflect limitations on urban planning or commercial matters on aviation. I am looking at first defining the research boundaries for policy importance and then selecting the policies reaching those boundaries. 
+
+
+A thorough policy analysis also emphasizes historical context. Understanding how land use has evolved-from initial human occupation to colonization and the development of formal policies-is vital. This historical perspective helps explain the origins and objectives of current regulatory frameworks.
+
+
+It is also essential to consider the perspectives of diverse stakeholders. Indigenous communities, government sectors, and industry representatives are critical to effective policy development. The behaviours and societal relationships among these stakeholders significantly influence forest management decisions.
+
+
+Practically, policy analysis in forest management involves using tools and frameworks to navigate the complex interactions within forest ecosystems. For example, forest sector models and decision support systems (DSS) can aid policymakers and stakeholders in understanding the consequences of various management options and policy measures.
+
+
+Moreover, combining different policy instruments, such as climate mitigation, sustainable forest management, and research and development (R&D) policies, can often be more effective than relying on a single approach. Evaluating the design and implementation of forest policies to ensure they achieve desired outcomes, such as combating illegal logging or protecting riparian areas, is crucial.
+
+
+Finally, assessing policy effectiveness requires determining whether policies meet their intended goals, such as promoting sustainable forest management or mitigating deforestation. This evaluation often involves a close examination of implementation and compliance mechanisms. Policy shortcomings can become evident when policies are inefficient or inaccurate or when affected individuals feel disconnected from decision making processes and their outcomes. Therefore, a comprehensive evaluation of the relationship between land cover change and policy must integrate with a clear understanding of policy concepts, historical context, stakeholder perspectives, practical applications, and effectiveness assessments.
+
+
+
+
+Land Cover and Use change
+As discussed in Paper 2 - Land Cover Change, Forest Analysis in Brazil and Canada. To effectively evaluate land cover change, it is essential to understand the fundamentals of land cover classification. This process systematically categorizes land based on its use. Typically, data classification is derived from remote sensing technologies, such as satellite imagery, or through field observations.
+
+
+Land cover classification plays a vital role in understanding the spatial distribution of human activities and land management practices. We assign areas to specific categories, including forest land, cropland, grassland, wetlands, settlements, and other types of land. It is important to note that land cover differs from land use, which focuses on human activities. However, land cover data is fundamental for making inferences about land use.
+
+
+Accurate and consistent land cover classification is crucial for monitoring changes over time and for informing sustainable land management practices. Various methods are used to create and validate land cover data, and remote sensing is particularly effective. Its strengths lie in spatial resolution, repeated coverage, and cost-effectiveness for viewing large areas.
+
+
+We employ several techniques in land cover studies, including time-series satellite data analysis, historical maps, and change detection methods. These methods help understand land cover dynamics. However, data obtained through remote sensing must be validated with ground surveys and field observations to ensure accuracy and reliability.
+
+
+Various satellite imagery sources, such as Landsat, SPOT, and MODIS, provide valuable land cover mapping and monitoring data. Each source offers different spatial and temporal resolutions. Initiatives like the Copernicus Climate Change Service (C3S) and Global Forest Watch provide annual global land cover data. This information is crucial for addressing climate change and monitoring environmental conditions.
+
+
+Land cover change is a critical global issue with significant environmental and socio-economic implications. Different drivers and patterns of change are evident in regions like Brazil and Canada. In Brazil, deforestation is primarily driven by agricultural expansion and economic speculation, especially in areas like the Amazon. In contrast, Canada experiences land use variations influenced by logging, mining, and urbanization. Here, forest management practices prioritize sustainability.
+
+
+By comparing the dynamics of land cover change in Brazil and Canada, we can gain valuable insights into sustainable forest management on a global scale. Accurate land use classification is important for urban planning, environmental management, and policymaking. It is a foundation for monitoring deforestation, managing forest resources, protecting ecosystems, and understanding interactions between land uses.
+
+
+This data is vital for developing and evaluating land use policies related to climate change mitigation and adaptation. By analyzing how Brazil and Canada use land cover classifications in their policies and examining specific examples of land cover change, we can establish a stronger foundation for evaluating the interplay between policy and land cover dynamics.
+
+
+Overview of Land Use Policies
+International agreements, such as the United Nations Sustainable Development Goals (UN SDGs), the Paris Agreement, and the Convention on Biological Diversity (CBD), significantly impact national policies. These policies relate to emissions, biodiversity, and land use. Market forces, including the international demand for agricultural products, also influence land use decisions.
+
+
+At the national level, Canadian policymakers have implemented a climate action plan to address environmental concerns, although they have identified gaps in forest carbon mitigation. In British Columbia, regulations and acts known as the Forest and Range Practices Acts govern the management of forest and range practices. Ecuador's officials have established national plans to restore forests, highlighting a strong commitment to reforestation. Additionally, Ecuador actively participates in REDD+ initiatives that focus on reducing deforestation and emissions from forest degradation. These efforts demonstrate a comprehensive approach to environmental preservation and sustainability. 
+
+
+ The City of Kamloops has adopted a Community Climate Action Plan (CCAP) to reduce fossil fuel use and transition to a low-carbon future. The plan targets a 30% reduction in community greenhouse gas emissions by 2030 and up to 80% by 2050 from a 2007 baseline, supporting the Province's CleanBC Plan. Additionally, Official Community Plans (OCPs), required by the Local Government Act in British Columbia (BC), guide land use management and must include emission reduction targets and policies. OCPs establish long-term strategies for land use, infrastructure planning, and community development, ensuring consistency with Council or Board decisions. Although related to federal law, the formerly enslaved (Quilombola) Brazilian community land destination tries to support administratively vulnerable people on a smaller geographical scale (de França et al., 2024; Faggin & Behagel, 2017; Gichenje et al., 2019; Zerriffi et al., 2023).
+
+
+Originary People in the Americas - Indigenous Communities
+We use the term "Indigenous Peoples" along the images and analysis in this text. In Brazil specialists and government officials are using the term "Originary Peoples," direct translation from the Portuguese term "Povos Originários." This term refers to the individuals and communities that inhabited the Americas before colonization or are related to those societies. While these groups may intersect with individuals from other continents, they identify with or are recognized as connected to the original peoples of the Americas. 
+  
+The author's grandmother, Jaciara Camargo Biondo (moon child) has background related to Brazilian indigenous and colonization history. Her mother, Maria Ambrosina, had a Brazilian indigenous family. According to family memories, Ambrosina's mother had origins in a village on the São Paulo coast of "Caiçaras" people (someone with Indigenous and Portuguese ascendance near the ocean), and her father had origins in a village in Minas Gerais "Caboclos" (same ascendance further into the land) people in the interior region. She bestowed Indigenous names upon her child as an act of remembrance. 
+
+
+The memories account for Ambrosina living and working in a farmer's house and later marrying him; her mother had her name "made" on Ambrosina's marriage certificate. Jaciara believes her grandmother came to the family from the Indigenous community nearby and worked in the farm before her daughter. There is no evidence or story about forced labour or mistreatment in their past; they were adopted by the settler's family in a certain way. The farmer voted in the first Brazilian direct election in 1894, meaning he was sufficiently old and had   wealth to have that right. Ambrosina's, on the other hand, appears to come from early (1500-1750) European people who were part of the failed efforts to colonize Brazil. These people developed communities with the Indigenous peoples after losing support from the crown.
+
+
+Walter Wolmes Biondo (named after some name his mother took from a magazine; she was the only person who pronounced it as "Vórmi"), Jaciara's husband, also has roots in this Brazilian standard mixture of indigenous inhabitants and early and more recent immigrants. His mother had Italian ascendance, and his father was also a "Caboclo." they do not precisely know the mixes. However, considering the places cited as origin, they also relate to earlier villages formed by remnants of abandoned Europeans and Indigenous survivors.
+
+
+This family history may seem vague, but it is for a fair reason. Brazil is highly diverse overall, and its people are very mixed compared to other countries, partly because colonization happened in disorganized and uncontrolled ways due to settlement inefficiencies considering the colonizing objectives. That mix has a historical sentiment that Brazilian people must be proud of their European heritage (Portuguese, Italian, Spanish, German, and others) and not necessarily the Indigenous, African, or Asian portion. Traditionally many Brazilian nationals pursue recognition of this past in the source country not only for being their right, but notably to distinguish themselves from the miscegenetic reality of the country. 
+
+
+The originary Indigenous roots have immense value within communities who identify as Indigenous but not as much when mixed, resulting in "Caboclos and Caiçaras." Brazilian society value the European genealogy of families; they often do not pass along their knowledge of indigenous heritage. Most knowledge of Jaciara and Walter's non-European past came indirectly from cousins, aunts, and friends of their parents. 
+
+
+Since the Indigenous nations that existed in Brazil also did not have the concept of family names before European colonization, no documentation exists even for studying surname relationships in public registries. That document's research frequently supports citizenship claims, only tracking European origins.
+  
+Considering the terminology used in Brazil and Canada to refer to Indigenous communities, the author uses "Indigenous Peoples" as a respectful and complete term. 
+  
+In Brazil, people commonly use the following terms: 
+- Indígena (Indigenous), which is correct, has the exact origin as indian, indiano, índio. 
+- Índio, which has become pejorative. This term, like the English word "Indian," used historically for the Indigenous peoples of North America, can be misleading. Brazil uses the term "Indiano" to refer to individuals from India. 
+- Povos Originários (Originary Peoples) is a newer version, which may become default in the future. 
+  
+In Canada, the English language is similar: 
+- Indian carries a pejorative connotation also in English. Still present in some legislation. 
+- Indigenous is the preferred and correct term, but similar origin to Indian. 
+- Aboriginal in the past was officially used in government documents but is becoming less common. 
+- First Nations refers to indigenous peoples outside the Métis and Inuit groups. 
+  
+It is important to note that many Indigenous people in both countries may refer to themselves using the term Índio/Indian and might even request that others do the same. This is particularly true for older or more traditional individuals who are accustomed to the term. 
+  
+Over time, the official terminology for Indigenous groups in Brazil and Canada has evolved. Initially, the legislation used Índio/Indian, but it shifted to Indigenous/Aboriginal over time. The most recent terminology acceptable today includes "First Nations" in Canada and "Originary Peoples" in Brazil. Brazil does not have an equivalent term for "First Nations." 
+  
+In summary, when writing about these communities, the author aims to use the correct terms specific to each country while maintaining original legislative language when citing texts or events. However, when comparing both regions in maps and tables, the author prefers the most common updated and extemporary term, "Indigenous Peoples."
+
+
+
+
+Forestry Historical Context
+The evolution of forest management policies reflects changing social values and a shifting focus on sustainability. Several factors have contributed to this shift, including:
+1. Policy Learning: As societies became more aware of environmental issues, governments have adapted their policies based on previous successes and failures.
+2. Technological Advancements: The development of innovative technologies, such as remote sensing and Geographic Information Systems (GIS), has improved forest practices.
+3. Governance Changes: The balance between centralization and decentralization in governance also influenced forest management strategies depending on the country.
+For example, since the 1990s the United States, Brazil and Canada have significantly shifted toward prioritizing biodiversity conservation and carbon storage in their forest management practices.
+  
+
+Figure 4 - Brazil Biomes as represented in the geographic and statistic institute (IBGE). From the north, the Amazon is a tropical forest region, Cerrado is a type of Savanna, Caatinga is drier with trees and vegetation unique to that region, not found anywhere else in the world. Pantanal is a tropical wetland, the Atlantic Forest is also tropical, and Pampa is a grassland plain with a more temperate climate.
+
+
+  
+Figure 5 - Brazil Amazon Biome, estimated forest cover in 2000, federal protected conservation in bright green areas and indigenous designated lands with yellow contour.
+
+
+Brazil - Amazon
+Before implementing the Action Plan for Prevention and Control of Deforestation in the Amazon (PPCDAm) in 2004, deforestation rates in the Brazilian Amazon were remarkably high. Deforestation in the Brazilian Amazon between 1988 and 2008 amounted to a total of 719,710 km², twice Germany’s land area. This extensive deforestation significantly impacted ecosystem services, biodiversity, water cycles, and the carbon cycle. Multiple factors drove it, including large-scale cattle ranching, industrial timber harvesting and wood production, soybean cultivation, and infrastructure investments. Land use and land cover changes (LULCC) in tropical countries like Brazil significantly contribute to greenhouse gas emissions (Almeida et al., 2016; Aragão et al., 2018; Cunha et al., 2016).
+
+
+The PPCDAm was launched by the Brazilian government, with three phases (2004-2008, 2009-2011, and 2012-2015), it aimed to reduce illegal deforestation and establish sustainable development in the Amazon. By 2015, Brazil had achieved a 66% reduction in Amazonian deforestation rates compared to the mean in 1988-2004. This reduction was also the result of civil society pressure and economic and public policy actions. The PPCDAm included measures such as creating environmental protection areas, restricting rural credit to non-compliant areas, issuing fines, and embargoing the sale of products from illegally deforested areas. These command-and-control policies were effective in reducing primary forest deforestation (Saraiva et al., 2020).
+
+
+However, despite the reduction in deforestation, there have been periods of increased forest fires, often associated with drought events rather than deforestation itself. Fires are the main pathway for removing plant biomass and transferring carbon to the atmosphere. There was a significant increase in fire activity during the 2006-2008 and 2015 drought years. These droughts have led to a decoupling of fire-related and deforestation-related carbon emissions. 
+
+
+Although deforestation rates have declined, the number of active fires has proportionally increased. For example, in 2015, the number of active fires was 15% higher than the mean number of fires during the first PPCDAm phase (2004-2008), despite a 78% reduction in deforestation rates compared to 2004. Forest fires alone are now a major contributor to carbon emissions in the Amazon, sometimes surpassing those directly associated with deforestation. These fires are impacting areas in central Amazonia that were previously less affected. This change in the dynamics of forest fires suggests a new phase of land use and land cover change (Aragão et al., 2018).
+
+
+The Brazilian government has made significant efforts to monitor deforestation through the Program for Deforestation Monitoring in the Brazilian Legal Amazon (PRODES). TerraClass is a complementary program that adds information about land use and land cover in deforested areas up to 2008. In addition, there have been efforts to create detailed maps of land use and land cover of the deforested regions of the Brazilian Legal Amazon (Almeida et al., 2016).
+Brazil implemented several initiatives and factors that influence forest management. The government enacted the National Forest Act to regulate forest use and conservation. Traders agreed to the Soy and Beef Moratoria, refusing to buy products from areas deforested after a specific date. Brazil created the Chico Mendes Institute for Biodiversity Conservation (ICMBio) and the Brazilian Forest Service (SFB) to protect biodiversity and promote sustainable forest management. 
+ 
+The country established the Program for Protected Areas in the Amazon (ARPA) to preserve and protect areas in the Amazon region. The Amazon Fund provided financial resources to combat deforestation and forest degradation. In 2015, Brazil approved the National Strategy for REDD+ (ENREDD+), which cites Sustainable Forest Management (SFM) as part of its scope. The government implemented Public-private Forest concessions and supports community-based forest management to promote sustainable forest use and reduce deforestation in public forests.
+
+
+ The forest transition theory describes a long-term process in which, after a period of deforestation and decline in primary forests, a region experiences stabilization and then an increase in forest cover, often through the regeneration of secondary vegetation. Socioeconomic changes, such as urbanization, agricultural intensification, and policy interventions, typically drive this transition. In the Brazilian Amazon, recent years have seen a substantial increase in secondary vegetation. About half of the new forest areas since the mid-2000s relate to natural forest regeneration (secondary forests) rather than active reforestation (Faggin & Behagel, 2017; Saraiva et al., 2020). It is important to note that secondary vegetation is not always permanent. After sorting out the land tenure for occupying abandoned or litigated areas, these regrown forests can be legally cleared and reincorporated into agricultural or extractive production, which means their contribution to long-term forest cover and biodiversity is uncertain.
+
+
+However, there has been a recent trend reversal: Deforested areas have increased from 4571 km² in 2012 to 9762 km² in 2019. This increase could be due to changes in government policies regarding land regularization, Indigenous lands, and mining. Also, the focus on combating deforestation has overshadowed the importance of sustainable forest management (SFM) as an alternative to land use change. Brazil’s forest management history involves a complex interplay of deforestation, policy interventions, climate events, and socio-economic factors.
+
+
+While the country has made significant strides in reducing deforestation through policies like PPCDAm, it faces ongoing challenges, including the increasing dominance of forest fires, the need to improve the management of secondary forests, and addressing the drivers of deforestation such as agricultural expansion, especially in the Cerrado biome. Also, there needs to be a greater focus on incorporating SFM into climate change policies (Bezerra et al., 2022; Faggin & Behagel, 2017).
+
+
+Brazil - Atlantic Forest
+The forest management histories of the Brazilian Amazon and Atlantic Forest biomes differ significantly, primarily due to their geographical distribution and accessibility. As the name suggests, the Atlantic Forest covers a coastal strip from south to north of South America, ranging between 50 and 600 km west of the Atlantic Ocean. The forest extends for 3,200 km (about twice the distance from Florida to New York City) from south to north, and it contains 72% of the country's population as of 2020 (150 of 210 million people) (Lembi et al., 2020).
+
+
+The Atlantic Forest has faced extensive historical deforestation with no satellite imagery or extensive land cover for field inventory. This degradation intensified the focus on conservation over sustainable forest management (SFM).
+  
+
+Figure 6 - Brazil Atlantic Forest Biome in light green, estimated forest cover in 2000 in green, federal protected conservation in bright green areas and indigenous designated lands with yellow contour.
+
+
+In the case of the Atlantic Forest, its area drastically declined from covering 12% of Brazil in 1500 to only 1,2% in 2020, or 10% of its original area as shown in Figure 7. Agriculture and cattle raising are primarily responsible for this decline. As a result, the Atlantic Forest is now the most degraded biome in Brazil relative to its original natural vegetation coverage. Conservation efforts in this region are motivated by its elevated level of degradation, proximity to major population centers, and visibility, making it a target for national and international organizations. These international efforts focus primarily on strict conservation strategies rather than SFM (Couto & Dubé, 2001; Faggin & Behagel, 2017).
+
+
+The Law of the Atlantic Forest (Law 11.428/2006) imposes strict conditions on managing natural forest cover, further complicating the implementation of SFM practices in the region. Unlike the Amazon, where deforestation rates relate to illegal logging and agricultural expansion cycles, the Atlantic Forest's challenges stem more from historical land use and severe degradation. The Atlantic forest's past was much like the recent history of Amazonian degradation but with little to no control over environmental impacts.
+
+
+Brazil's National Strategy for REDD+ (ENREDD+), which identifies SFM as one of its goals, includes both biomes. However, this focus may not translate into specific policies or actions. The Amazon has a strong history of policies aimed at reducing deforestation, and some progress has been made, albeit with fluctuations due to climate events, governance, and policy changes. Meanwhile, the Atlantic Forest remains primarily a site for conservation, and its policy environment does not support SFM initiatives as effectively (Cunha et al., 2016; Faggin & Behagel, 2017; Saraiva et al., 2020).
+
+
+  
+  
+  
+        
+Figure 7 - Brazil’s 2023 land cover according to Mapbiomas collection 9 on top with approximately 62% forested area. In the bottom left we have the Amazon Forest biome and bottom right the Atlantic Forest. About 65% of the country's population lives in the Atlantic Forest that sums up 12% of the territory with less than 15% covered by native forests. The whole biome was covered by forests in the 1500s and only the green areas today. The Amazon covers 40% of the national area with 78% forest cover and 14% of the population; it also had 100% forest coverage 500 years ago.
+  
+Figure 8 - Brazil’s main legislation changes on forest policies from 1965, and a land cover change analysis for a 2024 flooded area in the southern region. The region has half of its area in the Atlantic Forest biome and half in natural grasslands impacted by the protection rules and agricultural expansion, particularly to produce soybeans. 
+
+
+
+
+
+
+  
+
+Figure 9 - Canada vegetation zones, British Columbia is in the western extremity with areas in the zones Alpine Tundra, Boreal Forest & Woodland, Cordilleran Cool Temperate Forest, Pacific Cool Temperate Forest and Grassland, Parkland & Steppe.
+
+
+  
+
+
+
+Figure 10 - British Columbia province, estimated forest cover in 2000, protected conserved areas and Indigenous Lands (aboriginal administrative areas).
+Canada - British Columbia
+The evolution of forest management in British Columbia (BC) went through distinct phases, each shaped by changing priorities and values. From 1867 to 1930, the primary focus was on revenue generation. During this period, forests were viewed as exploitable resources for economic gain. Land clearing for agriculture and the extraction of animal products, primarily fur, were also significant activities.
+
+
+The growing demand for timber from BC led to increased exports, further encouraging agricultural settlement. This shift in focus came with introducing the first Forest Act of 1912. This Act established a system where the government owned the land and collected rents for timber harvesting (Hoberg et al., 2016; Sutherland et al., 2023; Zhang, 2005).
+
+
+During this period, the province primarily focused on maximizing revenue through timber utilization. However, between 1930 and the 1990s, there was a significant shift towards conservation and management. This change recognized the importance of regenerating logged areas.
+
+
+In 1945, the Royal Commission introduced the concept of sustained yield (SY), which aimed for continuous timber production. Unfortunately, SY did not create any obligations for the industry to regenerate logged stands. As a result, areas suffering from "insufficient restocking" (NSR) increased.
+
+
+The 1948 BC Forest Act formalized the idea of 'sustained yield forestry.' This concept tried to facilitate the liquidation of old-growth forests and establish a regulated forest with uniform age-class distributions. However, by the 1960s, public concern over land use was growing. In response, the Forest Service began discussing "balanced use" policies, though concrete implementation was lacking. While introducing amplified multi-sectorial forest management, the ongoing focus remained on maximizing productivity. Consequently, the transition to integrated resource management did not decrease timber extraction rates.
+
+
+During this time, harvesting rates increased alongside infrastructure development. Unfortunately, tree planting efforts lagged until the 1980s. The emergence of environmental concerns in the 1970s led to a broader consideration of values in forest management. Though monitoring systems intended to limit overcutting, they had a limited impact on the primary objective of maximizing timber harvest. Additionally, fire suppression became a key practice, resulting in more homogeneous landscapes and increased fuel loads (Sutherland et al., 2023).
+
+
+From the mid-1990s onward, the focus of forest management shifted to sustainable forest management (SFM). This change was driven by public protests and increased media attention. It led to significant changes in governance, through the introduction of the Protected Areas Strategy (PAS), which aimed to expand the area of protected land.
+Key legislation and policies during this period included:
+1. The Timber Supply Review (1992-1993)  
+2. The Biodiversity Strategy (1992)  
+3. The Protected Areas Strategy (1993)  
+4. The Forest Renewal Act (1994)  
+5. The Forest Practices Code (1995)  
+The Forest Practices Code of 1995 was a major legislative reform aimed at improving forest management and integrating resource management across the province. The Code established comprehensive rules and standards for forest practices, including planning, harvesting, road building, reforestation, and protection of environmental values (such as water, wildlife, and biodiversity). It required forest companies and government agencies to consider multiple resource values, not just timber production, when making decisions, promoting a more holistic and sustainable approach to land use. 
+
+
+The Code introduced stricter enforcement, monitoring, and public accountability, with penalties for non-compliance. It marked a shift from industry self-regulation to government oversight and public involvement in forest management. However, it faced criticism for failing to meet the forest industries and the public's needs. Despite these efforts, timber harvesting continued happening on marginal land, resulting in economic and ecological losses. (Di Gregorio et al., 2017; Hoberg et al., 2016).
+A similar trend occurred with the Forest and Range Practices Act of 2005, which aimed to protect old-growth forests, biodiversity, and cultural heritage. Despite stricter regulations and a focus on sustainability, timber harvesting on sensitive lands continued, leading to ongoing ecological and economic concerns. Both acts shifted some responsibility from the industry to the government; however, enforcement and monitoring were often criticized as insufficient or inconsistent. Public and Indigenous concerns regarding biodiversity, old-growth protection, and cultural values were not adequately addressed, resulting in continued controversy and dissatisfaction. The intended integration of multiple resource values was undermined by the ongoing prioritization of timber production in practice.
+
+
+In addition to legislation, British Columbia implemented several programs and strategies that supported forest product research and development. Notable examples include the Forest Carbon Initiative and the Forest Carbon Strategy. The government also established agreements with First Nations to share "atmospheric benefits" of carbon storage and emissions reductions, like verified tradable carbon credits.
+
+
+Despite these strategic programs, the province has not fully capitalized on opportunities for forest carbon mitigation. Furthermore, the Forest and Range Practices Act does not explicitly recognize or value carbon, limiting its effectiveness in this area.
+
+
+Monitoring programs led by the Ministry of Forests had a limited impact on regulation. In contrast, environmental non-governmental organizations (ENGOs) monitoring raised alarms about the scarcity of old-growth forests. This concern sparked social protests from 2004 to at least 2021, even after the government enforced and improved the FPRA in 2019, related to protecting old growth areas from harvesting in Port Renfrew on Vancouver Island for example. 
+
+
+Path dependence, discussed by Sutherland, defines the evolution of forest management, meaning that initial conditions and self-reinforcing feedback loops make it challenging to change direction. Additionally, colonial-era decision-making dynamics and a focus on economic growth have created institutional legacies that constrain adaptation. There is also a significant lag between policy changes, their implementation, and their actual impact (Sutherland et al., 2023).
+  
+
+Figure 11 - from “Dynamics in the landscape ecology of institutions: lags, legacies, and feedback drive path‐dependency of forest landscapes in British Columbia, Canada 1858-2020” on ecological values, centralizing institutions, and actors through history in BC. (Sutherland et al., 2023)
+
+
+
+
+Key Policies and Their Impact:
+1. Zoning Laws and Spatial Planning:
+   *  Zoning laws help allocate land for different uses. For example, Brazil has implemented agroecological zoning and has multiple national land tenure and planning structured on spatial data, while Kenya recently developed its first National Spatial Plan (2015).
+   * These policies promote coherence in land use and development (Gichenje et al., 2019).
+2. Environmental Regulations:
+   *  Legal frameworks are crucial for effective forest management. British Columbia's Protected Areas Strategy and Brazil's Forest Code are key examples.
+   *  The enforcement of these regulations directly impacts forest regeneration and ecosystem health.
+3. Agricultural Policies: 
+   * Agri-environmental programs provide incentives for conservation efforts. In Canada, such programs encourage sustainable practices among farmers.
+   *    Additionally, subsidies and credit systems can significantly influence land use practices, as seen with the deforestation trends in the Amazon.
+4. Policy Interactions and Unintended Consequences:
+   *  When different policies interact, they can lead to unintended consequences. For instance, income support might encourage agricultural production on sensitive lands.
+   * This highlights the need for careful design and evaluation of policies to minimize negative impacts and enhance positive outcomes.
+ Background on the intersection of land use and policy.
+The intersection of land use and policy is critical for addressing climate change and promoting sustainability, requiring a comprehensive and integrated approach. Policy gap analysis, policy mixes, and policy coherence are important concepts for understanding and improving the effectiveness of land-use policies. Scenario-based approaches, land-use planning, real options-net present value analysis, and understanding the evolution of forestry policy are all important tools and concepts for addressing complex land-use challenges (Choe & Thorne, 2017; Hoberg et al., 2016; Lippe et al., 2022).
+
+
+A policy gap analysis identifies areas where current policies fail to address specific challenges. For example, a policy gap analysis of British Columbia's policies for greenhouse gas (GHG) and forest management reveals that while BC has ambitious climate action for fossil fuel emissions, few policies explicitly target forests or use harvested wood products for carbon mitigation. This lack of specific forest-related policies means an underusage of the potential of the forest sector for carbon mitigation. This type of analysis helps identify where new or modified policies are needed (Hoberg et al., 2016).
+
+
+The concept of policy mixes emphasizes the need for coordinated policy efforts across different areas to achieve sustainability transitions. Relying on a single policy instrument is unlikely sufficient; instead, a mix of strategies offers the most significant potential to mitigate climate change. For example, in South Korea, achieving biodiversity conservation while mitigating climate change will require policy changes to address climate change and forest conversion impacts.
+
+
+The national forest plan in South Korea emphasizes the importance of forest functions in responding to climate change. However, mitigation policies focusing on fast-growing monoculture plantations could conflict with biodiversity conservation needs. Similarly, in Ecuador, a mismatch exists between national forest policies and local land use realities, meaning that a focus on preserving carbon stocks should integrate rural development programs (Choe & Thorne, 2017; Cunha et al., 2016; Lippe et al., 2022; Zerriffi et al., 2023).
+
+
+Policy coherence is essential for effective land use management and involves reducing conflicts and promoting synergies within and between different policy areas. In the context of climate policy integration (CPI), coherence means aligning climate change mitigation and adaptation objectives with each other and with other policy goals (Di Gregorio et al., 2016, 2017). The land use sector CPI requires internal climate policy coherence, ensuring that mitigation and adaptation objectives and policies align. It also demands external climate policy coherence so that climate change and development objectives support each other. Effective CPI integrates climate change considerations vertically into sectoral policies and horizontally through overarching governance structures that enable cross-sectoral coordination.
+A lack of coherence between regimes indicates the existence of one or more policy gaps. For example, in Indonesia, while policy documents refer to positive interactions between mitigation and adaptation, there is a lack of implementation. The Indonesian bureaucracy has had trouble delivering decisive coordinated action in the land use sector, with sectoral ministries maintaining control and weakening policy integration.
+
+
+Similarly, British Columbia lacks coherence between forest and climate policy objectives and instruments. Effective land use and policy integration require not only a thorough assessment of current policies but also the adoption of coherent and coordinated policy mixes across sectors and governance levels (Di Gregorio et al., 2015; Hoberg et al., 2016).
+
+
+Scenario-based approaches help explore the potential impacts of different future conditions. For instance, the study in South Korea used a scenario-based approach to investigate the effects of sixteen climate change and forest conversion scenarios on forest extent and biodiversity. This approach is valuable for assessing the varying impacts of different policy decisions and environmental changes. By projecting these combinations onto existing forests, the study found we could mitigate species richness loss by preserving climatically suitable forest areas.
+
+
+Likewise, in Ecuador, scenario simulations were used to mimic land use and land cover (LULC) changes under varying levels of policy enforcement to understand their impact on forest landscapes. These simulations highlighted the potential trade-offs between policy goals, such as carbon sequestration and habitat integrity, and emphasized the need for integrated approaches (Choe & Thorne, 2017; Lippe et al., 2022).
+
+
+Land-use planning is essential for coordinating decisions and balancing various land-use objectives. In Kenya, studies consider land-use planning an effective mechanism for integrating land degradation neutrality (LDN) into existing planning processes. Land-use planning requires the coordination of different policy goals across various sectors. While Kenya's existing policy instruments contain measures to address LDN, the main shortcoming is a disjointed approach scattered across policy areas, pointing to the need for a more integrated and coordinated strategy.
+
+
+A options-net present value (NPV) approach can assess the opportunity costs of land use change, especially in forestry. This method considers the potential irreversibility of land conversions and provides a more comprehensive valuation than traditional NPV methods. For example, in a case study of afforestation on agriculture-forestry interface around major agricultural land in Canada (multiple province coverage), an accurate options model estimated the opportunity costs of land conversion. This assumption is valuable when assessing land-use changes that may not have an immediate economic benefit but may provide long-term environmental value (Yemshanov et al., 2015).
+
+
+Finally, these analyses reflect the evolution of forestry policy and land use in relation to it. Historically, forest management policies have evolved in response to changing values, such as the protection of freshwater, wildlife, and biodiversity. As scientific understanding of climate change and the role of forests has advanced, policy makers are experiencing pressure to modify forest policies to include both climate change mitigation and adaptation. 
+
+
+Eventually, these analyses reflect the evolution of forestry policy and the relation of land use to it. Historically, forest management policies evolved in response to changing values, such as protecting freshwater, wildlife, and biodiversity. As scientific understanding of climate change and the role of forests has advanced, policymakers are experiencing pressure to modify forest policies to include climate change mitigation and adaptation.
+
+
+For example, in British Columbia, a shift has been made toward incorporating carbon mitigation in forest policy objectives and instruments. Similarly, in Brazil, SFM gained traction as a strategy to achieve environmental, social, and economic goals by using forest resources while maintaining ecosystem services. This shift reflects a broader movement from unregulated resource exploitation to a more integrated approach to forest management. However, the implementation of SFM may vary depending on the specific social-ecological context (Faggin & Behagel, 2017; Hoberg et al., 2016).
+Political scales of land use policies
+International Policies play a crucial role in shaping domestic legislation. These international agreements and initiatives significantly influence rules, norms, markets, and policy development processes. A prominent example of this impact integrates the United Nations’ Sustainable Development Goals (SDGs) and the Paris Agreement. These frameworks directly affect national policies focused on various issues, including emissions reduction, biodiversity conservation, and the overall well-being of communities.
+
+
+These international agreements are particularly relevant in land-use sectors, such as forestry and agriculture. They inform how we manage and separate protected areas from agricultural classes, highlighting the importance of sustainable practices (Zerriffi et al. - 2023). 
+
+
+In Canada, Jacobson, Riggio, Tait, and Baillie (2019) define areas where natural processes predominate. These landscapes exhibit low human density and impact, and human needs do not primarily govern them. At the same time, these areas may not have intact natural vegetation, ecosystem processes, or faunal assemblages. The predominant characteristic is the dominance of natural processes.
+
+
+Another relevant example is the Convention on Biological Diversity (CBD). This international agreement plays a significant role in shaping national policies by influencing market forces, such as the international demand for agricultural and livestock products. This focus on the global impact on local issues highlights the interconnectedness of environmental policies. Policy makers and forestry related people and managers need to understand these connections to grasp the broader context of environmental challenges.
+
+
+
+
+Impacts of Key Land Use Policies: Examples and Case Studies
+Zoning Laws
+A tool for land management, spatial planning allocates land for different uses, like zoning laws or local regulations defined by the government. It allocates possibilities for people to make use of the terrain. Agriculture Ecological Zoning (AEZ) is a policy in Brazil that organizes different productive activities across a landscape, focusing on returning to society, as defined in the country's constitution. British Columbia has similar agricultural land reserves (ALR), considering the scarcity of suitable farming lands. Spatial planning helps coordinate land management decisions across stakeholders and levels of governance, promoting coherence between national and local policies. Kenya's National Spatial Plan (NSP) provides a spatial framework for national projects and socio-economic development policies, designating spatial areas for agricultural uses and tailoring strategies to the specific needs of each region.
+
+
+Environmental Regulations
+Natural resources focused on exploratory economic possibilities until environmental issues became part of the discussion. Science has long recognized the importance of preserving waterways, keeping sections of forests alive, and collecting biological material to register the abundance of species in the new world. That went mainstream in the 1980's-90's, notability after 1992 when Rio de Janeiro hosted the ECO92 "United Nations Conference on Environment and Development" or "Earth Summit". It could have gotten more attention because the Cold War ended not long before, in 1991, after the Berlin Wall fell in 1989 and Germany's unification in 1990. In that period, there was a global movement to regulate ecological aspects of lands, international relations, economic trade, market values and societal behavior towards the environment (Baylis et al., 2022; Bennett & Barton, 2018; Piorr, 2003; Rametsteiner, 2009; Zhang, 2005).
+
+
+Forest codes and regulations establish the framework for managing forest resources, including sustainable forestry practices and restrictions on deforestation. For instance, British Columbia's Protected Areas Strategy in 1993 to contributed to an increase in land protection in Canada from 1991 to 2007. Brazil's 2012 Forest Code directly resulted from those discussions in the 20 years since ECO92. The country experienced international pressure to reduce the impact of exploring the Amazon Forest, which at some point became referred to as the "Earth's Lung." The new ruling helped control deforestation in the Amazon and understand the distribution of natural areas in other biomes, but there are concerns about its implementation and enforcement. "Command and control" policies rely on regulatory measures and enforcement mechanisms to achieve environmental goals. In Brazil, fines for illegal deforestation were positively related to secondary vegetation, indicating that enforcement positively impacted forest regeneration (Aragão et al., 2018; Couto & Dubé, 2001; Faggin & Behagel, 2017; Saraiva et al., 2020; Zerriffi et al., 2023).
+
+
+Agricultural Policies
+Policies and programs can directly and indirectly impact land-use decisions. Agri-environmental programs aim to incentivize farmers to adopt practices that benefit the environment. In the United States and Canada, these programs often involve Farmers receiving financial incentives or payments for conservation practices, which can be effective but raise concerns about fairness and potential trade-offs. Subsidized rural credit can influence land-use choices, contributing to deforestation in the Brazilian Amazon. Agricultural support programs and crop insurance can impact land use by influencing production decisions and the profitability of different crops, sometimes encouraging production on environmentally sensitive lands (Baylis et al., 2022; Eagle et al., 2016; Yemshanov et al., 2015).
+
+
+
+
+
+
+Policy Interactions and Unintended Consequences
+It is essential to understand how different policies interact and their potential unintended consequences is essential. For instance, income support for farmers could encourage production on sensitive lands, undermining conservation goals. Similarly, efforts to reduce deforestation in one area might lead to deforestation shifting to other regions with weaker regulations. Policies should minimize negative unintended consequences and maximize their effectiveness. This understanding is crucial for creating and implementing effective policies for sustainable land management and desired environmental and social outcomes (Aragão et al., 2018; Baylis et al., 2022; Di Gregorio et al., 2015; Gichenje et al., 2019).
+
+
+Comprehensive Framework
+A comprehensive framework is necessary to integrate land use change data for policy improvement, considering historical context, data availability, and stakeholder perspectives. Data from remote sensing, GIS, and historical records helps understand land use dynamics. By combining this data with policy analysis, we can inform policy decisions and assess effectiveness. For instance, deforestation trends identified through remote sensing can be evaluated against forest conservation policies to gauge their impact (Almeida et al., 2016; Cesar De Oliveira et al., 2024; Curtis et al., 2018; Eagle et al., 2016; Ecological Stratification Working Group, 1996; Girma, 2020; MapBiomas, 2023).
+
+
+Land use change patterns indicate policy success or failure. A decrease in deforestation rates following a conservation policy suggests effectiveness. Evaluating effectiveness requires policy coherence, aligning objectives, instruments, and implementation. For instance, land use data can show if a deforestation reduction goal is met (Eagle et al., 2016; Ecological Stratification Working Group, 1996).
+
+
+Effective policy integration is essential to minimize trade-offs and enhance synergies. This involves internal coherence by aligning mitigation and adaptation policies, and external coherence by integrating climate change with development goals. Vertical integration incorporates climate change into sectoral policies, while horizontal integration ensures cross-sectoral coordination through governance structures (St-Laurent et al., 2021; Zerriffi et al., 2023).
+
+
+Scenario-based assessments can simulate land use and cover changes, impacting forests, biodiversity, and carbon stocks. These assessments help identify effective conservation policies and evaluate whether policy goals are met. Additionally, policy gap analyses highlight areas where current policies do not adequately address climate change and forest carbon mitigation (Choe & Thorne, 2017; Lippe et al., 2022).
+
+
+Systematic data collection is crucial for land monitoring, supported by accountability measures for policy implementation and decision-making. Effective strategies involve diverse stakeholder engagement and multi-stakeholder interactions. A landscape approach to policy assessment addresses multiple drivers, acknowledging the complexities of environmental policy evaluation. Integrating these aspects enables land use change data to inform effective land management strategies (Moreira et al., 2024; Record et al., 2020).
+
+
+Analyzing land use change is essential for identifying drivers of forest gain and loss, which helps in formulating effective policies against unsustainable practices. Key factors contributing to deforestation include subsidized rural credit, unclear property rights, and infrastructure investments, alongside the increasing demand for farmland. Understanding these drivers is vital for creating targeted policies (Gichenje et al., 2019; Saraiva et al., 2020).
+
+
+Understanding the impact of land use change on various stakeholders-such as Indigenous communities, government, and industry-is essential for creating equitable policies. Local stakeholders, serving as both farmers and forest users, emphasize the need for cross-sectoral approaches. Effective policy implementation relies on engaging diverse stakeholders and encouraging collaboration (Aragão et al., 2018; Gichenje et al., 2019).
+
+
+Incorporating land use change projections into predictive models can help foresee the impacts of policy changes and develop more effective policies. These models allow for the exploration of various scenarios to assess their effects on land use, such as changes in forest areas, carbon stocks, and habitat fragmentation. They enable comparisons between current conditions and future projections, empowering policymakers to make informed decisions about land management strategies and policies (Lippe et al., 2022).
+
+
+Unsustainable land use practices often result from market failures and externalities, where decision-makers do not fully account for the costs or benefits of their choices. Analyzing land use changes can identify these issues and guide targeted policy interventions. For instance, poorly defined property rights can lead to excessive deforestation. Policies such as regulations, incentives for sustainable practices, and fines for harmful activities can address these challenges. Additionally, tools like land-use planning and environmental education can support sustainable forest management (Cunha et al., 2016; Zhang, 2005).
+
+
+In conclusion, incorporating land use change data into policy analysis is essential for sustainable land management. By understanding these changes and their impacts, policymakers can make informed decisions that support environmental sustainability, economic growth, and social equity (Di Gregorio et al., 2017).
+
+
+
+
+Establishing a Link Between Policy and Spatial Data
+Integrating policy and spatial data using GIS is essential for understanding the spatial dimension of policy impacts. Spatial data sources and analysis techniques (overlay analysis, spatial correlation) can be used to evaluate these impacts. Policies can have a range of intended outcomes related to land use. For example, some policies might aim to:
+* Sustainable forest management is essential for ensuring the long-term availability of ecosystem goods and services (Faggin & Behagel, 2017). Effective regulations, monitoring, and enforcement help to reduce deforestation rates (Lippe et al., 2022). Establishing protected areas and incentivizing sustainable practices contribute to biodiversity conservation (Choe & Thorne, 2017). Enhancing carbon sequestration in forests is a key strategy for mitigating climate change (Hoberg et al., 2016). Additionally, controlling nitrogen discharges from agricultural activities is important for preserving water quality (Spicer et al., 2020). Achieving land degradation neutrality requires efforts to avoid, reduce, and reverse land degradation (Gichenje et al., 2019).
+
+
+Evaluating policy effectiveness requires a nuanced understanding of both the intended and unintended consequences. It is essential to consider the policy objectives, the chosen instruments, and the implementation process, as well as the diverse values and perspectives of stakeholders. Policy effectiveness in achieving sustainable land use can be assessed using various approaches, including (Spicer et al., 2020).
+* * Monitoring and evaluation assess progress toward policy goals and adjust strategies based on data. Cost-benefit analysis (CBA) and cost-effectiveness analysis (CEA) evaluate the costs and benefits of policy options. Multi-goal policy analysis acknowledges competing objectives, while landscape biography examines long-term land use history and social-ecological interactions.
+ 
+In forest policy, achieving sustainable land use involves various policy levels. National strategies or international agreements outline broad goals like sustainability and biodiversity and implement them through specific instruments such as regulations, taxes, and certifications. These actions produce tangible effects on forest management, land use, and ecosystem services.
+Analyzing policy effectiveness requires understanding the interplay between these distinct levels. For example, the broad goal of sustainability needs to be translated into specific policy instruments that can effectively influence land use decisions and achieve desired outcomes.
+Several factors can contribute to the success or failure of policies in achieving sustainable land use (St-Laurent et al., 2021)
+
+
+The effectiveness of individual policies can be enhanced when they are well-coordinated with other policies and operate consistently across various levels of government. Effective policies need to integrate environmental concerns into broader land use planning and decision-making processes. Effective policies also require careful planning, implementation, and adaptation, considering the complex interactions between social, economic, and environmental factors (Gichenje et al., 2019; Yigitcanlar & Kamruzzaman, 2014).
+Integrating policy data into spatial analysis offers a powerful approach to understanding the complex interactions between policies and land use patterns. Geographic Information Systems (GIS) are essential tools for mapping and analyzing spatial data, allowing researchers and policymakers to visualize and quantify policy impacts on the landscape (Bezerra et al., 2022; Moreira et al., 2024; Yemshanov et al., 2015).
+
+
+Methods for Incorporating Policy Data into Spatial Analysis
+Overlay analysis involves layering different spatial datasets, such as land cover maps, protected area boundaries, and infrastructure locations, to identify areas of overlap and potential conflicts or synergies between different policies. For instance, overlaying site suitability maps with net agricultural returns of wood harvest/transportation cost maps can reveal areas where afforestation might be economically feasible (Yemshanov et al., 2015).
+
+
+Spatial correlation explores the relationships between different spatial variables, such as deforestation rates and proximity to roads or agricultural areas, to understand the spatial patterns of policy impacts (Girma, 2020). Analyzing the correlation between forest fire occurrence and land use types, for example, can help assess policies' effectiveness in reducing fire risk in human-modified forests (Aragão et al., 2018).
+
+
+Mapping policy boundaries with GIS to visualize the spatial extent of different policies, such as protected areas, zoning regulations, or land use plans. For example, mapping areas based on priorities like water supply, biodiversity, and soil protection helps visualize the policy's spatial focus (Nobre et al., 2019).
+
+
+Modelling land use change with GIS-based models, such as Dyna-CLUE and LuccME, can simulate the impacts of different policy scenarios on land use patterns over time. These models incorporate policy regulations, economic incentives, and biophysical constraints to project future land use changes under different policy settings. The LuccME model quantifies regional scenarios, integrating scales like agrarian structure, protected areas, and infrastructure to model the spatial dynamics of land use change (Bezerra et al., 2022; Lippe et al., 2022).
+
+
+By analyzing changes in land cover, fragmentation patterns, or other relevant indicators, researchers can assess the spatial impacts of policies and identify areas where policies are succeeding or failing. For example, landscape metrics analysis, incorporating policies into environmental impact assessments of rural properties, can be used with remotely sensed imagery to monitor and evaluate policy effects (Moreira et al., 2024).
+
+
+Spatial data source types and techniques supporting land cover analysis
+Distinct types of spatial data can be relevant to land cover in the focus areas, and they depend on the objectives from target themes to discrimination regions like political divisions, environmental protection levels and boundaries. The data with potential usage includes:
+1. Land cover maps that provide information on the types of vegetation and land uses present in an area, for understanding current land use patterns and modelling future changes (Aragão et al., 2018).
+2. Protected area boundaries delineate areas designated for conservation purposes, often subject to specific regulations and management practices (Lippe et al., 2022).
+3. Infrastructure data like roads, settlements, rivers can influence land use patterns and should be considered in spatial analysis. For example, road networks can facilitate agricultural expansion and impact forest fragmentation patterns.
+4. Socioeconomic data about population density, income levels, and other factors can influence land use decisions and policy outcomes.
+5. Biophysical data of climate, soil type, topography, and other factors can influence land suitability for different uses and shape policy responses (Yemshanov et al., 2015).
+
+
+Analyzing Policy Impacts Using Spatial Data
+Other techniques for spatial analysis that may contribute to policy evaluation and understanding, in addition to overlay analysis and spatial correlation, include:
+1. Proximity analysis which examines the influence of distance on land use patterns, such as the impact of protected areas on surrounding land use or the relationship between deforestation and distance to roads (Yemshanov et al., 2015).
+2. Landscape metrics which quantify patterns, such as patch size, shape, and connectivity, provide insights into forest fragmentation and habitat quality. For example, analyzing changes in landscape metrics within and outside policy-regulated areas can indicate the effectiveness of conservation policies (Moreira et al., 2024).
+3. Spatial models, like agent-based or cellular automata, can simulate the interactions between policies, land use decisions, and environmental factors, projecting future scenarios and exploring policy impacts (Bezerra et al., 2022).
+
+
+Integrating policy data with spatial analysis and GIS helps understand policy impacts on land use. By visualizing and quantifying the spatial dimensions of policy effects, researchers and policymakers can understand complex interactions between policies and their objects. The following examples are case studies from the references used in this paper, demonstrating the use of spatial data to evaluate policy impacts:
+
+
+In “Assessing the impacts of afforestation policies in Canada,” researchers used GIS and a real options-net present value approach to evaluate the potential of policies promoting afforestation on private agricultural lands in Alberta, Canada. By integrating spatial data on land suitability, agricultural returns, and timber prices, they assessed the economic feasibility of afforestation under different policy scenarios (Yemshanov et al., 2015).
+
+
+In "Evaluating the effectiveness of forest conservation policies in Brazil," studies used spatial data to analyze Brazil's forest conservation policies' impacts on deforestation rates and land use change. By analyzing satellite imagery and other spatial data, researchers can assess the effectiveness of different policy instruments, such as protected area definitions, law enforcement activities and monitoring systems; these will influence deforestation and may promote a more sustainable forest management (Cunha et al., 2016).
+
+
+In “Analyzing the consequences of a cap-and-trade policy in New Zealand,” researchers used a landscape biography approach and GIS to evaluate the impacts of a cap-and-trade policy regime aimed at controlling nitrogen discharges from agriculture into Lake Taupo, New Zealand. By analyzing changes in land use patterns, water quality, and socioeconomic indicators, they estimated the policy's effectiveness in achieving its environmental goals and impacts on the local community (Spicer et al., 2020).
+
+
+Back in South America, with “Simulating land use and land cover change under different policy scenarios in Ecuador,” researchers used the Dyna-CLUE model and spatial data to simulate future land use changes under different policy scenarios in the Northern Ecuadorian Amazon. By incorporating policy regulations, socioeconomic factors, and biophysical constraints into the model, they analyzed the potential impacts of different policy approaches on forest cover, fragmentation, and carbon stocks (Lippe et al., 2022).
+Evaluating Policy Effectiveness Over Time
+
+
+Setting a Timeframe for Analysis
+ The selection of a time limit for analysis should pursue project-specific objectives. When applied to appropriate datasets, temporal analysis techniques and tools can evaluate policy effectiveness over time. In forestry policies, environmental consequences, and indigenous land impacts regarding urban and agricultural frontier expansion, the interval between spatial analyses should correspond to significant policy events, their evolution, and implementation. 
+ 
+For instance, forest cover experiences change from weeks to months due to factors such as fire or harvesting, while recovery may take years to decades. Observing these changes requires accessible data at chosen time intervals. A higher resolution in time can enhance the ability to describe and differentiate actions occurring over that period. 
+ 
+Remote observation of the environment presents challenges, particularly regarding data acquisition. High-resolution multispectral satellites are costly, limiting access to available data. High-frequency satellites with simpler sensors offer lower-quality data, constraining analyses. Furthermore, acquiring and processing extensive data demands more infrastructure and complicates result interpretation, even with automated analysis tools.
+ 
+While rapid, high-quality image acquisition is beneficial, the overarching objectives of the analysis remain a critical factor. Specific characteristics may not exhibit substantial changes over short periods of time. For example, daily images may not effectively capture large-scale forest recovery if the changes occur over months. Therefore, carefully considering the time, aligned with the analysis goals, is essential, and adjustments may be necessary throughout the process.
+
+
+Factors to Consider When Choosing a Timeframe
+1. Policy Implementation Period and Its Impacts
+We need to establish a baseline, beginning the time before the policy implementation, to have an initial understanding of land use patterns. An adequate time start point allows for comparing pre-policy and post-policy trends and helps isolate the policy's influence, and the exact date will be hard to define as policies take time to be in effect. For instance, researchers in a study analyzing afforestation in Canada examined elasticity estimates at years 1, 10, and 50, enabling them to observe the policy's long-term impacts. The period should also extend beyond the policy's introduction to capture its full potential. Some policies might yield immediate results, while others, like afforestation, require decades to demonstrate substantial change (Yemshanov et al., 2015). As stated, an intermediate sampling can help understand the path between the events' defined start and finish moment.
+2. Cause and effect relation
+The choice of period directly influences the ability to detect cause-and-effect relationships between policy interventions and land use outcomes. Selecting a period that begins before policy implementation and extends well after allows researchers to attribute observed changes in land use patterns to specific policy actions rather than to unrelated external factors. For example, introducing a policy aimed at reducing deforestation. In that case, a timeframe that captures both the pre-policy deforestation rates and the subsequent trends enables analysts to assess whether the policy caused a measurable decline in forest loss but is not necessarily the sole responsibility for any detectable transformation. Conversely, a short or misaligned period with the policy’s rollout may obscure these effects, leading to inconclusive or misleading results.
+
+
+3. Land Use Change Data
+The time limit must align with the availability of reliable land use and land cover (LULC) data derived from satellite imagery. Data quality and consistency will determine the analysis's final quality. Researchers studying forest regeneration in the Brazilian Amazon used data spanning 1990 to 2007, influenced by data availability and a period marked by significant forest conservation policy shifts. Most satellite imagery studies look at events from 1985 because Landsat satellites became available, and that data is publicly accessible. The frequency of satellite imagery acquisitions within the period dictates the granularity of analysis; depending on the complexity acceptable, it is possible to use multiple satellites and sensors. Higher temporal resolution detects subtle and rapid changes, like seasonal agricultural shifts or short-term forest disturbances; multiple sensors can describe those in more detail (Saraiva et al., 2020).
+
+
+4. Possible Changes in Policies Due to Land Use Variation:
+Analyzing historical policy responses to land use variations helps to understand the system's adaptive capacity. Hagerman uses data from the 1800s to today to analyze the connection between forest cover and climate. Including such long-term historical data can reveal how policies have evolved in response to land use change and climate interactions. The imagery's response will not be present, but it may help explain aspects of land cover that are visible today and have no immediate cause in current policies or land use. Acknowledge that time selection can be iterative. Initial analysis might reveal the need to expand better or refine the period to capture policy adjustments or unanticipated land use trends (Hagerman et al., 2010).
+Conclusion
+ This paper presents an integrated methodology for evaluating the relationship between land use change and policy by combining policy development frameworks and spatial data analysis techniques. The methodology employs remote sensing imagery and land cover classification products, demonstrating applications across three geographic regions: the Brazilian Amazon, the Brazilian Atlantic Forest, and the British Columbia forests in Canada.
+ 
+The methodology incorporates three key policy analysis concepts: policy gap analysis, policy mixes, and policy coherence. Policy gap analysis identifies areas where current policies inadequately address specific challenges, as observed in British Columbia's forest carbon mitigation policies. Policy mixes recognize that coordinated strategies across multiple sectors are necessary for achieving sustainability goals. Policy coherence ensures alignment within and between different policy areas and governance levels, with misalignment indicating the presence of policy gaps.
+ 
+It is important to use advanced data and methods. The spatial data analysis component utilizes GIS for mapping and analyzing policy impacts through overlay analysis, spatial correlation, policy boundary mapping, and land use change modelling under different policy scenarios. Remote sensing provides fundamental land cover data through time-series satellite data, historical maps, and change detection methods. Ground survey validation ensures data accuracy.
+ 
+The analysis reveals context-specific drivers of land use change across the study regions. In the Brazilian Amazon, deforestation resulted from cattle ranching, timber harvesting, soybean cultivation, and infrastructure investments. The PPCDAm implementation 2004 significantly reduced deforestation rates, though challenges persist with forest fires and recent increases in deforested areas. The Atlantic Forest experienced extensive historical deforestation from agriculture and cattle raising, shifting policy focus toward conservation. British Columbia's forest management evolved from revenue-focused timber extraction to sustainable forest management, with policies like the Forest Practices Code and Forest and Range Practices Act attempting to integrate resource management and environmental protection.
+ 
+Effective policy development and implementation require the engagement of diverse stakeholders, including Indigenous communities, government sectors, and industry representatives. Indigenous land rights considerations are particularly important in shaping forest management policies in Brazil and Canada.
+ 
+Policy effectiveness evaluation requires selecting a timeframe that aligns with implementation periods, enables detection of cause-and-effect relationships, and corresponds with reliable spatial data availability. Establishing a baseline before policy implementation is essential for comparison, with periods extending sufficiently to capture full policy effects over years or decades.
+ 
+Implementation challenges include inefficiency, inaccuracy, stakeholder disconnection from decision-making processes, unintended consequences from policy interactions, and difficulties in coordinated cross-sectoral action. Integrating spatial data into policy analysis provides evidence-based support for decision-making that addresses environmental sustainability, economic growth, and social equity objectives. The global availability of satellite data enables the application of this methodology in any region where local policy context is accessible.
+
+
+
+
+Bibliography
+Almeida, C. A. de, Coutinho, A. C., Esquerdo, J. C. D. M., Adami, M., Venturieri, A., Diniz, C. G., Dessay, N., Durieux, L., & Gomes, A. R. (2016). High spatial resolution land use and land cover mapping of the Brazilian Legal Amazon in 2008 using Landsat-5/TM and MODIS data. Acta Amazonica, 46, 291-302. https://doi.org/10.1590/1809-4392201505504
+Aragão, L. E. O. C., Anderson, L. O., Fonseca, M. G., Rosan, T. M., Vedovato, L. B., Wagner, F. H., Silva, C. V. J., Silva Junior, C. H. L., Arai, E., Aguiar, A. P., Barlow, J., Berenguer, E., Deeter, M. N., Domingues, L. G., Gatti, L., Gloor, M., Malhi, Y., Marengo, J. A., Miller, J. B., … Saatchi, S. (2018). 21st Century drought-related fires counteract the decline of Amazon deforestation carbon emissions. Nature Communications, 9(1), 536. https://doi.org/10.1038/s41467-017-02771-y
+Baylis, K., Coppess, J., Gramig, B. M., & Sachdeva, P. (2022). Agri-environmental Programs in the United States and Canada. Review of Environmental Economics and Policy, 16(1), 83-104. https://doi.org/10.1086/718052
+Bennett, B. M., & Barton, G. A. (2018). The enduring link between forest cover and rainfall: A historical perspective on science and policy discussions. Forest Ecosystems, 5(1), 5. https://doi.org/10.1186/s40663-017-0124-9
+Bezerra, F. G. S., Randow, C. V., Assis, T. O., Bezerra, K. R. A., Tejada, G., Castro, A. A., Gomes, D. M. de P., Avancini, R., & Aguiar, A. P. (2022). New land-use change scenarios for Brazil: Refining global SSPs with a regional spatially explicit allocation model. PLOS ONE, 17(4), e0256052. https://doi.org/10.1371/journal.pone.0256052
+Cesar De Oliveira, S. E. M., Nakagawa, L., Lopes, G. R., Visentin, J. C., Couto, M., Silva, D. E., d’Albertas, F., Pavani, B. F., Loyola, R., & West, C. (2024). The European Union and United Kingdom’s deforestation-free supply chains regulations: Implications for Brazil. Ecological Economics, 217, 108053. https://doi.org/10.1016/j.ecolecon.2023.108053
+Choe, H., & Thorne, J. H. (2017). Integrating Climate Change and Land Use Impacts to Explore Forest Conservation Policy. Forests, 8(9), Article 9. https://doi.org/10.3390/f8090321
+Couto, L., & Dubé, F. (2001). The status and practice of forestry in Brazil at the beginning of the 21st century: A review. The Forestry Chronicle, 77(5), 817-830. https://doi.org/10.5558/tfc77817-5
+Cunha, F. A. F. de S., Börner, J., Wunder, S., Cosenza, C. A. N., & Lucena, A. F. P. (2016). The implementation costs of forest conservation policies in Brazil. Ecological Economics, 130, 209-220. https://doi.org/10.1016/j.ecolecon.2016.07.007
+Curtis, P. G., Slay, C. M., Harris, N. L., Tyukavina, A., & Hansen, M. C. (2018). Classifying drivers of global forest loss. Science, 361(6407), 1108-1111. https://doi.org/10.1126/science.aau3445
+de França, D. A., Kmetiuk, L. B., Panazzolo, G. A. K., Domingues, O. J., da Silva, F. P., Biondo, L. M., de Souza Ribeiro Mioni, M., Possebon, F. S., de Lima Duré, A. Í., Silva, M. V. F., Duarte, M. M., Fávero, G. M., Biondo, A. W., & Langoni, H. (2024). Serosurvey of Coxiella burnetii in Descendants of Former Black Slaves (Quilombola Communities) of Southern Brazil. Microorganisms, 12(1), Article 1. https://doi.org/10.3390/microorganisms12010092
+Di Gregorio, M., Fatorelli, L., Pramova, E., May, P., Locatelli, B., & Brockhaus, M. (2016, February 24). Integrating mitigation and adaptation in climate and land use policies in Brazil: A policy document analysis [Monograph]. University of Leeds and CIFOR. http://www.cccep.ac.uk/publication/integrating-mitigation-and-adaptation-in-climate-and-land-use-policies-in-brazil-a-policy-document-analysis/
+Di Gregorio, M., Nurrochmat, D. R., Fatorelli, L., Pramova, E., Sari, I. M., Locatelli, B., & Brockhaus, M. (2015, November 23). Integrating mitigation and adaptation in climate and land use policies in Indonesia: A policy document analysis [Monograph]. Centre for Climate Change Economics and Policy. https://eprints.whiterose.ac.uk/96280/
+Di Gregorio, M., Nurrochmat, D. R., Paavola, J., Sari, I. M., Fatorelli, L., Pramova, E., Locatelli, B., Brockhaus, M., & Kusumadewi, S. D. (2017). Climate policy integration in the land use sector: Mitigation, adaptation, and sustainable development linkages. Environmental Science & Policy, 67, 35-43. https://doi.org/10.1016/j.envsci.2016.11.004
+Eagle, A. J., Rude, J., & Boxall, P. C. (2016). Agricultural support policy in Canada: What are the environmental consequences? Environmental Reviews, 24(1), 13-24. https://doi.org/10.1139/er-2015-0050
+Ecological Stratification Working Group. (1996). A NATIONAL ECOLOGICAL FRAMEWORK FOR CANADA. https://sis.agr.gc.ca/cansis/publications/manuals/1996/A42-65-1996-national-ecological-framework.pdf
+Faggin, J. M., & Behagel, J. H. (2017). Translating Sustainable Forest Management from the global to the domestic sphere: The case of Brazil. Forest Policy and Economics, 85, 22-31. https://doi.org/10.1016/j.forpol.2017.08.012
+Gichenje, H., Muñoz-Rojas, J., & Pinto-Correia, T. (2019). Opportunities and Limitations for Achieving Land Degradation-Neutrality through the Current Land-Use Policy Framework in Kenya. Land, 8(8), Article 8. https://doi.org/10.3390/land8080115
+Girma, Y. (2020). Impact of Climate and Land Use/Cover Changes on the hydrology of Lake Hawassa Watershed (Central Ethiopian Rift): [Addis Ababa University]. http://etd.aau.edu.et/handle/12345678/23091
+Hagerman, S. M., Dowlatabadi, H., & Satterfield, T. (2010). Observations on Drivers and Dynamics of Environmental Policy Change: Insights from 150 Years of Forest Management in British Columbia. Ecology and Society, 15(1). https://www.jstor.org/stable/26268109
+Hoberg, G., Peterson St-Laurent, G., Schittecatte, G., & Dymond, C. C. (2016). Forest carbon mitigation policy: A policy gap analysis for British Columbia. Forest Policy and Economics, 69, 73-82. https://doi.org/10.1016/j.forpol.2016.05.005
+Lembi, R. C., Cronemberger, C., Picharillo, C., Koffler, S., Sena, P. H. A., Felappi, J. F., Moraes, A. R. de, Arshad, A., Santos, J. P. dos, & Mansur, A. V. (2020). Urban expansion in the Atlantic Forest: Applying the Nature Futures Framework to develop a conceptual model and future scenarios. Biota Neotropica, 20, e20190904. https://doi.org/10.1590/1676-0611-BN-2019-0904
+Lippe, M., Rummel, L., & Günter, S. (2022). Simulating land use and land cover change under contrasting levels of policy enforcement and its spatially-explicit impact on tropical forest landscapes in Ecuador. Land Use Policy, 119, 106207. https://doi.org/10.1016/j.landusepol.2022.106207
+MapBiomas. (2023). Brazil Mapbiomas Collection 9-Annual mapping of land cover and use in Brazil from 1985 to 2023 [Dataset]. https://brasil.mapbiomas.org/en/map/colecao-8/
+Moreira, R. M., Lana, M., Sieber, S., & Malheiros, T. F. (2024). A landscape ecology approach: Modeling forest fragmentation with artificial neural networks and cellular-automata Markov-chain for improved environmental policy in the southwestern Brazilian Amazon. Land Degradation & Development, 35(2), 687-704. https://doi.org/10.1002/ldr.4945
+Nobre, S. R., Borges, J. G., Diaz-Balteiro, L., Rodriguez, L. C. E., von Glehn, H. C., & Zakia, M. J. (2019). A generalizable monitoring model to implement policies to promote forest restoration - A case study in São Paulo-Brazil. Forest Policy and Economics, 103, 123-135. https://doi.org/10.1016/j.forpol.2018.03.001
+Piorr, H.-P. (2003). Environmental policy, agri-environmental indicators, and landscape indicators. Agriculture, Ecosystems & Environment, 98(1), 17-33. https://doi.org/10.1016/S0167-8809(03)00069-0
+Rametsteiner, E. (2009). Governance Concepts and their Application in Forest Policy Initiatives from Global to Local Levels. Small-Scale Forestry, 8(2), 143-158. https://doi.org/10.1007/s11842-009-9078-2
+Record, S., Dahlin, K. M., Zarnetske, P. L., Read, Q. D., Malone, S. L., Gaddis, K. D., Grady, J. M., Costanza, J., Hobi, M. L., Latimer, A. M., Pau, S., Wilson, A. M., Ollinger, S. V., Finley, A. O., & Hestir, E. (2020). Remote Sensing of Geodiversity as a Link to Biodiversity. In J. Cavender-Bares, J. A. Gamon, & P. A. Townsend (Eds.), Remote Sensing of Plant Biodiversity (pp. 225-253). Springer International Publishing. https://doi.org/10.1007/978-3-030-33157-3_10
+Saraiva, M. B., Ferreira, M. D. P., da Cunha, D. A., Daniel, L. P., Homma, A. K. O., & Pires, G. F. (2020). Forest regeneration in the Brazilian Amazon: Public policies and economic conditions. Journal of Cleaner Production, 269, 122424. https://doi.org/10.1016/j.jclepro.2020.122424
+Spicer, E. A., Swaffield, S., & Moore, K. (2020). A landscape and landscape biography approach to assessing the consequences of an environmental policy implementation. Landscape Research, 45(4), 444-457. https://doi.org/10.1080/01426397.2019.1669147
+St-Laurent, G. P., Locatelli, B., Hoberg, G., Gukova, V., & Hagerman, S. (2021). Models for integrating climate objectives in forest policy: Towards adaptation-first? CIFOR-ICRAF. https://doi.org/10.1016/j.landusepol.2021.105357
+Sutherland, I. J., Copes-Gerbitz, K., Parrott, L., & Rhemtulla, J. M. (2023). Dynamics in the landscape ecology of institutions: Lags, legacies, and feedbacks drive path-dependency of forest landscapes in British Columbia, Canada 1858-2020. Landscape Ecology, 38(12), 4325-4341. https://doi.org/10.1007/s10980-023-01721-y
+Yemshanov, D., McCarney, G. R., Hauer, G., Luckert, M. K. (Marty), Unterschultz, J., & McKenney, D. W. (2015). A real options-net present value approach to assessing land use change: A case study of afforestation in Canada. Forest Policy and Economics, 50, 327-336. https://doi.org/10.1016/j.forpol.2014.09.016
+Yigitcanlar, T., & Kamruzzaman, M. (2014). Investigating the interplay between transport, land use and the environment: A review of the literature. International Journal of Environmental Science and Technology, 11(8), 2121-2132. https://doi.org/10.1007/s13762-014-0691-z
+Zerriffi, H., Reyes, R., & Maloney, A. (2023). Pathways to sustainable land use and food systems in Canada. Sustainability Science, 18(1), 389-406. https://doi.org/10.1007/s11625-022-01213-z
+Zhang, Y. (2005). Multiple-use forestry vs. Forestland-use specialization revisited. Forest Policy and Economics, 7(2), 143-156. https://doi.org/10.1016/S1389-9341(03)00028-5
