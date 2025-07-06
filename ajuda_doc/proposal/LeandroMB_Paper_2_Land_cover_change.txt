@@ -1,0 +1,710 @@
+﻿LAND COVER CHANGE, FOREST ANALYSIS IN BRAZIL AND CANADA
+Leandro Meneguelli Biondo - PhD student IGS/Sustainability
+Supervisor: Jon Corbett
+THE UNIVERSITY OF BRITISH COLUMBIA
+Okanagan
+April 2025
+Extended research paper 2 of 3 as part of the Comprehensive Examination Process for Doctoral Students in the Interdisciplinary Graduate Studies Program
+
+
+Abstract
+This paper examines land cover and uses changes in Brazil and Canada. It focuses on creating and validating land use data. To achieve this, the study suggests various methods, including remote sensing, ground surveys, and time-series analysis of Landsat data. The research delves into the factors driving land use changes in these two countries. Deforestation is a significant concern in Brazil, while logging is a major issue in Canada. The study emphasizes the importance of understanding historical context and validating data for effective land use planning and policy development.
+
+
+Additionally, the research evaluates land classification techniques derived from satellite imagery. It discusses the collection and analysis methods used to understand these land cover changes and their implications for the environment and society. The paper also reviews various tools and data sources, such as GIS and satellite imagery, that are instrumental in studying land cover.
+
+
+Furthermore, the study highlights available land change products from initiatives like the Copernicus Climate Change Service and Global Forest Watch. Accurate land use classification is essential for urban planning, environmental management, and policy formulation. Finally, the paper offers recommendations for promoting sustainable land use management practices.
+
+
+Table of Contents
+Abstract        1
+Writing support and AI use disclaimer        4
+Introduction        7
+Defining Land Cover Classification        9
+Significance of Land Use Classification        11
+Examining Methods to Create and Validate Land Use Data        13
+Data Processing and Analysis Techniques for Remote Sensing        20
+Current Satellite Imagery and Applications        31
+Ready to use Land Change Products        40
+Satellite Product Case Studies        45
+Integration of Data Sources and Available Tools        50
+Recommendations to access Land Use and Land Cover Change of a region        54
+Recommendations for Sustainable Land Use Management        55
+Conclusion        58
+Bibliography        61
+Appendix 1 – Earth Engine        69
+
+
+
+
+  
+
+Figure 1 - Word cloud from python libraries WordCloud and MatPlotLib with this document.
+________________
+
+
+
+
+Writing support and AI use disclaimer
+This text's production included electronic writing support and verification tools, such as Grammarly, for plagiarism detection and improving correctness and clarity. The Gemini 2.0 experimental model was used to identify and address potentially repetitive or rhetorical sections, which the author reorganized and refined. All final decisions regarding content, interpretation, and the elimination or grouping of textual portions rested with the author. 
+
+
+Google's NotebookLM (without internet search) was used to identify potential sources within the collected materials, including previous drafts and notes in Zotero. This process ensured the inclusion of references from other authors and appropriate citations. Any new sources identified during this verification were checked for relevance and incorporated with local citations as needed. 
+
+
+Then, the final text went on to a last grammar pass, section by section, to test the performance for readability. When the result was lower than 5, it went on a rewriting using "Write with generative AI" with the following software citation:
+
+
+For help with my writing, I asked Grammarly to respond to these AI prompts:
+Prompts I wrote
+- "Increase readability, split sentences if necessary, and organize ideas."
+
+
+Using the same prompt to select parts of the document, as the average sentences I write are usually extensive, making the content more complicated to read and understand.
+  
+
+Figure 2 - Example area in Maranhão state in Brazil, with estimated forest land cover in 2000 (green) and estimated forest loss and gain until 2023 (orange/red for loss and purple for gain). The data came from the University of Maryland Global Forest Change dataset (Hansen, 2013). The yellow lines limit indigenous lands designated by federal law.
+  
+
+Figure 3 - The same area in Brazil with estimated land coverage from Mapbiomas Collection 9 (Mapbiomas, 2024) every 5 years from 1985 to 2020, dark green is natural Forest Formation, light green is Savanna, and we can identify other classes grow, especially after 2000 in the northwest section of the image. This paper describes how to produce and use this data.
+Introduction
+Land use change is a critical global issue with significant environmental and socio-economic implications. Several factors, such as economic conditions, social dynamics, and environmental policies, play a crucial role in influencing natural ecosystems. Additionally, legislation affects biodiversity and contributes to climate change.
+
+
+This paper will focus specifically on variations in forest area and shifts in land use and cover in Brazil and Canada over the last two decades. Analyzing these changes, we can better understand their impact on both countries and the wider world. (Gomes, 2023; Hansen & Loveland, 2012)
+
+
+Land cover classification is a method for observing trends such as agricultural distribution, harvesting operations, and forest regeneration. I am focused on land description of large areas using satellite imagery and other remote data, I selected different tools to describe physical land qualities and prepared some examples to differentiate them. The classification starts by defining the objectives and targets for analysis and the source data expected to best represent them with a good balance of cost, precision, accuracy, spatial and temporal availability. This data will go through processing to classify similar areas with land cover classes like vegetation, water, and bare soil to describe the territory. Land cover is closely related to land use changes, often due to human activities in the same areas. The terms "land use" and "land cover" can be used interchangeably in most cases, primarily because humans play a significant role in transforming landscapes, particularly in the Americas.
+
+
+Land cover classification helps monitor natural vegetation and human activities. Remote access to land use is especially important in remote or large regions. A good example is the tropical forests of Brazil, where land cover classification is essential. Deforestation is a significant issue in this region, primarily driven by agricultural expansion and economic speculation. These activities often take place in areas where government services are limited, and law enforcement is weak. By understanding land cover changes, we can better address the patterns associated with deforestation and forest recovery (Almeida et al., 2016; IPCC, 2022).
+
+
+Accurate classification is crucial for monitoring changes over time. It also plays a key role in informing sustainable land management practices. Analysts can revisit areas if they have access to similar classification methods and data over multiple time points. This history allows us to analyze changes in land use. Further investigation into these changes can help us understand a range of factors, including land occupation and natural climate events (Gomes, 2023; White et al., 2017).
+
+
+Forest management practices in Canada prioritize sustainability. However, the country still experiences variations in land use due to factors like logging, mining, and urbanization. Analyzing forest change data in Canada can provide valuable insights into patterns of land use change.
+
+
+This paper will compare land use change dynamics in Brazil and Canada. By examining their differences and similarities, we can derive important lessons for sustainable forest management on a global scale.
+
+
+I will examine the methods used to create and validate land use data, including techniques such as time-series analysis, historical maps, and records, and change detection methods. Additionally, the paper will explore data collection and analysis methods that explain the factors influencing land use change in both countries.
+
+
+Finally, I will discuss land use change's environmental and socio-economic impacts, including topics such as biodiversity loss and its effects on local communities.
+Defining Land Cover Classification
+Land cover classification is a systematic approach that categorizes land based on its current use. This classification derives from field observations or remote sensing techniques, such as aerial photography and satellite imagery.
+
+
+The primary purpose of land cover classification is to understand the spatial distribution of and land management practices, as a result of natural features interaction with human activities. It assigns land areas to specific categories based on observable features like vegetation and infrastructure. It is important to note that land use and land cover are different concepts. Land use refers to human land utilization, while land cover pertains solely to the physical characteristics of the land’s surface. Nevertheless, land cover data is vital in informing inferences about land use (IPCC, 2003; Jensen, 2009; Olofsson et al., 2014).
+
+
+Common land cover categories on those classifications include:
+* Forest land: Areas dominated by trees, managed and unmanaged, natural, or not. Subcategories can include forest type, management intensity, and activities like afforestation/deforestation (Almeida et al., 2016; Moisen & Frescino, 2002).
+* Cropland: Land for cultivating crops (annuals and perennials). Subcategories can include crop type, tillage, and irrigation.
+* Grassland: Areas predominantly covered by grasses (managed/pastures or unmanaged). Subcategories can include grazing intensity.
+* Wetlands and Water: Areas saturated or covered by water (peatlands, reservoirs).
+* Settlements: Developed land (human settlements, infrastructure).
+* Other land: Bare soil, rock, ice, and unmanaged lands.
+
+
+Clear and consistent category definitions, aligned with national and international standards, are crucial for effective land use classification. When selecting categories, it is important to consider each country's specific land use patterns and management practices. For instance, Brazil's system may include categories specific to the Amazon, such as pastures and agroforestry. Meanwhile, Canada's classification might focus on boreal forest and planted forests categories (IPCC, 2003; Moisen & Frescino, 2002; White et al., 2017).
+
+
+The Intergovernmental Panel on Climate Change (IPCC) guidelines provide a broad framework, including categories like forest land, cropland, grassland, wetlands, settlements, and other land. However, ensuring that these categories are compatible with the land organization in Brazil and Canada is essential.
+
+
+Additionally, category selection should align with the research objectives. Studies focused on Amazonian deforestation might prioritize categories like forest land, pasture, and agriculture. On the other hand, research on Canadian forest management could benefit from distinguishing between distinct types of managed forests.
+
+
+Data availability is another principal factor that influences classification in detail. For example, remote sensing high-resolution imagery from satellite (orbital) or airplane/drone (aerial) sources allows for finer distinctions, such as differentiating between types of pastures. In contrast, coarser data may only permit a basic distinction between "forest" and "non-forest."  Lastly, the analysis methods employed, such as time series and spatial analysis, also significantly influence category choice (Fearnside, 2022; Gomes, 2023).
+
+
+
+
+ For simplified forestry evaluation, key categories include (Fearnside, 2022; IPCC, 2003; Moisen & Frescino, 2002; White et al., 2017):
+* Forest Land: Areas dominated by trees. Subcategories (managed/unmanaged, forest type, dominant species) are crucial for detailed analysis.
+* Land Converted to Forest Land: Areas converted from other uses (relevant for afforestation/reforestation).
+* Land Converted from Forest Land: Previously forested areas converted to other uses (deforestation). Understanding drivers and impacts is essential.
+* Other Land: Areas that do not fit other categories (bare soil, etc.) provide context for broader landscape dynamics.
+
+
+These categories may overlap, requiring careful consideration to avoid double counting. "Forest land" may require sub-classification (tropical, coastal, alpine). Category significance varies between Brazil and Canada due to climate and management differences.
+
+
+Significance of Land Use Classification
+Land use classification is vital in urban planning, environmental management, and policymaking (IPCC, 2022). Here are a few key areas where it is particularly important:
+
+
+1. Urban Planning benefits from monitoring and managing spatial development through land-use classification. It tracks urban growth patterns and aids in the allocation of land for residential, commercial, industrial, and recreational purposes, promoting balanced development. Additionally, it provides a foundation for infrastructure planning, enabling authorities to identify locations for transportation networks, utilities, and public facilities based on both current and projected land use.
+
+
+2. Environmental Management depends on land use classification systems to safeguard natural resources and ecosystems. These systems facilitate monitoring of deforestation and forest resource management, helping to identify threatened areas and prioritize conservation efforts. They also protect diverse ecosystems by highlighting sensitive habitats and wildlife corridors while revealing interactions between land uses and their environmental impacts, such as the effects of agricultural expansion on water quality or urban development on local climate.
+3. Policymaking at local, regional, and national levels can benefit from land-use classification support, providing information for the development and assessment of land-use policies. It helps decision-makers evaluate existing regulations, identify areas requiring intervention, and develop targeted policies. Additionally, this data supports climate change initiatives by quantifying emissions from land-use changes and informing adaptation strategies, thereby fostering resilient communities through spatial planning.
+
+
+This discussion will explore how Brazil and Canada utilize land use classifications within their policies. For instance, Brazil’s Forest Code and Canada’s National Forest Strategy are examples of this practice. We will also examine land-use impacts, such as urban growth in São Paulo and Toronto, alongside deforestation monitoring in the Amazon and boreal forests. 
+Land use classification is essential for promoting sustainable development and resource management. It helps understand land use impacts and develop effective mitigation strategies. Furthermore, local community involvement is a crucial element of this process, for example with participatory zoning or discussion forums that includes Indigenous representatives or other local groups Many countries leverage land use classification in their sustainable development policies, including Brazil’s National Policy on Climate Change and Canada’s Sustainable Development Strategy.
+
+
+Additionally, this review will highlight relevant academic literature on the subject and valuable resources like online databases such as WOCAT and Climate Adapt. They compile valuable information about the land and its transformations. (Brazil, 2012; Canadian Council of Forest Ministers, 2020; Fearnside, 2022; Gomes, 2023; IPCC, 2022).
+Examining Methods to Create and Validate Land Use Data
+We could survey areas in person to describe and map the various usages in a region, but it would take time and require an examination of every location we are interested in. Remote sensing in balloons, planes, and satellites make it possible to access a wide variety of imaging data in larger areas. The remote information is less detailed but can be related to ground truth and processed to infer the reality of land use cover at that location. All sources are important in describing land use and will contribute to practical territory classification. 
+Data collection methods include remote sensing, primarily utilizing Satellite data, offers significant advantages by providing spatially explicit information and repeated coverage over vast areas, including remote regions that are otherwise difficult to access. This technology enables the retrospective generation of baseline data for forest disturbance and recovery, allowing for a more holistic examination of forest dynamics. Landsat, with its 30-meter spatial resolution and multi-decadal archive, is particularly valuable for quantifying diverse patterns of forests at sub-stand scales and with sub-annual temporal resolution. The free and open access to the Landsat archive, along with advancements in processing capabilities such as cloud computing, has made large-area monitoring more feasible and cost-effective, shifting away from costly, per-scene manual analysis toward automated, data-intensive methods. However, remote sensing faces challenges related to interpretation, requiring the translation of images into meaningful land-use and management information, and can be impaired by atmospheric conditions such as clouds and haze. Consistency over long periods is also a concern due to potential changes in sensing systems.
+
+
+To address the interpretive challenges and ensure the reliability of remote sensing data, ground surveys and field observations are essential. These techniques provide direct land-use and management data, which are critical for validating and improving the accuracy of remote sensing classifications. Field visits enable precise measurements of area and location, often utilizing modern equipment such as GPS for direct electronic recording. Ground truthing is necessary to accurately classify land types, especially when remote sensing alone might confuse categories such as wetlands and forest land.
+
+
+Geographic Information Systems (GIS) play a pivotal role in integrating and analyzing spatial data from various sources, including remote sensing imagery and ground-based measurements. GIS enables the creation of detailed maps and visualizations, such as those utilized in the TerraClass project for the Brazilian Legal Amazon. This project combined Landsat imagery and MODIS data to map land use and land cover in deforested areas. This integration capacity is vital for complex spatial analyses and for building comprehensive land-use databases.
+
+
+Furthermore, forest and agricultural inventories are crucial sources of information, providing data on forest areas, types, management practices, crop distribution, livestock numbers, and land ownership. These inventories are often conducted through sampling programs and are vital for national-level monitoring, carbon accounting, and understanding disturbance regimes. They can be periodically updated and cross-referenced with other datasets for consistency and reliability.
+Finally, landowner interviews and questionnaires serve as valuable tools for gathering socio-economic and land management information, including insights into decision-making factors and local knowledge related to land use and changes. This direct engagement with land users complements quantitative data by providing qualitative context and understanding the human dimensions influencing land dynamics.
+* Accuracy assessment methods include ground truthing and statistical methods. If using ready-available classification data, it is important to consider the data validation process and estimated errors from the methods applied to data processing.
+
+
+
+
+Remote Sensing
+ Remote sensing involves the acquisition and utilization of data from sensors typically mounted on satellites or aircraft, often complemented by ground surveys, to infer and measure land cover and land use. This technology provides spatially explicit information and repeated coverage over vast or difficult-to-access areas (IPCC, 2003).
+ 
+The Landsat program is foundational to remote sensing, offering the longest record of global-scale medium spatial resolution (10–50 m) Earth observation data, with sensors consistently collecting images for nearly 40 years (Hansen & Loveland, 2012). The Landsat-7 Enhanced Thematic Mapper (ETM+) was chosen as the reference for establishing a consistent radiometric scale across the entire Landsat series, enabling reliable multi-temporal studies with total uncertainties generally at 10% or less (Markham & Helder, 2012). A significant development for the field was the implementation of a free and open access policy to the USGS Landsat data archive in 2008, which substantially increased data availability (DeVries et al., 2015; Hansen & Loveland, 2012).
+ 
+Remote sensing, particularly with Landsat data, is essential for monitoring land cover changes, especially in forests, which are a primary focus due to their relevance to the global carbon cycle and biodiversity (Cohen et al., 2016). For instance, national-scale mapping efforts in Canada have utilized Landsat time series to characterize 25 years of forest disturbance and recovery at a 30m resolution, distinguishing between wildfire and harvest impacts (White et al., 2017). Similarly, in the Brazilian Amazon, Landsat-5/TM images have been utilized for detailed land use and land cover mapping of deforested areas, employing techniques such as linear spectral mixture models and time series analysis of MODIS NDVI data (Almeida et al., 2016).
+ 
+Modern remote sensing increasingly utilizes time series analysis to capture both abrupt events and gradual processes, such as regrowth (Kennedy et al., 2010). Automated image pre-processing, including geometric and radiometric corrections, ensures consistency across these series. Cloud computing platforms, such as Google Earth Engine (GEE) and NASA Earth Exchange (NEX), provide pre-processed data and simplify large-scale analyses (Hansen & Loveland, 2012). However, challenges such as persistent cloud cover and the need for robust validation through ground surveys or higher-resolution imagery remain (Olofsson et al., 2014).
+
+
+Ground Surveys and Field Observations
+Ground reference data, also known as "ground truth," is a component that enhances the accuracy of remote sensing classification. This information can be sourced independently through new surveys or derived from existing inventories (IPCC, 2003). The process of obtaining this data involves various methods.
+ 
+One primary approach involves direct ground-based surveys or field visits, which provide information on the physical attributes of the landscape. At the same time, this method can be labour-intensive and prone to subjective interpretations by different operators. To complement these, aerial photography can reveal nuances in forest characteristics, such as tree species, forest structure, relative age distribution, and tree health, as well as agricultural features like crop species and stress in agroforestry systems (IPCC, 2003).
+ 
+More technologically advanced methods include the use of satellite imagery. For project-level assessments, very high-resolution satellite data from sources such as Ikonos, QuickBird, Spot, Landsat, RadarSat, and Envisat ASAR are valuable. For instance, SPOT-5 HRG imagery, with its 2.5-meter spatial resolution, has been used to validate land cover classifications from Landsat-5/TM and MODIS data in the Brazilian Amazon (Almeida et al., 2016). The Landsat program, with its free and open archive since 2008, provides extensive time series data that, when interpreted with rigorous procedures (e.g., manual inspection by multiple analysts), can serve as a highly accurate reference for validating maps, even if the map uses Landsat data (Olofsson et al., 2014). 
+ 
+Furthermore, airborne laser scanning (Lidar) data offers the capability to measure indicators of forest recovery, such as vegetation height and density. Lidar data is also used in estimating aboveground biomass distributions for different forest cover classes, including intact, logged, and burned areas; however, it is expensive and time-consuming (White et al., 2017). Beyond imagery, ancillary databases containing information on fire, wind, insect, and disease outbreaks, as well as forest management activities sourced from various government agencies, are used to aid in interpreting the causal agents of observed disturbances like forest degradation (Rangel Pinagé et al., 2023). The TimeSync software tool, for example, integrates simultaneous viewing of Landsat time series with temporal snapshots of high-resolution imagery from platforms like Google Earth, enabling human interpreters to collect highly accurate disturbance information (DeVries et al., 2015).
+ 
+To gain a more comprehensive understanding of land dynamics, socioeconomic and land management information is collected through interviews with landowners and questionnaires, which can provide valuable data on land use and land-use change. Ultimately, for the full utility of remote sensing, it is considered good practice to integrate the extensive spatial coverage provided by remote sensing with ground-based point measurements or existing map data within a Geographic Information System (GIS). This integration is fundamental for producing spatially explicit information and is particularly useful for building models that relate remote sensing data to ground truth data, a highly skilled process (IPCC, 2003). 
+ 
+Combining diverse data sources and methodologies is crucial for assessing map accuracy and quantifying uncertainties using tools such as confusion matrices, which display the probabilities of correct identification and misclassification for each land category (Rangel Pinagé et al., 2023). However, minor errors in reference data can significantly bias estimates of classification accuracy and class area. Additionally, while remote sensing excels at detecting changes in land cover (e.g., vegetation to bare ground), it may not always provide sufficient detail or accuracy for changes in specific land uses or vegetation types (e.g., distinguishing between different crop types or distinguishing between natural regeneration and planted forests). Optical remote sensing also faces limitations in areas with persistent cloud cover, where radar imagery offers a distinct advantage due to its ability to penetrate clouds and acquire data regardless of daylight (IPCC, 2003; Olofsson et al., 2014).
+
+
+Use of Geographic Information Systems (GIS)
+GIS systems are efficient at handling large datasets. They can open files from gigantic data repositories, such as DataSUS, World Bank indicators and iMapBC (2025), even when the data is not georeferenced or has no geometries from their source. They were developed to manage complex spatialized data and also deal very well with other large text CSV or JSON files, for example with more than 2 million lines that spreadsheet software struggles with.
+
+
+With the advent of geospatial cloud platforms and enhanced computing power, it is now possible to analyze massive datasets and create data-driven maps. Integrating real-time data, the Internet of Things (IoT), artificial intelligence (AI), and predictive analytics plays a crucial role in guiding strategic decisions.
+
+
+Accessible tools and 3D modelling capabilities also support urban planners and facility managers. Furthermore, real-time monitoring via mobile phones and IoT devices enhances the accuracy of models and maps (BRASIL MS, 2024; QGIS, 2022, 2024; World Bank, 2024a, 2024b). Geographic Information Systems (GIS) has undergone significant evolution since 2010. This evolution includes integrating various data sources such as remote sensing, ground surveys, and ancillary data. These advancements allow for more comprehensive land use analysis.
+
+
+GIS techniques utilize classification algorithms, which can be either supervised or unsupervised, landscape metric calculations, and transition matrix generation. The most widely used standard GIS software is ArcGIS and QGIS.
+
+
+Accuracy assessment is crucial for reliable results. Methods for assessing accuracy include ground truthing and various statistical techniques.
+
+
+In addition, national and international land use datasets, such as MapBiomas, Terra CLASs, and the National Resources Inventory (NRI), illustrate current data collection and classification methods. These resources are essential for understanding land use changes and enhancing GIS capabilities
+ (ESRI, 2024; Gomes, 2023; MapBiomas, 2023; MapBiomas Brasil, 2024; MapBiomas Brasil, 2023; Preceden Timeline Maker, 2024; Neves et al., 2020).
+
+
+Data Processing and Analysis Techniques for Remote Sensing
+
+
+Remote sensing data processing and analysis techniques are fundamental for characterizing land cover change and understanding environmental dynamics over vast areas. These techniques involve several critical stages, from preparing the raw data to extracting meaningful features and rigorously validating the results, thereby providing essential baseline information for forest monitoring, and understanding climate change (White et al., 2017).  
+  
+Preprocessing Techniques 
+  
+Preprocessing of remote sensing imagery is crucial for ensuring data consistency and accuracy in subsequent analysis, particularly in time-series studies. This stage primarily includes geometric, radiometric, and atmospheric corrections (Hansen & Loveland, 2012). 
+  
+Geometric Correction is crucial for time-series analyses as it ensures a consistent geometric image set, aligning images accurately over time and space (Kennedy et al., 2010). Historically, this was a limiting and costly step; however, advancements such as the Global Land Survey (GLS) datasets and the USGS's free and open Landsat archive (L1T products since 2008) now provide automatically orthorectified data, significantly reducing user effort and enhancing multi-temporal studies (DeVries et al., 2015). Future missions, such as the Landsat Data Continuity Mission (LDCM), will continue to provide standard orthorectified imagery, ensuring geometric consistency and continuity. Geometric preprocessing is recognized as increasingly crucial with large data volumes (Hansen & Loveland, 2012). 
+  
+Radiometric Correction is necessary to achieve consistent radiometric responses within and between images, which is vital for extrapolating land cover characterization models across space and time (Hansen & Loveland, 2012). Methods vary by geographic and algorithmic scale. Top of Atmosphere (TOA) reflectance calculations are typically bulk corrections applied to all pixels in a given image, primarily for variations in sun angle and Earth-sun distance and are mainly used for inter-scene normalization. 
+  
+Surface reflectance is a more robust and complex per-pixel adjustment that accounts for atmospheric effects, including ozone concentration, column water vapour elevation, and aerosol optical thickness. The LEDAPS (Landsat Ecosystem Disturbance Adaptive Processing System) project, for instance, employed a full surface correction using the MODIS 6S radiative transfer approach (DeVries et al., 2015). Other important radiometric adjustments include bi-directional reflectance distribution function (BRDF) and terrain normalization, which address variations caused by solar zenith and sensor view angles and differences in illumination from sloped surfaces, respectively. These adjustments can improve radiometric response and cover characterizations (Hansen & Loveland, 2012). 
+  
+The calibration history of older sensors, such as Landsat-5 TM, Landsat-4 TM, and Landsat MSS, was reconstructed using internal calibrators, vicarious calibrations, and pseudo-invariant sites (e.g., the Sonora site in North America). Overall uncertainties in absolute radiometric calibration are generally 10% or less for most sensors and bands, though some MSS bands have higher uncertainties (Markham & Helder, 2012). Atmospheric Correction specifically addresses noise from atmospheric interference, such as haze and smoke. Techniques often involve contrasting a subject image with a reference image to identify clouds, smoke, snow, and shadows, then manually defining thresholds. For temporal analysis, image filtering techniques like the Harmonic Analysis of NDVI Time Series (HANTS) algorithm have been applied to MODIS images to minimize cloud interference (Almeida et al., 2016).
+
+
+Classification Algorithms
+
+
+In this paper, we define classification as the process of assigning objects, pixels, or land areas to predefined categories or classes. This task is fundamental in fields like remote sensing and pattern recognition (Almeida et al., 2016). In remote sensing, researchers use classification to map land cover and land use by identifying and labelling areas with specific categories, such as forest, non-forest, cropland, grassland, wetlands, or settlements. For instance, the TerraClass project aims to create a detailed map of land use and land cover for deforested areas of the Brazilian Legal Amazon. It also helps characterize forest conditions by distinguishing between areas affected by wildfire and those impacted by timber harvesting or by classifying forest degradation into types such as intact, logged, and burned forests. Furthermore, classification allows us to track changes over time, such as identifying shifts in land cover (e.g., forest loss or gain) or changes in vegetation condition (Almeida et al., 2016; Rangel Pinagé et al., 2023; White et al., 2017).
+ 
+Classification algorithms are computational methods that categorize data into distinct groups. Various approaches exist, with an emphasis on empirical or statistical methods due to the complexity of the data. Key aspects and types of classification algorithms involve different learning paradigms. Supervised learning, the most common approach, enables algorithms to learn from training data that has already been labelled with known classes. The algorithm identifies patterns and relationships between input features and known class labels, building a model that can classify new, unlabeled data. In contrast, unsupervised learning methods construct classifications without using class labels from training samples. Instead, they seek to uncover inherent structures, patterns, or clusters within the data itself. Incremental learning allows classifiers to refine their parameter estimates using new training samples, eliminating the need to reconstruct the entire model.
+
+
+Many image classification procedures utilize random vectors to build decision trees, leading to developing a “random forest” classifier (Amit & Geman, 1997). The accuracy of this classifier relies on two key factors: the strength of each tree and the relationships between them. To enhance performance, we use random subsets of queries at each node. This approach introduces diversity among the trees, improving classification results.
+
+
+Supervised Classification
+Supervised classification refers to the process of assigning objects, pixels, or land areas to predefined categories or classes. This approach is fundamental in various fields, including remote sensing and pattern recognition (Amit & Geman, 1997). In supervised classification, computational methods, or models, known as algorithms, are trained using training data that has already been labelled with known classes. The core principle of this method is for the algorithm to identify patterns and relationships between the input features and these known class labels (Hansen & Loveland, 2012). The goal is to then predict the class of new, unlabeled data accurately, striving to minimize misclassification errors. This learning paradigm is widely favoured, for example, in large-area land cover mapping due to its ability to ensure consistency in characterization across diverse geographic regions.
+During the supervised learning process, the algorithm utilizes these labelled training samples to estimate parameters or construct decision rules that effectively define the boundaries between different categories (Fearnside, 2022). These rules or models are then applied to new, unseen data to assign a class label to each instance. For instance, the TerraClass project employed a Bhattacharya classifier for the supervised classification of Landsat-5/TM images, with sample areas being chosen from a MODIS mask to guide the learning process (Almeida et al., 2016). Other prominent classification algorithms that operate within a supervised framework include Classification and Regression Trees (CARTs), which recursively partition the data (Moisen & Frescino, 2002). Random Forests, a collection of tree-structured classifiers where each tree's growth is governed by an independent, identically distributed random vector, and individual trees then "vote" for the most popular class, and Artificial Neural Networks (ANNs), which are nonlinear statistical models whose coefficients and intercepts are estimated through training to make predictions. Such methods are used to categorize diverse data, such as distinguishing forest disturbance types like wildfire and timber harvesting, mapping agricultural areas based on spectral and temporal characteristics, or recognizing handwritten digits (Amit & Geman, 1997). The effectiveness of these classifications is then assessed through validation, often involving independent reference data and metrics like overall accuracy, user accuracy, and producer accuracy, which are summarized in a confusion matrix (Rangel Pinagé et al., 2023).
+
+
+Unsupervised Classification
+ Unsupervised classification, or unsupervised learning, operates by analyzing unlabeled samples and ignoring class labels during the initial learning phase (Amit & Geman, 1997). The fundamental aim of this approach is to discover inherent groupings, patterns, or "shape quantiles or clusters" within the data itself without prior knowledge of what these categories should be. Such methods are designed to identify natural structures in the input features rather than being guided by pre-existing classifications (Amit & Geman, 1997). During the unsupervised learning process, algorithms like clustering trees are constructed to effectively split the data into homogeneous parts, for instance, by finding queries that best divide the data at each node into two equal groups. 
+ 
+Although the learning initially proceeds without using the class labels, the resultant clusters or "generic quantization of shape space" can be highly correlated with actual object classes. Following this unlabeled learning, previously collected labelled data can then be used to estimate the conditional distributions at the terminal nodes of these "unsupervised trees," thereby assigning meaning to the discovered clusters and enabling the classification of new, unseen data (Amit & Geman, 1997). This allows for the categorization of data, for example, by inputting spectral endmembers into unsupervised clustering algorithms for land cover mapping (Hansen & Loveland, 2012). Notably, this approach has demonstrated the capacity to perform "surprisingly well compared with ordinary supervised learning."
+
+
+One application of these methods is Brazil’s PRODES project, which utilizes linear mixture models. These models help define spectral endmembers, allowing for more accurate land cover and vegetation type classifications (Hansen & Loveland, 2012; IPCC, 2003; Shimabukuro et al., 1998).
+
+
+Time Series Analysis
+
+
+Time series analysis is a method for detecting trends, disturbances, and recovery patterns by examining sequences of images over time. It can support all other methods listed here.
+
+
+Trend Detection and Disturbance Mapping
+Temporal segmentation involves modelling a pixel's spectral time series as a sequence of straight-line segments. This approach aims to capture both abrupt disturbance events and slower, longer-duration ecological processes. Its objective is to simplify the spectral trajectory by eliminating noise introduced by ephemeral changes in illumination, phenology, or atmospheric conditions. The method allows the data itself to determine the shape of the change trajectory, eliminating the need for predetermined models. This leads to a simplified, pixelated representation of the spectral trajectory, with vertices indicating the time and spectral value of key changes (Kennedy et al., 2010).
+  
+  
+
+LandTrendr is a tool that extracts spectral trajectories from Landsat time series data through temporal segmentation. To analyze these trajectories, the Composite2Change algorithm generates annual cloud-free Landsat composites. It also effectively identifies spectral trends. Additionally, the Disturbance Index (DI) measures the spectral distance between “mature forest” and “bare soil,” providing insight into land cover changes (Kennedy et al., 2010; Masek et al., 2008; White et al., 2017).
+Recovery Pattern Analysis
+ TimeSync software is particularly helpful for interpreting spectral trajectories. The Normalized Burn Ratio (NBR) detects disturbances like fire and logging activities. Spectral trajectory classification plays a critical role in monitoring the dynamics of disturbance and regrowth.
+
+
+Researchers utilize the Theil-Sen slope estimator and the Contextual Mann-Kendall test to identify trends in protected forests. Assorted studies have referenced these methods (Carreiras et al., 2014; Cohen et al., 2010; Czerwinski et al., 2014; Rangel Pinagé et al., 2023). 
+
+
+Importance of Application Context and Data Characteristics
+The selection of algorithms for analyzing land cover change depends heavily on several factors, including the specific application context and the characteristics of the available data. Key aspects include the analysis’s goals, the spatial and temporal scales of interest, the required detail level, and the data availability. All these elements play a crucial role in determining the most appropriate methods.
+
+
+Supervised classification methods typically require substantial amounts of training data. In contrast, unsupervised methods are often more suitable for exploratory studies or situations where data is limited. The spatial resolution of the data is another critical consideration. For example, Landsat’s 30-meter resolution effectively captures human-scale impacts on forests. This level of detail allows for thorough mapping of significant forest disturbances, such as those caused by wildfires or harvesting (Hansen & Loveland, 2012; Olofsson et al., 2014).
+
+
+The Normalized Difference Vegetation Index (NDVI) is a standard method to detect forest changes. However, NDVI can become saturated in dense forest areas, such that it is not possible to differentiate areas with more than a certain return of NDVI as all areas will have the maximum value 1.0 no matter how much more active vegetation exists in them. In such cases, alternative indices like the Normalized Burn Ratio (NBR), Normalized Difference Moisture Index (NDMI), or Tasseled Cap metrics might provide more nuanced information about forest structure and disturbances. Among these, Tasseled Cap indices, especially the wetness index, are particularly useful for assessing changes in forest structure by contrasting shortwave infrared against near-infrared reflectance (N. R. Canada, 2017; Kennedy et al., 2010; Masek et al., 2008).
+
+
+Temporal resolution is another vital factor for effective change detection. While annual or near-annual composites are standard in Landsat time series studies, leveraging all available observations can yield a more detailed representation of forest dynamics. This approach allows for precisely tracking disturbance events and helps differentiate between actual regrowth processes and permanent land-use changes. Using all observations in the time series also minimizes the need for interpolation to fill data gaps (DeVries et al., 2015; Olofsson et al., 2014).
+
+
+Data quality is a common concern in land cover analysis, with cloud cover frequently posing a significant issue-some regions, such as the northern Amazon forest, experience persistent cloud cover throughout the year. Obtaining even one usable image of specific areas can be challenging. Alternative satellites or imagery types, such as orbital RADAR, may be necessary. Various methods exist to create cloud-free composites and fill data gaps to mitigate these issues.
+
+
+Moreover, reliable methods for interpreting remote sensing data into meaningful land categories are essential. Using ground reference data to verify the accuracy of classifications is crucial, especially when estimating land areas undergoing conversion or abandonment. This verification is particularly challenging in regions with less homogeneous vegetation structures and cover (IPCC, 2003; White et al., 2017).
+
+
+When evaluating data accuracy, it is important to use consistent sampling strategies that align with established approaches. These strategies may need to be adjusted over time to ensure they continue to represent the data accurately. The sampling design should include a straightforward response design specifying how data is collected and classified, ensuring reliable and consistent results.
+
+
+The response design should strive to provide the best possible classification for area estimation. Inventory agencies should supply complete citations of peer-reviewed publications that describe and validate their models to promote transparency. Detailed information about the methodology, assumptions, input and output data, parameters, confidence intervals, and sensitivity analysis will enable reviewers to assess the validity of the models. The Intergovernmental Panel on Climate Change (IPCC) recommends using a 95% confidence interval to present the certainty associated with the data (IPCC, 2003).
+
+
+Remote Sensing Techniques for Land Cover Mapping
+Several techniques exist to analyze satellite imagery for land cover classification. One common approach is spectral indices, notably the Normalized Difference Vegetation Index (NDVI). NDVI measures the amount of green vegetation by evaluating the difference between near-infrared and red-light reflectance. This information helps identify diverse types of vegetation and monitor their health.
+
+
+Another important technique is the use of linear spectral mixture models. This method breaks down the spectral signature of each pixel into fractions representing different components, such as soil, vegetation, and shade. This approach is particularly beneficial in heterogeneous areas with mixed land cover types.
+
+
+Classification algorithms play a significant role in categorizing pixels into various land cover classes. There are two main types of classification: supervised and unsupervised. Supervised classification requires training data, which includes the spectral signatures of known land cover classes. We then use this data to classify the rest of the image. In contrast, unsupervised classification groups pixels based on spectral similarity, later assigning land cover classes to those groups.
+
+
+Additionally, time-series satellite data analysis detects changes in land cover over time. By examining trends or changes in spectral properties, this method allows for monitoring both gradual and abrupt transitions in land cover (Czerwinski et al., 2014; Defourny, 2016, 2024).
+
+
+Current Satellite Imagery and Applications
+The following is a reference list of available satellite data used to estimate land use and land cover around the globe. These include the most used publicly available sources with well-known technical characteristics and their strong and weak points. The digital data and derived products from these satellites have applications from a single series or sensor to multiple sensors and combinations of groups of these satellites. Combining them can improve the interpretation quality as it benefits from the sensor and orbit differences, varying resolution, and time range.
+
+
+Landsat: This program is a key source, with data from multiple sensors, including the Multispectral Scanner (MSS), Thematic Mapper (TM), and Enhanced Thematic Mapper Plus (ETM+). Landsat data has been used extensively due to its long-term availability and standardized format, including a 30-meter spatial resolution. The Landsat archive, including data from Landsat 4, 5, 7, 8 and 9, is freely available. Landsat data also allows the generation of global maps of forest cover change. A long-standing source of satellite data suitable for detailed land cover and land coverage analysis (NASA, 2023). All examples centered in Vernon, BC (-119.3676, 50.3229, 13).
+  
+Figure 4 – Landsat 8-day NDVI data example, in the Vernon Region in Google Earth Engine. A stronger green means more photosynthetic production, indicating denser active vegetation.
+
+
+SPOT: Data from the Satellite Pour l'Observation de la Terre (SPOT) program from ESA, including SPOT-4 VEGETATION and SPOT-5. SPOT-VGT data is a source to generate land cover maps (ESA, 2002).
+  
+
+Figure 5 – Spot corrected data for example, in the Vernon Region in Google Earth Engine. High spatial resolution data with photography appearance, like basemaps used in map applications for smartphones and computer browsers.
+
+
+MODIS: The Moderate Resolution Imaging Spectroradiometer (MODIS) provides data at coarser spatial resolution (250-1000m) but at high temporal resolution, which is helpful for land cover mapping and for monitoring seasonal vegetation changes. The MODIS Normalized Difference Vegetation Index (NDVI) product can identify annual crop areas based on their seasonal phenology. It offers high temporal resolution data and is valuable for observing seasonal vegetation changes, with a coarser spatial resolution than the Landsat. MODIS data is used with Landsat data to estimate forest cover loss. Other initiatives like Japan's Himawari-8 have a 10-minute revisit with 500m resolution focused on weather applications and have uses like MODIS data (NASA, 2002).
+  
+
+Figure 6 – MODIS data for example, in the Vernon Region in Google Earth Engine. Coarser spatial resolution with a higher temporal revisit rate.
+
+
+PROBA-V: The Project for On-Board Autonomy - Vegetation (PROBA-V) satellite aims to bridge the gap in space-borne vegetation measurements between SPOT-VGT and the Sentinel-3 satellites. PROBA-V acquires data in 4 spectral bands at 300m and 1km spatial resolution. PROBA-V data provides information for generating annual land cover maps. Designed to fill the gap between SPOT-VGT and Sentinel-3, acquiring data in 4 spectral bands at 300m and 1km spatial resolution. PROBA-V also allows generating annual land cover maps (ESA, 2013).
+  
+Figure 7 – PROBA-V data for example, in the Vernon Region in Google Earth Engine. Brown colors are evergreen needle leaf forests, green is broad leaf, yellow for herbaceous vegetation, blue for water bodies and red for urban areas.
+
+
+Sentinel-3: The Sentinel-3 mission includes the Ocean and Land Color Instrument (OLCI) and the Sea and Land Surface Temperature Radiometer (SLSTR). These instruments offer data to generate global land cover maps. The Sentinel-3 mission also provides data through its Ocean and Land Color Instrument (OLCI), which is helpful for land cover mapping, and the Sea and Land Surface Temperature Radiometer (SLSTR) (Copernicus, 2016).
+  
+Figure 8 – Sentinel 3 OLCI corrected data for example, in the Vernon Region in Google Earth Engine. It offers global coverage every 4 days with 300m resolution in 21 bands.
+
+
+AVHRR: The Advanced Very High-Resolution Radiometer (AVHRR) provides global data. It is another global land cover mapping source, though with coarser resolution data (1.1 Km) (USGS, 2018).
+  
+
+Figure 9 – AVHHR corrected data in the Vernon Region in QGIS. It collects 1km daily data.
+
+
+Other High-Resolution Satellites: Various other very high-resolution imagery from satellites, such as Quickbird, used for validation and detailed mapping, and Worldviews 1 and 2, which could offer more precise temporal analysis, also provide high spatial resolution imagery for validation and detailed mapping purposes (ESA, 2014; Maxar, 2001).
+  
+Figure 10 – ESA WorldCover classified data, in the Vernon Region, in Google Earth Engine. It uses 11 land cover classes, here we have green for tree cover, yellow for grassland, grey for sparse vegetation, pink for cropland, blue for water, and red for built-up areas.
+
+
+Daily image satellite with global cover: Some initiatives offer or plan to offer daily 3 to 6-band images with sub meter resolution using many small satellites with simple sensors. Companies like PlanetLabs and EarthDaily already offer paid options. The lack of historical data and processing challenges associated with cost make those options less attractive for land use change studies (EarthDaily, 2025; PlanetLabs, 2025). Planet labs do offer free monthly mosaics for the tropics via globalforestwatch, the Norway's International Climate and Forest Initiative program and Planet Basemaps.
+  
+Figure 11 – Planet Labs daily high-resolution data, in the Vernon Region on Global Forest Watch website, useful for near real time monitoring of events.
+
+
+These satellite systems provide a range of spatial and temporal resolutions, allowing for distinct types of land cover and land use analysis. The data allows monitoring of deforestation, forest dynamics, urban expansion, and other changes to the Earth's surface.
+The following images are examples of airborne spatial data, one captured with photography sensors and the other from LiDAR active sensors mounted on airplanes. These are from the city of Kelowna, 40km south of the Vernon area, in other examples.
+
+
+  
+  
+  
+
+  
+  
+  
+
+Figure 12(a-f) – The large image (f) is a section of Kelowna orthophoto 2023 imagery with a 10cm resolution, it enables a detailed visual impression of the land coverage including solar panels and cars windscreens. From the top, (a) is another section with original resolution and R-G-B colouring (Red Green Blue bands in the same order we would see the image colours) then (b) with B-R-G band order to enhance vegetation contrast and (c) with the same colour resampled to 30cm. With that data I did two simple processing examples with the results in (d) from slope calculation in the three visible bands (the gradient from each colour in a 5-pixel range) and a segmentation classification (e) using Orfeo Toolbox and a range of weighted values from the statistics for the three bands on each segment. All images generated with QGis 3.34 with open public data. This type of data is expensive, not available for most areas, and normally has only visible light bands, which are less useful for identifying vegetation. The original orthophoto has 90,000 pixels inside each pixel of a Landsat 30x30m resolution image (Orthophotos, 2016). 
+
+
+  
+  
+  
+
+  
+
+Figure 13 (a-d) - On the top, (a) is a sample region with the Kelowna orthophoto of a parking lot with some trees, a road, some cars and a Truck. On (b) the same location with LidarBC raw data spots in shades of white to red, each represents a distance between the sensor and the landcover target reflecting a Laser pulse, they have a variable grid with 2 to 50cm horizontal resolution and have a centimeter precision on heights along the reflected surfaces (nominal resolution of 50cm but the laser scanning rows end up with closer points). With some processing we get the gradient of height (c) that already separates tree borders from plain soil and buildings, also the borders of cars and the terrain height profile, the same data is on image (d) within a broader region with the building outlines for reference. Lidar is also expensive and hard to have multiple year coverages; it needs an intense level of data processing and can help detailing areas classified with lower resolution multispectral satellite data. The LidarBC has around 15-25 points per square meter, or 1500-2500 points in a 10x10m Sentinel 2A image pixel and over 13,000 points in a single 30x30m Landsat pixel (LidarBC., 2023).
+Ready to use Land Change Products
+Satellite technology has changed how we observe and understand changes in land cover and land use worldwide. Remote sensing techniques allow us to monitor these changes and gather essential data for managing the environment, modelling climate patterns, and planning for sustainable development.
+
+
+Various initiatives aim to produce annual global land cover data, specifically focused on addressing climate change related to forest loss and recovery. These efforts highlight the significant role that land coverages, and its changes play in climate modelling and environmental monitoring (Defourny, 2016, 2024).
+
+
+One such effort is the Copernicus Climate Change Service (C3S), which provides Intermediate Climate Data Records (ICDRs) for essential climate variables, including land cover. The C3S program produces global land cover maps at a 300m spatial resolution, with annual updates from 2016 to 2022. These maps are consistent with the existing European Space Agency (ESA) Climate Change Initiative (CCI) global annual land cover maps from 1992 to 2015, ensuring a long-term, consistent dataset. The C3S initiative uses data from the PROBA-V and SENTINEL-3 satellites, which provide Earth Observation (EO) acquisitions in multiple spectral bands and at different spatial resolutions.
+
+
+ The data are processed to create seasonal composites, which are then classified using the United Nations (UN) Land Cover Classification System (LCCS) (Olofsson et al., 2014). This system provides a hierarchical approach to land cover, enabling the organization of land categories from broad definitions to progressively more detailed subdivisions (IPCC, 2003). This structured categorization facilitates the consistent classification of seasonal composites and other remote sensing data across diverse areas and periods. The design ensures that the resulting land cover maps capture spatially and temporally consistent dynamics, which is essential for applications such as climate modeling (White et al., 2017).
+
+
+The C3S also provides quality flags informing the map series' pixel and processing states and land cover changes. The C3S approach allows the detection of land cover changes using a time series of 1 km global classifications, with a requirement that each change persist over more than two successive years in the classification time series. The confirmation helps to avoid false change detections due to the inter-annual variability in classifications.
+
+
+Global Forest Watch is another initiative that produces high-resolution global maps of forest cover change using Landsat data. This dataset quantifies forest loss and gains from 2000 to 2019 at a 30-meter spatial resolution. Initially derived from a consistent approach for 2000-2012, it provides spatially explicit information and annual data on forest loss trends.
+
+
+ Hansen's work, exemplified by his "High-Resolution Global Maps of 21st-Century Forest Cover Change" (2013), represents a significant effort to define forest change globally (Hansen et al., 2013). This initiative is intended to provide globally consistent characterizations of land cover dynamics that are both locally relevant and useful, thereby offering reliable and consistent information across various scales. The rationale behind this work stems from the critical need for comprehensive baseline data on forest disturbance and recovery, which has historically been challenging to compile due to inconsistencies in spatial detail, temporal reach, and the often-non-spatial nature of existing historical records (White et al., 2017). The capacity to generate such vast and consistent datasets was made possible by free and open access to the Landsat archive, established in 2008, alongside advancements in computational capabilities, such as Google's cloud computing, specifically the Google Earth Engine (GEE) (DeVries et al., 2015; Hansen & Loveland, 2012). This combination enabled the unprecedented mass processing of Landsat data, which is crucial for understanding and managing forest ecosystems in the context of rapid and complex environmental changes, such as those related to carbon budgets and climate change.
+ 
+Specifically, Hansen's studies involved the time-series analysis of Landsat images to characterize global forest extent and change, with initial results covering the period from 2000 through 2023 (Hansen et al., 2013). The processing of this extensive spatial and temporal series of Landsat imagery for forest cover changes, including deforestation and degradation, is executed using the Google Earth Engine platform. This cloud-based system facilitates efficient analysis and digital processing of large remote-sensing image databases (Gomes, 2023). The resulting data, such as Hansen's "High-Resolution Global Maps of 21st-Century Forest Cover Change," are subsequently made available to the public through interactive maps for access and visualization, as seen on platforms like http://earthenginepartners.appspot.com/science-2013-global-forest and https://www.globalforestwatch.org/map/ (Hansen et al., 2013). This public accessibility provides a transparent, sound, and consistent foundation for quantifying critical environmental issues.
+  
+Figure 14 – Land Cover Classification from Maryland University (Hansen), in the Vernon Region on QGIS.
+
+
+These efforts are critical for:
+* Climate modelling: The land cover datasets are a key input in climate models, as land cover and its changes influence the carbon cycle and surface energy balance.
+* Land accounting: The detailed and consistent mapping allows for better tracking of land use and land cover changes.
+* Forest monitoring: The yearly updates enable monitoring of deforestation, forest degradation, and forest regrowth.
+* Desertification studies: The comprehensive land cover classification aids in studying the effects of desertification and land degradation.
+
+
+
+
+Change Detection Methods
+Detecting changes in land cover at varying scales is a recent tool for monitoring environmental impacts and policy effectiveness. Image difference is a straightforward method that compares images from different dates to identify changing areas. More sophisticated methods involve temporal trend analysis, which uses time series data to detect subtle and gradual changes in vegetation dynamics. For example, the Theil-Sen trend slope estimate is combined with the Contextual Mann-Kendall significance test to identify statistically significant trends in forest cover.
+
+
+Change detection algorithms can also generate annual land cover maps by analyzing a time series of classifications to detect land cover transitions. These methods also require confirming the detected changes over at least two successive years to avoid false detections due to the inter-annual variability. Specific algorithms incorporate additional datasets for urban areas, such as the Global Human Settlement Layer (GHSL) and the Global Urban Footprint (GUF), to map urban expansion over time (Czerwinski et al., 2014; Defourny, 2016, 2024).
+  
+Figure 15 - Hansen Global Forest Change on Google Earth Engine.
+Satellite Product Case Studies
+The applications of remote sensing techniques are diverse, with significant examples in monitoring deforestation, assessing forest dynamics, and mapping land cover at different scales. For instance, studies in the Brazilian Amazon have extensively used Landsat and MODIS data to map deforested areas and their subsequent land uses. These studies reveal a landscape dominated by pasture and secondary vegetation following deforestation.
+
+
+The TerraClass project, a collaboration between the Brazilian National Institute for Space Research (INPE) and the Brazilian Agricultural Research Corporation (Embrapa), exemplifies this approach. It combines Landsat-5/TM imagery with MODIS NDVI time series to create detailed land use maps. This project used a linear spectral mixture model and temporal data from MODIS to classify deforested areas.
+
+
+  
+Figure 16 - Copernicus Browser quarterly NDVI example. A stronger green means more photosynthetic production, indicating denser active vegetation.
+
+
+A crucial finding of TerraClass was that pastures covered 62% of the deforested areas within the Brazilian Legal Amazon, while annual or perennial agriculture occupied less than 5% (crops that occupy the region for at least one year). This result highlights the dominance of cattle ranching in the region's post-deforestation land use. The high spatial resolution of Landsat (30m) made it possible to discriminate against different land cover classes, supplemented by the high temporal resolution of MODIS, which helped track seasonal changes in vegetation.
+
+
+In contrast, studies focusing on temperate forests have utilized Landsat time-series analysis to map out subtle forest changes. Research in Gatineau Park, Québec, Canada, employed a time series of Landsat 5 TM images to detect and map forest growth and decline. This study evaluated several vegetation indices and found that Tasseled Cap Wetness (TCW) was particularly effective in detecting changes.
+
+
+Tasseled Cap Wetness (TCW) is a spectral index derived from the Tasseled Cap transformation of Landsat data, which standardly transforms original Landsat spectral bands to capture principal axes of spectral variation. Specifically, the wetness index is formed by contrasting shortwave-infrared (SWIR) against near-infrared (NIR) reflectance, effectively representing a dimension of scene moisture (Masek et al., 2008; Todd & Hoffer, 1998).
+ 
+TCW is effective because it is sensitive to both soil moisture and vegetation moisture. The shortwave-infrared (SWIR) wavelengths, which are integral to TCW, are well understood to be critical for characterizing forest structure, especially for regenerating stands, making TCW valuable for assessing changes in forest structure (Masek et al., 2008; Todd & Hoffer, 1998). Studies have shown that wetness index values consistently increase as vegetation cover increases, with the most pronounced responses observed over dry soils. Additionally, soil moisture differences influence the wetness index more significantly than soil type contrasts. While some research suggests that TCW may underestimate recovery compared to the Normalized Burn Ratio (NBR), it still provides valuable insights into vegetation recovery dynamics. When combined with other Tasselled Cap indices, such as brightness and greenness, it offers a more comprehensive understanding of spectral variation across diverse landscapes (White et al., 2017).
+
+
+The TCW index, derived from Landsat data, was strongly correlated with leaf area index (LAI) (r=0.81). By combining the Theil-Sen trend slope estimate with the Contextual Mann-Kendall significance test, the researchers mapped statistically significant trends of forest change, with 1.8% of the park exhibiting growth and 1.9% exhibiting decline over the study period. This result demonstrates the effectiveness of multi-temporal analysis for monitoring forest dynamics. The research also established empirical models that linked detected spectral changes to field-measured physical parameters like LAI.
+
+
+Global land cover mapping efforts use satellite imagery and advanced algorithms to create consistent and comprehensive datasets. One notable initiative is the Copernicus Climate Change Service (C3S), which generates global land cover maps using PROBA-V imagery. These maps have a spatial resolution of 300 meters and align with the European Space Agency (ESA) Climate Change Initiative (CCI) standards.
+
+
+The C3S maps employ a hierarchical classification system based on the United Nations (UN) Land Cover Classification System (LCCS). This system provides a global overview with 22 classes and allows for detailed classification at the regional level.
+
+
+The PROBA-V instrument is essential for generating these maps, offering 300-meter and 1-kilometer resolution data. The 1-kilometre resolution of land cover classification from PROBA-V is crucial for detecting changes in land cover. They refine this information using the high-resolution 300-meter data, making it invaluable for climate modeling and land accounting.
+
+
+Studies utilizing Landsat data have produced detailed global maps of forest cover change, highlighting both forest loss and gain from 2000 to 2012. These maps provide annual insights into forest loss trends, helping to monitor forest dynamics worldwide.
+
+
+The analysis relies on the Google Earth Engine platform, which can process large-scale time-series datasets. This global study identified the tropics as the region experiencing the most significant forest loss, with an alarming trend of 2,101 square kilometers (about half the area of Rhode Island) per year.
+
+
+This data underscores the critical role of these datasets in monitoring deforestation on a planetary scale. Additionally, they allow for tracking forest fragmentation, which has significant implications for habitat loss and biodiversity.
+
+
+Applying these diverse techniques allows for monitoring land use changes over time at different scales, from local to global, and tracing the impacts of human activities on the environment. Combining various data sources, advanced processing methods, and continuous monitoring provides a comprehensive understanding of the Earth's dynamic surface.
+
+
+For this project, it is reasonable to use available land use and land cover products combined to have a long-time frame for policy change analysis. However, we cannot find cause-and-consequence relations, and it may be necessary to compare products available for the same area and period to certify findings. Producing a classification from raw data may be helpful for learning purposes and methodological debugging.  
+Figure 17 - Tree cover loss due to fires in the global forest. Watch interactive map. The reason for losing forest coverage can relate to different policies at various levels.
+
+
+Integration of Data Sources and Available Tools
+Integrating remote sensing data with other sources, such as ground measurements and maps, is vital for comprehensively analyzing land use change. Geographic Information Systems (GIS) are used to achieve integration. By combining remote sensing data with ground surveys, we can effectively and cost-effectively measure land use changes.
+
+
+Using Landsat and Synthetic Aperture Radar (SAR) data together enhances our ability to detect tropical deforestation. Additionally, integrating airborne observations with transport models improves the estimation of carbon stock changes (Jensen, 2009).
+
+
+Numerous tools assist in processing and evaluating remote sensing data. These tools include software such as ENVI and Erdas Imagine, cloud platforms like Google Earth Engine (GEE) and NEX, and various online resources. For large-area monitoring, pre-processed inputs and automated processing algorithms are essential.
+
+
+Cloud platforms like NEX and GEE provide effective solutions for large-scale data processing. The selection of techniques depends on several factors, including spatial, spectral, and temporal resolution, as well as the data quality, such as cloud cover. Algorithms like LandTrendr, Composite2Change, and the Disturbance Index help map forest disturbances.
+
+
+Robust validation methods are critical for ensuring the accuracy of analyses. Practices include ground truthing, accuracy assessments, and comparisons with independent datasets. Continuous learning is essential to stay updated on advancements in the field. Therefore, inventory agencies should explore new methods and technologies to enhance their capabilities (IPCC, 2003; Mobasheri et al., 2020).
+
+
+Validation of Land Use Data
+Validating land use data is essential, particularly for national-scale analyses. Key components of this validation process include accuracy assessment, ground truthing, field verification, and statistical methods.
+
+
+Estimating it on a category-by-category basis is important to ensure accuracy. Ground reference data plays a crucial role in complementing remotely sensed data. In cases where land use is rapidly changing or where there is potential for misclassifying vegetation, intensive ground truthing is necessary.
+
+
+Researchers employ accuracy assessment methods, such as confusion matrices and multi-temporal analysis, to evaluate land cover maps derived from remote sensing. For instance, they validated TerraClass using SPOT-5 High-Resolution Geometric (HRG) data. Additionally, they compared LEDAPS disturbance maps with maps derived from the Landsat time series. A confusion matrix, also referred to as an error matrix, is a conventional technique used to cross-tabulate the class labels assigned by classification (e.g., from remotely sensed data) against reference data for sample sites (Kennedy et al., 2010; Olofsson et al., 2014). This matrix organizes acquired sample data to summarize key results and aid in quantifying accuracy and area of interest. The main diagonal elements of the matrix represent correct classifications, indicating the number of sample plots predicted to belong to a class relative to its actual ground class. Conversely, the off-diagonal elements show misclassification errors, specifically omission and commission errors (Moisen & Frescino, 2002; Olofsson et al., 2014).
+
+
+They utilize metrics like overall accuracy, user accuracy, producer accuracy, and the kappa coefficient to conduct statistical validation. They commonly use techniques such as stratified random sampling and error matrices (Abdikan & Balik Sanli, 2012; Ahmed et al., 2021; Attarchi & Gloaguen, 2013).
+
+
+Analyzing Land Use Patterns Over Time
+Various methods can be used to analyze land use patterns, including bi-temporal, multi-temporal, and time-series analyses. These analyses often rely on Landsat data and historical maps. A notable example of land use change is the transformation of the Argentine pampas from grasslands to croplands, which has led to the adoption of conservation techniques.
+
+
+Understanding historical land use patterns is crucial for context. Notable examples include land use change matrices for Scotland (1984-1990) and the U.S. (1992-1997). Historical context-such as past policies and economic activities-influences land use.
+
+
+Case studies from regions like the Brazilian Amazon (TerraClass), Canadian forests (disturbance and recovery), and UK land use changes illustrate various methodologies and complexities. Understanding the drivers behind land use change is vital. Maintaining consistent time series records and stable definitions of land use is considered best practice.
+
+
+Factors Influencing Land Use Change
+Several factors influence land use change, encompassing a complex interplay of economic, social, and environmental elements. Economically, the demand for food and fiber drives significant agricultural expansion, often at the expense of natural ecosystems. Growing bioenergy demands further intensify pressure on land, creating competition with food production and potentially leading to degradation. Concurrently, urban expansion contributes to land conversion, transforming agricultural and forest areas into settlements and infrastructure, and impacting soil productivity. From a social perspective, population growth directly increases the need for food and agricultural land.
+ 
+Meanwhile, migration patterns and evolving cultural preferences, such as dietary shifts, can significantly reshape land use demands and environmental outcomes. Environmentally, climate change is a pervasive driver, exacerbating desertification, land degradation, and food insecurity while also altering forest dynamics and the effectiveness of mitigation strategies. The intrinsic quality of soil, including its susceptibility to erosion, salinization, and organic matter depletion, fundamentally governs land productivity and its vulnerability to degradation. Lastly, the availability and quality of water resources, such as groundwater and surface water, are critically intertwined with land use, with agricultural practices often heavily influencing consumption and leading to degradation or scarcity issues.
+
+
+Human-induced changes like deforestation also have significant environmental impacts. Government policies, including subsidies, regulations, and the establishment of protected areas, play a crucial role in shaping land use. These policies can affect the demand for bioenergy, carbon capture initiatives, reforestation efforts, and livestock expansion. Examples include Brazil’s Forest Act and China’s Requisition-Compensation Balance.
+
+
+Recommendations to access Land Use and Land Cover Change of a region
+There are many methods to evaluate land use change in a region over time. Considering the availability of remote sensing data and derived information for public use, it is possible to produce a new land use classification for the period of interest on two different dates and compare them. If yearly data with 30m resolution are compatible with the study's objectives, the global land use change, forest cover change, and other Landsat/Sentinel products are adequate.
+
+
+For example, Maryland University Forest cover data is available, well-discussed, and documented. It has planetary data for every year from 2000 to 2023, making it possible to replicate an analysis of one year to another and from one region to another. The consistency of methodology is necessary to compare land cover persistence or transformations to evaluate potential causes and consequences (Cohen & Goward, 2004; Hansen et al., 2013).
+
+
+Some countries have official land use classifications for consistory or planning purposes and make them available. That can be a solid source of information, but they can have different methodologies over the territory or in the years they were contracted. Canada, for example, has data for 2010, 2015 and 2020 from mostly Landsat data but the methodology is specific for the country, making it harder to compare results with other countries. In the Brazilian case it can be even harder, as the current official land cover information has a lower resolution. Auxiliary official data will also vary on scale and quality, for example river streams and vegetation typologies with a coarser distribution grid than protected areas to evaluate for planning a field trip (E. and C. C. Canada, 2021; Carreiras et al., 2014; GHG Division, Environment Canada, 2002; Gomes, 2023; Souza et al., 2020).
+
+
+Recommendations for Sustainable Land Use Management
+Promoting sustainable land use planning requires the implementation of comprehensive strategies that balance competing land uses, such as agriculture, forestry, conservation, and urbanization, while also considering long-term sustainability goals. This includes the use of data, such as that derived from Landsat, to develop baselines for change that can inform effective planning and management, as well as the development of land use plans at the local, community level (White et al., 2017). First Nations' land use plans, for example, often describe how the Nation conceptualizes land use in terms of Indigenous teachings and laws, and include a geographical inventory of key resources, protected areas, and areas for economic development (Jody Wilson-Raybould, 2014). Such plans are a key step in governing ancestral lands and can provide a framework for collaborative land management.
+
+
+Strengthening governance and enforcement is crucial for reducing illegal land use activities, especially in areas with weak governance (Fearnside, 2022). This involves enhancing governance structures, improving law enforcement, and promoting transparency. For instance, in Brazil, effective restrictions on land sales and a national registry of settled migrants are needed to reduce illegal deforestation. In addition, penalties for illegal deforestation, such as fines and potential imprisonment, can motivate landowners to seek licensing, provided they are convinced that they will be detected and punished. Furthermore, government effectiveness plays a key role in land management, mediating land-user actions, and investments, and helping land users adopt sustainable practices (IPCC, 2022).
+
+
+Incentivizing sustainable practices involves implementing programs like payments for ecosystem services and tax breaks for sustainable agriculture to encourage sustainable land management among landowners and land users. It also involves creating economic opportunities related to the preservation of natural resources. For example, the establishment of Ecosystem Restoration Concessions in Indonesia facilitates the planting of commercial timber species while assisting natural regeneration, preserving important habitats and species, and improving local well-being and incomes (IPCC, 2022). Additionally, encouraging sustainable land management practices can include supporting Indigenous communities to maintain traditional practices, for example, respecting Indigenous rights and promoting the sustainable use of land (Gomes, 2023; Jody Wilson-Raybould, 2014).
+
+
+Empowering local communities and Indigenous peoples through engagement in land use planning and management is essential, and it involves recognizing their traditional knowledge and rights. This can include respecting the rights of Indigenous people to own, use, develop, and control their traditional lands and resources. It also means that land use planning should consider Indigenous stewardship practices and their perspectives on land and marine use planning. Furthermore, enabling local participation in institutional frameworks supports sustainable land management.
+
+
+Continued investment in monitoring and research is essential for enhancing our understanding of land use change dynamics and for evaluating the effectiveness of management strategies (White et al., 2017). This includes investing in remote sensing technologies, data analysis methods, and the development of comprehensive land use databases, using existing data, sampling, or complete land inventories (IPCC, 2003). The use of Landsat data is particularly important because it offers the longest record of global-scale medium spatial resolution earth observation data, which is crucial for retrospective analysis and establishing consistent baselines for land cover change. Additionally, the use of time-series data enables the capture of both short-term events and long-term trends, which is necessary for effective monitoring and assessment. Cloud computing platforms such as Google Earth Engine (GEE) and NASA Earth Exchange (NEX) are also critical for processing large datasets (DeVries et al., 2015; Hansen & Loveland, 2012).
+
+
+International cooperation is necessary to address global land use challenges, especially those related to deforestation and climate change. This involves sharing best practices and developing coordinated strategies. For example, the Reducing Emissions from Deforestation and Forest Degradation (REDD+) program is a framework for international collaboration. However, such programs often lack the institutional investment and scientific capacity to fully implement the programs and make use of global observational records, highlighting the importance of building capacity. It is also important for data providers to develop open data policies to allow for the increased use of data streams to address land use change (Hansen et al., 2013; Hansen & Loveland, 2012; Masek et al., 2008).
+
+
+Improved grazing land management is a key area for intervention because sustainable practices can increase soil carbon, reduce emissions, and enhance climate change resilience. This includes practices such as optimizing stocking densities, improving grass varieties, managing vegetation, and implementing effective fire management. Moreover, improved grazing land management can also enhance food security through improved productivity. In the Cerrados of Brazil, for example, there is significant potential to reverse grassland degradation through pasture intensification, which could increase soil organic carbon and reduce net GHG emission intensity per unit meat product (IPCC, 2022, 2003).
+
+
+Developing robust policies and legislation is essential for promoting sustainable land use practices. This includes implementing policies that incentivize sustainable agriculture, regulations to prevent deforestation, and balanced land use planning. For example, policies that reduce illegal deforestation and promote sustainable sourcing can reduce land degradation (Gomes, 2023). Additionally, financial incentives can encourage landowners to seek licensing, if there is a well-founded expectation that illegal activities will be detected and punished. Furthermore, promoting the use of local seeds and supporting livelihood diversification can enhance the resilience of local communities to environmental changes.
+
+
+Conclusion
+Remote sensing technologies, especially the Landsat program, are vital in monitoring and analyzing land use dynamics over time. One effective method for understanding forest disturbance and recovery is time-series analysis of Landsat data. This approach allows researchers to capture both short-term events and long-term trends, surpassing traditional change detection methods.
+
+
+Advanced processing techniques and algorithms, including spectral indices and machine learning, are employed to enhance the mapping and analysis of forest changes. Furthermore, cloud computing platforms, such as Google Earth Engine (GEE) and NASA Earth Exchange (NEX), are essential for processing the large datasets necessary for these analyses. Despite these advancements, ground truthing and robust validation remain critical for data accuracy and reliability (MapBiomas Brasil, 2023). 
+
+
+The drivers of land use change vary depending on the specific context. In Brazil, for example, agricultural expansion, economic pressures, and weak governance contribute to deforestation. In contrast, Canada experiences more pronounced land use changes due to logging, mining, and urbanization. Understanding these context-specific drivers is crucial for developing targeted and effective policies and management strategies (Fearnside, 2022; Masek et al., 2008).
+
+
+Historical land use patterns and past policies significantly influence current land use dynamics, making historical context crucial for interpreting current trends and projecting future changes in land cover. A range of factors shape future changes in land cover. Historical maps, records, and long-term datasets, such as the Landsat archive, provide invaluable resources for understanding these changes. The Landsat program’s extensive temporal record and free data access policy are crucial for conducting retrospective analyses. This information aids in developing consistent baselines for tracking land cover changes over time.
+
+
+Long-term monitoring of forest change is essential for evaluating the sustainability of forest management practices. It also helps assess the potential for biomass uptake and carbon sequestration, which are critical for addressing climate change.
+
+
+Government policies and land tenure systems are vital in shaping land use. Effective policies can promote sustainable land management, while poorly designed or implemented policies can exacerbate negative environmental impacts. Strong governance, transparency, and active stakeholder involvement are key to successful policy implementation (Hansen et al., 2013).
+
+
+A notable example of using satellite data for environmental monitoring is Brazil’s analysis of Landsat data to document deforestation trends. This approach has been crucial in developing and implementing policies to reverse decades of widespread deforestation. By increasing awareness of the value of forests, Brazil has made significant strides in sustainable forest management.
+
+
+Land use change has significant environmental and socio-economic consequences. Deforestation contributes to biodiversity loss and greenhouse gas emissions. It also disrupts hydrological cycles, affecting local communities, their livelihoods, and their cultural heritage. Therefore, sustainable land management strategies must consider these interconnected impacts.
+
+
+For instance, expanding managed land into natural ecosystems can negatively impact biodiversity. Converting forests to agricultural land can reduce the potential of carbon sequestration. Additionally, urbanization can lead to the loss of agricultural land and soil degradation (IPCC, 2022).
+
+
+Integrated approaches are required to effectively address land use changes. These approaches should consider the complex interactions between land uses, human activities, and environmental processes. Integrating data from various sources-such as remote sensing, ground surveys, and socio-economic data-is essential. For example, Landsat data allows for the characterization of national spatial and temporal trends in disturbance and recovery. It also helps distinguish between disturbances, such as wildfires and timber harvests (Hansen & Loveland, 2012; IPCC, 2003). 
+Furthermore, considering both disturbances and vegetation regrowth provides a more holistic framework for understanding forest change. This is vital for long-term forest monitoring and carbon accounting. These integrated approaches also highlight the need for coordination across multiple scales, actors, and sectors from local to international levels. Finally, it is important to include diverse stakeholders in the decision-making process.
+Bibliography
+
+
+Abdikan, S., & Balik Sanli, F. (2012). Comparison of different fusion algorithms in urban and agricultural areas using SAR (palsar and radarsat) and optical (SPOT) images. Boletim de Ciencias Geodesicas, 18, 509-531. https://doi.org/10.1590/S1982-21702012000400001
+Ahmed, R., Kumar, P., & Rani, M. (2021). Introduction to Challenges and Future Directions in Remote Sensing and GIScience. In P. Kumar, H. Sajjad, B. S. Chaudhary, J. S. Rawat, & M. Rani (Eds.), Remote Sensing and GIScience: Challenges and Future Directions (pp. 3-7). Springer International Publishing. https://doi.org/10.1007/978-3-030-55092-9_1
+Almeida, C. A. de, Coutinho, A. C., Esquerdo, J. C. D. M., Adami, M., Venturieri, A., Diniz, C. G., Dessay, N., Durieux, L., & Gomes, A. R. (2016). High spatial resolution land use and land cover mapping of the Brazilian Legal Amazon in 2008 using Landsat-5/TM and MODIS data. Acta Amazonica, 46, 291-302. https://doi.org/10.1590/1809-4392201505504
+Amit, Y., & Geman, D. (1997). Shape Quantization and Recognition with Randomized Trees. Neural Computation, 9(7), 1545-1588. https://doi.org/10.1162/neco.1997.9.7.1545
+Attarchi, S., & Gloaguen, R. (2013). Joint processing of Landsat ETM+ and ALOS-PALSAR data for species richness and forest biodiversity monitoring. Image and Signal Processing for Remote Sensing XIX, 8892, 274-279. https://doi.org/10.1117/12.2029328
+BRASIL MS. (2024). Transferência de Arquivos - DATASUS. https://datasus.saude.gov.br/transferencia-de-arquivos/
+Brazil. (2012). Brazilian Forest Code Law 12651. https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12651.htm
+Canada, E., and C. C. (2021, October 29). Land-use change. https://www.canada.ca/en/environment-climate-change/services/environmental-indicators/land-use-change.html
+Canada, N. R. (2017). High resolution forest change for Canada (Change Type) 1985-2011-Open Government Portal [Dataset]. https://open.canada.ca/data/en/dataset/eaf92ab8-c744-4f8f-a280-6987d4f6005e
+CANADIAN COUNCIL OF FOREST MINISTERS. (2020). SUSTAINABLE FOREST MANAGEMENT POLICIES IN CANADA. https://www.ccfm.org/wp-content/uploads/2020/08/Sustainable_Management_Policies_EN.pdf
+Carreiras, J. M. B., Jones, J., Lucas, R. M., & Gabriel, C. (2014). Land Use and Land Cover Change Dynamics across the Brazilian Amazon: Insights from Extensive Time-Series Analysis of Remote Sensing Data. PLOS ONE, 9(8), e104144. https://doi.org/10.1371/journal.pone.0104144
+Chander, G., Markham, B. L., & Barsi, J. A. (2007). Revised landsat-5 thematic mapper radiometric calibration. IEEE Geoscience and Remote Sensing Letters, 4(3), 490-494. https://doi.org/10.1109/LGRS.2007.898285
+Chatham House. (2020). Forest Governance and Legality. Forest Governance and Legality. https://forestgovernance.chathamhouse.org/
+Christopher Small. (2013). Multi-scale standardized spectral mixture models. https://www.researchgate.net/publication/256850470_Multi-scale_standardized_spectral_mixture_models
+Cohen, W. B., & Goward, S. N. (2004). Landsat’s role in ecological applications of remote sensing. BioScience. 54(6): 535-545. https://research.fs.usda.gov/treesearch/27146
+Cohen, W. B., Yang, Z., & Kennedy, R. (2010). Detecting trends in forest disturbance and recovery using yearly Landsat time series: 2. TimeSync - Tools for calibration and validation. Remote Sensing of Environment, 114(12), 2911-2924. https://doi.org/10.1016/j.rse.2010.07.010
+Cohen, W. B., Yang, Z., Stehman, S. V., Schroeder, T. A., Bell, D. M., Masek, J. G., Huang, C., & Meigs, G. W. (2016). Forest disturbance across the conterminous United States from 1985–2012: The emerging dominance of forest decline. Forest Ecology and Management, 360, 242–252. https://doi.org/10.1016/j.foreco.2015.10.042
+Copernicus. (2016). Sentinel-3. Sentinel Online. https://copernicus.eu/copernicus/sentinel-3
+Crist, E. P. (1985). A TM Tasseled Cap equivalent transformation for reflectance factor data. Remote Sensing of Environment, 17(3), 301-306. https://doi.org/10.1016/0034-4257(85)90102-6
+Curtis, P. G., Slay, C. M., Harris, N. L., Tyukavina, A., & Hansen, M. C. (2018). Classifying drivers of global forest loss. Science, 361(6407), 1108-1111. https://doi.org/10.1126/science.aau3445
+Czerwinski, C. J., King, D. J., & Mitchell, S. W. (2014). Mapping forest growth and decline in a temperate mixed forest using temporal trend analysis of Landsat imagery, 1987-2010. Remote Sensing of Environment, 141, 188-200. https://doi.org/10.1016/j.rse.2013.11.006
+Defourny, P. (2016). Algorithm Theoretical Basis Document.
+Defourny, P. (2024). Product User Guide and Specification.
+DeVries, B., Decuyper, M., Verbesselt, J., Zeileis, A., Herold, M., & Joseph, S. (2015). Tracking disturbance-regrowth dynamics in tropical forests using structural change detection and Landsat time series. Remote Sensing of Environment, 169, 320-334. https://doi.org/10.1016/j.rse.2015.08.020
+EarthDaily. (2025). EarthDaily Constellation Data. EarthDaily. https://earthdaily.com/constellation/
+ESA. (2002). SPOT 5-Earth Online. https://earth.esa.int/eogateway/missions/spot-5
+ESA. (2013). PROBA-V - Earth Online. https://earth.esa.int/eogateway/missions/proba-v
+ESA. (2014). WorldView-3-Earth Online. https://earth.esa.int/eogateway/missions/worldview-3
+ESRI. (2024). Esri Documentation | Up-to-date documentation for ArcGIS and more | ArcGIS. https://doc.arcgis.com/en/
+Fearnside, P. M. (2022). Destruction and conservation of the Amazon rainforest. Editora INPA.
+GHG Division, Environment Canada. (2002). Land-Use Change and Forestry: 1990-2000. https://publications.gc.ca/collections/collection_2014/ec/En40-238-6-1-eng.pdf
+Gomes, G. C. M. (2023). The influence of changes in land use and occupation on Brazilian landscape metrics. https://locus.ufv.br//handle/123456789/31556
+Hansen, M. C., & Loveland, T. R. (2012). A review of large area monitoring of land cover change using Landsat data. Remote Sensing of Environment, 122, 66-74. https://doi.org/10.1016/j.rse.2011.08.024
+Hansen, M. C., Potapov, P. V., Moore, R., Hancher, M., Turubanova, S. A., Tyukavina, A., Thau, D., Stehman, S. V., Goetz, S. J., Loveland, T. R., Kommareddy, A., Egorov, A., Chini, L., Justice, C. O., & Townshend, J. R. G. (2013). High-Resolution Global Maps of 21st-Century Forest Cover Change. Science, 342(6160), 850-853. https://doi.org/10.1126/science.1244693
+Hansen, M. C., Wang, L., Song, X.-P., Tyukavina, A., Turubanova, S., Potapov, P. V., & Stehman, S. V. (2020). The fate of tropical forest fragments. Science Advances, 6(11), eaax8574. https://doi.org/10.1126/sciadv.aax8574
+Hermosilla, T., Wulder, M. A., White, J. C., Coops, N. C., Hobart, G. W., & Campbell, L. B. (2016). Mass data processing of time series Landsat imagery: Pixels to data products for forest monitoring. International Journal of Digital Earth, 9(11), 1035-1054. https://doi.org/10.1080/17538947.2016.1187673
+IPCC. (2022). Climate Change and Land: IPCC Special Report on Climate Change, Desertification, Land Degradation, Sustainable Land Management, Food Security, and Greenhouse Gas Fluxes in Terrestrial Ecosystems (1st ed.). Cambridge University Press. https://doi.org/10.1017/9781009157988
+IPCC (with IPPC National Greenhouse Gas Inventories Programme). (2003). Good practice guidance for land use, land-use change and forestry /The Intergovernmental Panel on Climate Change. Ed. By Jim Penman (J. Penman, Ed.).
+iMapBC. (n.d.). Retrieved June 8, 2025, from https://maps.gov.bc.ca/ess/hm/imap4m/
+Jensen, J. R. (2009). Sensoriamento remoto do ambiente: Uma perspectiva em recursos terrestres. Parêntese Editora.
+Jody Wilson-Raybould. (2014). BCAFN Governance Toolkit: A Guide to Nation-Building. https://www.bcafn.ca/sites/default/files/docs/Governance-Toolkit.pdf
+Kauth, R., & Thomas, G. (1976). The Tasselled Cap-A Graphic Description of the Spectral-Temporal Development of Agricultural Crops as Seen by LANDSAT. LARS Symposia. https://docs.lib.purdue.edu/lars_symp/159
+Kelly Levin. (2019). IPCC: 7 key points from the special report on land use. https://www.wribrasil.org.br/noticias/ipcc-7-pontos-fundamentais-do-relatorio-especial-sobre-uso-da-terra
+Kennedy, R. E., Yang, Z., & Cohen, W. B. (2010). Detecting trends in forest disturbance and recovery using yearly Landsat time series: 1. LandTrendr - Temporal segmentation algorithms. Remote Sensing of Environment, 114(12), 2897-2910. https://doi.org/10.1016/j.rse.2010.07.008
+LidarBC. (2023). Retrieved June 16, 2025, from https://lidar.gov.bc.ca/Specifications for Airborne LiDAR for the Province of British Columbia.
+Loveland, T. R., & Dwyer, J. L. (2012). Landsat: Building a strong future. Remote Sensing of Environment, 122, 22-29. https://doi.org/10.1016/j.rse.2011.09.022
+MapBiomas. (2023). Brazil Mapbiomas Collection 9-Annual mapping of land cover and use in Brazil from 1985 to 2023 [Dataset]. https://brasil.mapbiomas.org/en/map/colecao-8/
+MapBiomas Brasil. (2023). https://brasil.mapbiomas.org/map/colecao-7/
+MapBiomas Brasil. (2024). Half of the area of ​​native vegetation lost between 1985 and 2023 is in the Amazon, one of the continent’s climate stabilizers. https://brasil.mapbiomas.org/2024/08/21/em-2023-a-perda-de-areas-naturais-no-brasil-atinge-a-marca-historica-de-33-do-territorio/
+Markham, B. L., & Helder, D. L. (2012). Forty-year calibrated record of earth-reflected radiance from Landsat: A review. Remote Sensing of Environment, 122, 30–40. https://doi.org/10.1016/j.rse.2011.06.026
+Masek, J. G., Huang, C., Wolfe, R., Cohen, W., Hall, F., Kutler, J., & Nelson, P. (2008). North American forest disturbance mapped from a decadal Landsat record. Remote Sensing of Environment, 112(6), 2914-2926. https://doi.org/10.1016/j.rse.2008.02.010
+Masek, J. G., Vermote, E. F., Saleous, N. E., Wolfe, R., Hall, F. G., Huemmrich, K. F., Gao, F., Kutler, J., & Lim, T.-K. (2006). A Landsat surface reflectance dataset for North America, 1990-2000. IEEE Geoscience and Remote Sensing Letters, 3(1), 68-72. IEEE Geoscience and Remote Sensing Letters. https://doi.org/10.1109/LGRS.2005.857030
+Maxar. (2001). QuickBird Satellite Sensor | Satellite Imaging Corp. https://www.satimagingcorp.com/satellite-sensors/quickbird/
+Mobasheri, A., Pirotti, F., & Agugiaro, G. (2020). Open-source geospatial tools and technologies for urban and environmental studies. Open Geospatial Data, Software and Standards, 5(1), 5. https://doi.org/10.1186/s40965-020-00078-2
+Moisen, G. G., & Frescino, T. S. (2002). Comparing five modelling techniques for predicting forest characteristics. Ecological Modelling, 157(2), 209-225. https://doi.org/10.1016/S0304-3800(02)00197-7
+NASA. (2002). MODIS Web. https://modis.gsfc.nasa.gov/about/
+NASA. (2023, September 20). Handbooks & Guides | Landsat Science. https://landsat.gsfc.nasa.gov/data/handbooks-guides/
+Neves, A., Körting, T., Fonseca, L., & Escada, M. (2020). Assessment of TerraClass and MapBiomas data on legend and map agreement for the Brazilian Amazon biome. Acta Amazonica, 50. https://doi.org/10.1590/1809-4392201900981
+Nicholas E. Young. (2017). A survival guide to Landsat preprocessing. https://www.researchgate.net/publication/312202874_A_survival_guide_to_Landsat_preprocessing
+Olofsson, P., Foody, G. M., Herold, M., Stehman, S. V., Woodcock, C. E., & Wulder, M. A. (2014). Good practices for estimating area and assessing accuracy of land change. Remote Sensing of Environment, 148, 42-57. https://doi.org/10.1016/j.rse.2014.02.015
+Orthophotos. (2016, October 13). City of Kelowna. https://www.kelowna.ca/city-services/maps-open-data/orthophotos
+Pat S. Chavez, Jr. (1996). Image-Based Atmospheric Corrections-Revisited and Improved. https://www.researchgate.net/publication/236769129_Image-Based_Atmospheric_Corrections_-_Revisited_and_Improved
+PlanetLabs. (2025). Planet Basemaps: Comprehensive, High-Frequency Mosaics for Analysis | Planet. https://www.planet.com/products/basemap/
+Potapov, P., Hansen, M. C., Pickens, A., Hernandez-Serna, A., Tyukavina, A., Turubanova, S., Zalles, V., Li, X., Khan, A., Stolle, F., Harris, N., Song, X.-P., Baggett, A., Kommareddy, I., & Kommareddy, A. (2022). The Global 2000-2020 Land Cover and Land Use Change Dataset Derived from the Landsat Archive: First Results. Frontiers in Remote Sensing, 3. https://doi.org/10.3389/frsen.2022.856903
+Preceden Timeline Maker: Create a Timeline in Minutes. (2024). https://www.preceden.com/
+QGIS. (2022, October 21). QGIS User Guide-QGIS Documentation. https://docs.qgis.org/3.28/en/docs/user_manual/
+QGIS. (2024). PyQGIS Developer Cookbook. https://docs.qgis.org/3.16/en/docs/pyqgis_developer_cookbook/
+Rangel Pinagé, E., Keller, M., Peck, C. P., Longo, M., Duffy, P., & Csillik, O. (2023). Effects of forest degradation classification on the uncertainty of aboveground carbon estimates in the Amazon. Carbon Balance and Management, 18(1), 2. https://doi.org/10.1186/s13021-023-00221-5
+Shimabukuro, Y. E., Batista, G. T., Mello, E. M. K., Moreira, J. C., & Duarte, V. (1998). Using shade fraction image segmentation to evaluate deforestation in Landsat Thematic Mapper images of the Amazon Region. International Journal of Remote Sensing, 19(3), 535-541. https://doi.org/10.1080/014311698216152
+Souza, C. M., Z. Shimbo, J., Rosa, M. R., Parente, L. L., A. Alencar, A., Rudorff, B. F. T., Hasenack, H., Matsumoto, M., G. Ferreira, L., Souza-Filho, P. W. M., de Oliveira, S. W., Rocha, W. F., Fonseca, A. V., Marques, C. B., Diniz, C. G., Costa, D., Monteiro, D., Rosa, E. R., Vélez-Martin, E., … Azevedo, T. (2020). Reconstructing Three Decades of Land Use and Land Cover Changes in Brazilian Biomes with Landsat Archive and Earth Engine. Remote Sensing, 12(17), Article 17. https://doi.org/10.3390/rs12172735
+Todd, S. W., & Hoffer, R. M. (1998). Responses of Spectral Indices to Variations in Vegetation Cover and Soil Background.
+USGS. (2018, July 10). USGS EROS Archive-Advanced Very High-Resolution Radiometer (AVHRR)-Sensor Characteristics | U.S. Geological Survey. https://www.usgs.gov/centers/eros/science/usgs-eros-archive-advanced-very-high-resolution-radiometer-avhrr-sensor
+White, J. C., Wulder, M. A., Hermosilla, T., Coops, N. C., & Hobart, G. W. (2017). A nationwide annual characterization of 25   years of forest disturbance and recovery for Canada using Landsat time series. Remote Sensing of Environment, 194, 303-321. https://doi.org/10.1016/j.rse.2017.03.035
+World Bank. (2024a). World Bank Climate Change Knowledge Portal (CCKP)-Registry of Open Data on AWS. https://registry.opendata.aws/wbg-cckp/
+World Bank. (2024b). World Bank Open Data. World Bank Open Data. https://data.worldbank.org
+
+
+Appendix 1 – Earth Engine
+
+
+Code for google earth engine production of the images used in this document.
+
+
+Landsat Composites
+var dataset = ee.ImageCollection('LANDSAT/COMPOSITES/C02/T1_L2_8DAY_NDVI')
+.filterDate('2017-01-01', '2017-12-31');
+var colorized = dataset.select('NDVI');
+var colorizedVis = {min: 0,max: 1,opacity: 0.5,
+palette: ['ffffff', 'ce7e45', 'df923d', 'f1b555', 'fcd163', '99b718', '74a901',
+'66a000', '529400', '3e8601', '207401', '056201', '004c00', '023b01',
+'012e01', '011d01', '011301'],
+};
+Map.setCenter(-119.3676, 50.3229, 13);
+Map.addLayer(colorized, colorizedVis, 'Colorized');
+
+
+
+
+MODIS NDVI
+var dataset = ee.ImageCollection('MODIS/MYD09GA_006_NDVI') .filter(ee.Filter.date('2018-04-01', '2018-06-01')); var colorized = dataset.select('NDVI'); var colorizedVis = { min: 0, max: 1, opacity: 0.5, palette: [ 'ffffff', 'ce7e45', 'df923d', 'f1b555', 'fcd163', '99b718', '74a901', '66a000', '529400', '3e8601', '207401', '056201', '004c00', '023b01', '012e01', '011d01', '011301' ], }; Map.setCenter(-119.3676, 50.3229, 13); Map.addLayer(colorized, colorizedVis, 'Colorized');
+Copernicus Land Cover
+var dataset = ee.Image('COPERNICUS/Landcover/100m/Proba-V-C3/Global/2019')
+.select('discrete_classification');
+Map.setCenter(-119.3676, 50.3229, 13); 
+Map.addLayer(dataset, {}, 'Land Cover');
+
+
+Copernicus OLCI
+var dataset = ee.ImageCollection('COPERNICUS/S3/OLCI') .filterDate('2018-04-01', '2018-04-04');
+// Select bands for visualization and apply band-specific scale factors. var rgb = dataset.select(['Oa08_radiance', 'Oa06_radiance', 'Oa04_radiance']) .median() // Convert to radiance units. .multiply(ee.Image([0.00876539, 0.0123538, 0.0115198]));
+var visParams = { min: 0, max: 6, gamma: 1.5, };
+Map.setCenter(-119.3676, 50.3229, 13); Map.addLayer(rgb, visParams, 'RGB');
+Hansen Global Forest Change
+var dataset = ee.Image('UMD/hansen/global_forest_change_2023_v1_11'); var treeCoverVisParam = { bands: ['treecover2000'], min: 0, max: 100, opacity: 0.6, palette: ['black', 'green'] }; Map.addLayer(dataset, treeCoverVisParam, 'tree cover 2000');
+var treeLossVisParam = { bands: ['lossyear'], min: 0, max: 23, opacity: 0.6, palette: ['yellow', 'red'] }; Map.addLayer(dataset, treeLossVisParam, 'tree loss year');
+Map.setCenter(-119.3676, 50.3229, 13);
+NFIS - Canada Forest Change
+var dataset = ee.ImageCollection('CANADA/NFIS/NTEMS/CA_FOREST_AGE');
+Map.setCenter(-119.3676, 50.3229, 13); Map.addLayer( dataset, {palette: ['006600', '002200', 'fff700', 'ab7634', 'c4d0ff', 'ffffff']}, 'Canada Primary Forest Data');

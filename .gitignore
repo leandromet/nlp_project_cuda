@@ -152,6 +152,7 @@ raster_proc/mata_atlant_meso/
 raster_proc/atlfor_state_analysis/
 raster_proc/vassununga/
 *.geojson
+ajuda_doc/node_modules
 
 # pytype static type analyzer
 .pytype/
