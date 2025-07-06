@@ -4,6 +4,8 @@
 
 ## PhD Research Proposal - March 2025
 
+### Project Title: Mapping the Relationship Between Forest Coverage and Policy Processes in Brazil and Canada: A Comparative Study of Indigenous Lands in Brazil and British Columbia (1980-Present)
+
 ## Researcher: Leandro Meneguelli Biondo
 
 ## Supervisor: Jon Corbett
@@ -15,20 +17,19 @@
 - **Committee Member**: Dr. Robert Friberg
 - **Committee Member**: Dr. Tim Paulson
 
-
 ## Integrating Policy Analysis, Land Cover Change Assessment, and Community-Based Evaluation
 
 ---
 
 ## Executive Summary
 
-This proposal presents a 24-month PhD project that examines the relationship between forest policies and land coverage change within indigenous territories in Brazil and British Columbia. The research is designed to generate practical tools and insights valuable for land managers, policy makers, and indigenous communities, with a robust analytical framework.
+This proposal presents a 24-month PhD project that examines the relationship between forest policies and land coverage change within indigenous territories in Brazil and British Columbia. The research leverages existing research, open-source software, and publicly available data for rigorous and cost-effective analysis, designed to generate practical tools and insights valuable for land managers, policy makers, and indigenous communities.
 
-The project emerges from three comprehensive examination papers. The first paper establishes the theoretical framework for policy analysis, the second develops the technical methodology for land cover change assessment using remote sensing, and the third connects policy implementation to observable outcomes. By integrating these foundations, this research creates analytical tools and policy recommendations that can inform land management decisions across multiple stakeholder groups.
+The project builds directly on material gathered and papers produced for three comprehensive examinations: (1) Policy Analysis and Data, (2) Land Cover Change Analysis in Brazil and Canada, and (3) Evaluating land use concerning policy. The first paper establishes the theoretical framework for policy analysis, the second develops the technical methodology for land cover change assessment using remote sensing, and the third connects policy implementation to observable outcomes. By integrating these foundations, this research creates analytical tools and policy recommendations that can inform land management decisions across multiple stakeholder groups.
 
 Working within Brazil and British Columbia, this study will analyze 4-6 indigenous territories using publicly available data, policy documents, and open-source technologies. The research leverages existing datasets and established methodologies, making it both cost-effective and reproducible while ensuring that all analytical tools and findings will be accessible to diverse users including indigenous communities, government agencies, conservation organizations, and academic researchers.
 
-The core innovation lies in developing transferable methodologies and practical tools that can support evidence-based land management and policy development. Community collaboration is actively pursued as a preferred pathway that enriches the research outcomes, but the project design ensures comprehensive deliverables for all stakeholders regardless of community participation levels achieved during the research period.
+The core innovation lies in developing transferable methodologies and practical tools that can support evidence-based land management and policy development. The project aims to generate valuable insights for sustainable land management and indigenous land protection policies by comparing diverse case studies across different biogeographic regions and policy contexts. Community collaboration is actively pursued as a preferred pathway that enriches the research outcomes, but the project design ensures comprehensive deliverables for all stakeholders regardless of community participation levels achieved during the research period.
 
 ---
 
@@ -52,25 +53,41 @@ Finally, how can analytical methodologies and monitoring tools be designed to se
 
 This research employs a pragmatic three-phase approach over 24 months, designed to ensure robust project completion while maximizing opportunities for stakeholder engagement. The methodology prioritizes the development of evidence-based analytical tools and actionable insights that can serve diverse user communities, with community collaboration pursued where feasible and appropriate.
 
-### Phase 1: Research Design and Case Study Selection (Months 1-6)
+## Phase 1: Research Design and Case Study Selection (Months 1-6)
 
-The foundation phase establishes the analytical framework and selects 4-6 indigenous territories for comprehensive analysis. Case study selection is based on objective criteria including data availability for the 2000-2023 analysis period, diverse policy contexts that enable meaningful comparison, varying levels of formal legal recognition, and geographic representation across both Brazil and British Columbia.
+The foundation phase establishes the analytical framework and selects 4-6 indigenous territories for comprehensive analysis. Case study selection follows rigorous criteria including data availability for the 2000-2023 analysis period, diverse policy contexts that enable meaningful comparison, varying levels of formal legal recognition, and geographic representation across both Brazil and British Columbia.
 
-The research framework is designed to generate valuable insights using publicly available data sources including satellite imagery, government policy documents, environmental monitoring reports, and academic literature. This approach ensures that comprehensive analysis can proceed regardless of direct community participation levels, while remaining respectful of indigenous autonomy and decision-making processes.
+Selection criteria require sufficient remote sensing data coverage through Hansen's Global Forest Change dataset and MapBiomas for Brazil, documented policy implementation history from 1980-present, contrasting forest cover patterns between indigenous territories and surrounding areas, representation of different legal recognition levels and governance arrangements, and geographic diversity across Brazil's Amazon and Atlantic Forest biomes and British Columbia's forest regions.
 
-Systematic outreach to indigenous organizations and communities will explore collaboration opportunities following appropriate protocols for respectful engagement. Community partnerships that develop during this phase will enhance the research through local knowledge and validation, but the analytical framework ensures meaningful outcomes for all stakeholders whether direct collaboration occurs or not.
+The research focuses on indigenous territories within distinct biogeographic regions that represent different policy environments and forest management challenges. Brazil study areas encompass territories within the Amazon biome, the world's largest tropical rainforest characterized by high biodiversity, complex governance structures, and significant deforestation pressures, alongside territories within the Atlantic Forest biome, Brazil's most threatened forest biome that is highly fragmented and under intense development pressure, representing conservation challenges in densely populated regions. British Columbia study areas include territories within the Cordilleran Cold Temperate Forest, featuring high-elevation territories with complex terrain and distinct seasonal patterns, and the Pacific Cool Temperate Forest, encompassing coastal territories with old-growth forests and significant commercial forestry activity.
 
-### Phase 2: Integrated Analysis (Months 7-18)
+The selection process prioritizes territories that demonstrate contrasting forest cover patterns between indigenous lands and surrounding buffer zones, enabling robust comparative analysis of policy effectiveness across different contexts. The research framework systematically examines forest, land, and indigenous policies using established content analysis methods, with policy identification encompassing national, regional, and local levels that recognize multi-layered governance structures. The analysis covers policy objectives, target stakeholders, implementation mechanisms, enforcement procedures, and monitoring systems.
 
-The analytical phase builds directly upon the comprehensive examination papers, integrating their methodological contributions into a comprehensive framework for policy and land cover analysis. The policy analysis component systematically examines formal policies affecting indigenous lands from 1980 to present, using established methodological approaches to identify implementation patterns, effectiveness indicators, and barriers to successful outcomes.
+This phase establishes the computational framework for geospatial analysis, including development of Python-based processing pipelines for handling large-scale remote sensing datasets. The framework utilizes open-source technologies including QGIS, PostgreSQL/PostGIS, R, and Python while leveraging existing datasets such as Hansen's Global Forest Change, MapBiomas, and government policy databases to ensure reproducibility and cost-effectiveness. Systematic outreach to indigenous organizations and communities explores collaboration opportunities following appropriate protocols for respectful engagement, with community partnerships that develop during this phase enhancing the research through local knowledge and validation, though the analytical framework ensures meaningful outcomes for all stakeholders whether direct collaboration occurs or not.
 
-This analysis draws on publicly available policy documents, government reports, academic literature, and documentation of policy implementation records. The framework generates valuable insights that can inform evidence-based policy development across different institutional contexts, with community partnerships enhancing rather than determining the analysis where they exist.
+## Phase 2: Integrated Analysis (Months 7-18)
 
-The land cover change analysis utilizes Hansen's Global Forest Change dataset and MapBiomas data for Brazil to conduct comprehensive spatial analysis of forest cover changes within selected territories. This technical analysis employs established remote sensing methodologies while developing user-friendly tools that can be applied by diverse land management professionals. The analytical framework relies on systematic technical approaches that ensure objectivity and reproducibility.
+The analytical phase builds directly upon the comprehensive examination papers, integrating their methodological contributions into a comprehensive framework for policy and land cover analysis. This phase employs established technical methodologies while developing user-friendly tools for diverse land management professionals.
 
-The policy evaluation component links observed land cover changes to policy implementation periods, identifying patterns and relationships that can inform evidence-based policy development. This analysis focuses on measurable outcomes that can be assessed consistently across different territories and policy contexts, creating transferable insights for land managers and policy makers.
+### 1. Policy Analysis (1980-Present)
 
-### Phase 3: Tool Development and Knowledge Transfer (Months 19-24)
+The policy analysis component systematically examines formal policies affecting indigenous lands using established methodological approaches to identify implementation patterns, effectiveness indicators, and barriers to successful outcomes. This analysis creates detailed inventories of forest, land use, and indigenous rights policies from government websites, official publications, academic literature, and legal databases through comprehensive policy identification and compilation processes. The systematic extraction of key information includes policy objectives, target stakeholders, implementation mechanisms, enforcement procedures, and monitoring systems through rigorous content analysis procedures.
+
+The historical analysis traces policy development from the 1970s onward, examining major policy shifts, colonial impacts on land tenure, and the influence of international agreements to understand contemporary policy contexts. This approach identifies policy gaps and coherence issues across sectors and governance levels, particularly addressing market failures, economic versus environmental tensions, and indigenous property rights recognition. The analysis examines roles and perspectives of government agencies, indigenous communities, forestry industry, and environmental organizations through comprehensive stakeholder analysis that recognizes the complex interactions between different actors in forest governance systems.
+
+### 2. Land Use Change Analysis (2000-Present)
+
+The land cover change analysis utilizes Hansen's Global Forest Change dataset and MapBiomas data for Brazil to conduct comprehensive spatial analysis of forest cover changes within selected territories. This technical analysis begins with systematic acquisition of Hansen's Global Forest Change dataset at 30-meter resolution spanning 2000-2023, MapBiomas Collection 9 data for Brazil covering 1985-2023, and additional Landsat archives for extended temporal coverage. The processing involves comprehensive data preprocessing including geometric correction for spatial alignment across datasets and temporal periods, atmospheric correction through standardized radiometric correction for satellite imagery, automated cloud masking to identify and exclude cloud-affected pixels, temporal alignment synchronizing policy data with satellite observations, and spatial registration ensuring precise alignment of policy boundaries with remote sensing data.
+
+Time-series analysis quantifies deforestation and regeneration rates using advanced algorithms like LandTrendr and spectral trajectory analysis for pixel-by-pixel evaluation of forest disturbance and recovery patterns. The spatial analysis creates detailed maps of forest cover changes, identifies deforestation hotspots, conducts proximity analysis relative to infrastructure development, and calculates landscape metrics for comprehensive fragmentation assessment. Comparative analysis systematically compares land use change patterns within indigenous territories versus surrounding buffer zones proportional to territory size, enabling robust evaluation of conservation effectiveness across different management regimes.
+
+The policy evaluation component employs systematic approaches to link observed land cover changes to policy implementation periods through temporal correlation analysis examining relationships between policy implementation dates and forest cover change patterns. Spatial overlay analysis maps policy boundaries against areas of significant forest loss or gain, while effectiveness assessment evaluates policy impacts through quantitative metrics of forest conservation outcomes. Cross-case comparison develops frameworks for comparing policy effectiveness across different territories and contexts, enabling identification of transferable best practices and policy innovations.
+
+The analysis employs a custom Python-based geospatial processing framework capable of handling high-resolution data across large regions through tile-based parallel processing with chunked array storage using Zarr for memory efficiency. Change detection utilizes advanced algorithms including LandTrendr and spectral trajectory analysis for pixel-by-pixel evaluation, while automated polygon-based extraction enables temporal change detection across 39 annual land cover maps and transition matrix calculation. The system generates automated land cover maps, Sankey diagrams for land use transitions, and interactive visualizations supported by robust error handling, automatic recovery mechanisms, and comprehensive validation procedures.
+
+Validation and quality assurance incorporate systematic accuracy assessment using available ground truth data and statistical methods, cross-validation through multiple dataset comparison to identify and correct systematic errors, uncertainty quantification using statistical approaches to characterize and communicate uncertainty in results, and complete reproducibility through comprehensive documentation of analytical procedures and open-source code availability.
+
+## Phase 3: Tool Development and Knowledge Transfer (Months 19-24)
 
 The final phase focuses on translating research findings into practical tools and resources that serve multiple user communities. This includes developing user-friendly analytical software, methodological guides, and decision-support tools that land managers, policy makers, and researchers can apply in diverse contexts. The tools will be designed with different user interfaces appropriate for various technical skill levels, from basic visualization tools for policy makers to advanced analytical capabilities for researchers.
 
@@ -80,7 +97,21 @@ Where community partnerships have been established, specific tools and resources
 
 ---
 
-# Timeline {#timeline}
+## Data Sources and Technical Infrastructure
+
+### Primary Data Sources
+
+The research leverages Hansen's Global Forest Change dataset, which provides consistent, global-scale forest cover change information at 30-meter resolution from 2000-2023, accessed through Google Earth Engine for efficient processing. MapBiomas Collection 9 offers annual land cover maps for Brazil from 1985-2023, providing detailed historical context and finer classification than Hansen's data with 35+ land cover classes. The Landsat Archive supplements this with higher-resolution imagery for detailed analysis of specific areas or events, extending temporal coverage back to 1985.
+
+Policy documentation draws from government sources including policy documents from Brazilian federal and state governments and British Columbia provincial sources, encompassing Forest and Range Practices Acts, National Forest Strategies, and indigenous land management policies. Legal databases including LexisNexis, HeinOnline, and FAOLEX provide comprehensive legal document access, while academic literature offers peer-reviewed sources for policy analysis and implementation studies.
+
+The technical infrastructure employs QGIS for spatial data processing, analysis, and visualization, while PostgreSQL with PostGIS extension enables efficient spatial data storage and querying. R handles statistical analysis, time-series processing, and hypothesis testing, with Python providing automated data processing, machine learning applications, and custom analytical tools. Google Earth Engine facilitates large-scale remote sensing data processing through cloud computing capabilities.
+
+The research employs a custom Python-based geospatial processing framework capable of handling high-resolution 30-meter data across large regions while maintaining fine-scale detail. The processing architecture utilizes tile-based parallel processing with chunked array storage using Zarr for memory efficiency, implementing advanced algorithms including LandTrendr and spectral trajectory analysis for pixel-by-pixel evaluation. Automated polygon-based extraction enables temporal change detection across 39 annual land cover maps and transition matrix calculation, while automated generation of land cover maps, Sankey diagrams for land use transitions, and interactive visualizations support comprehensive analysis.
+
+The computational framework operates on a desktop system with 20 cores, 98GB RAM, and 8GB CUDA GPU capability, supported by 3TB SSD storage with auxiliary external storage for large datasets. This configuration enables processing of 800x800 kilometer regions in single operations, with demonstrated capability to complete batch processing of 138 example areas in 70 minutes, validating the computational efficiency required for comprehensive multi-territorial analysis.
+
+---
 
 ## Timeline
 
@@ -88,48 +119,120 @@ Where community partnerships have been established, specific tools and resources
 
 | **Phase & Milestones** | **Months 1-6** | **Months 7-12** | **Months 13-18** | **Months 19-24** |
 |------------------------|-----------------|------------------|-------------------|-------------------|
-| **Phase 1: Research Design** | ✓ Analytical framework established<br>✓ Case studies selected<br>✓ Data sources identified | | | |
-| **Phase 2: Integrated Analysis** | | ✓ Policy analysis completed<br>✓ Land cover analysis initiated | ✓ Comparative analysis completed<br>✓ Tool development initiated | |
-| **Phase 3: Knowledge Translation** | | | ✓ Analytical tools developed<br>✓ Initial dissemination | ✓ Final deliverables completed<br>✓ Thesis defense |
+| **Phase 1: Research Design** | ✓ Analytical framework established   Case studies selected   Data sources identified | | | |
+| **Phase 2: Integrated Analysis** | | ✓ Policy analysis completed   Land cover analysis initiated | ✓ Comparative analysis completed   Tool development initiated | |
+| **Phase 3: Knowledge Translation** | | | ✓ Analytical tools developed  Initial dissemination | ✓ Final deliverables completed   Thesis defense |
 | **Ongoing Activities** | Literature review, stakeholder outreach | Data processing, community engagement | Analysis refinement, writing | Publication preparation, dissemination |
+
+### Detailed Activity Timeline
+
+| **Activity** | **Months 1-3** | **Months 4-6** | **Months 7-9** | **Months 10-12** | **Months 13-15** | **Months 16-18** | **Months 19-21** | **Months 22-24** |
+|-------------|----------------|----------------|----------------|------------------|-------------------|-------------------|-------------------|-------------------|
+| **Literature Review** | ✓ | ✓ | ✓ | | | | | |
+| **Policy Document Collection** | ✓ | ✓ | | | | | | |
+| **Case Study Selection** | ✓ | ✓ | | | | | | |
+| **Data Acquisition** | ✓ | ✓ | ✓ | ✓ | | | | |
+| **Data Processing** | | ✓ | ✓ | ✓ | ✓ | | | |
+| **Methodology Development** | | ✓ | ✓ | ✓ | ✓ | | | |
+| **Stakeholder Engagement** | | | ✓ | ✓ | ✓ | ✓ | | |
+| **Case Study Analysis** | | | ✓ | ✓ | ✓ | ✓ | | |
+| **Comparative Analysis** | | | | ✓ | ✓ | ✓ | ✓ | |
+| **Tool Development** | | | | | ✓ | ✓ | ✓ | |
+| **Thesis Writing** | | | | | ✓ | ✓ | ✓ | ✓ |
+| **Publication Preparation** | | | | | | ✓ | ✓ | ✓ |
+| **Dissemination** | | | | | | ✓ | ✓ | ✓ |
+| **Defense Preparation** | | | | | | | ✓ | ✓ |
+
+**Key Milestones:**
+
+- **Month 6**: Complete research design and case study selection
+- **Month 12**: Complete policy analysis and initiate land cover analysis
+- **Month 18**: Complete integrated analysis and begin tool development
+- **Month 24**: Complete all deliverables and defend thesis
 
 ---
 
 ## Budget and Resource Allocation
 
-This research is designed to be cost-effective while prioritizing the development of practical tools and evidence-based insights. The total estimated cost of $12,000 reflects a commitment to investing primarily in analytical capabilities and knowledge transfer rather than expensive equipment or data acquisition.
-| **Budget Category** | **Amount** | **Description** |
-|---------------------|------------|-----------------|
-| **Data acquisition and processing** | $3,000 | Access to computational resources for comprehensive analysis. Includes cloud computing resources for large-scale remote sensing analysis and subscription access to specialized databases. |
-| **Tool development and software** | $2,500 | Creation of user-friendly analytical tools and decision-support systems. Includes software development tools, hosting costs for online platforms, and technical support for accessible interfaces. |
-| **Community engagement and outreach** | $2,000 | Respectful stakeholder engagement where communities express interest in collaboration. Includes travel costs for community meetings, interpretation services, and culturally appropriate communication materials. |
-| **Knowledge transfer and dissemination** | $2,000 | Ensuring research findings reach diverse audiences through multiple channels. Includes conference presentations, workshop materials, policy brief development, and open-access publication costs. |
-| **Training and capacity building** | $1,500 | Development of training materials and technical documentation for methodology and tool application. Includes user guides, video tutorials, and technical documentation. |
-| **Equipment and materials** | $1,000 | Essential computing resources, software licenses, and materials for field validation. Reflects reliance on existing data sources and open-source technologies. |
-| **Research travel and fieldwork** | $2,000 | Site visits for validation activities, conference participation for dissemination, and stakeholder meetings throughout the research process. |
-| **Academic dissemination** | $6,500 | Publication fees for three peer-reviewed journals, conference presentation costs, and open-access publication expenses to ensure wide accessibility. |
-| **Equipment and infrastructure** | $1,000 | Commitment to using existing computational resources and open-source software, relying on open-access datasets including Hansen's Global Forest Change data, MapBiomas collections, and publicly available government policy documents. |
+This research is designed to be cost-effective while prioritizing the development of practical tools and evidence-based insights. The budget leverages open-source software and publicly available datasets, with strategic investments in knowledge transfer and capacity building.
+
+| **Budget Category** | **Amount** | **Justification** |
+|---------------------|------------|-------------------|
+| **Travel and Conferences** | $5,000 | Contingency for stakeholder meetings, field validation, and conference participation for knowledge dissemination |
+| **Publication and Dissemination** | $6,500 | Open-access publication fees for peer-reviewed journals ($4,500) and conference registration/presentation costs ($2,000) |
+| **Equipment and Technology** | $5,000 | Hardware upgrades, computing resources, and technology infrastructure maintenance |
+| **Software and Data Access** | $0 | Utilizing open-source software (QGIS, PostgreSQL, R, Python) and unrestricted datasets (Hansen's Global Forest Change, MapBiomas, government databases) |
+| **Training and Capacity Building** | $2,000 | Specialized training programs, workshops, and skill development opportunities |
+| **Total Estimated Cost** | **$18,500** | |
+
+**Resource Optimization Strategy:**
+
+This research leverages exclusively open-source datasets including Hansen's Global Forest Change, MapBiomas, and government policy databases while utilizing complete open-source software infrastructure through QGIS, PostgreSQL/PostGIS, R, and Python platforms with existing institutional access to cloud computing resources. The approach maximizes existing computational infrastructure with minimal additional investment and prioritizes partnerships with academic institutions and government agencies to share resources and expertise.
+
+**Budget Flexibility:**
+
+The budget structure allows for reallocation between categories based on project development and opportunity identification. Travel funds can be redirected to enhance digital collaboration tools if community engagement occurs primarily through virtual platforms, while publication funds can support additional open-access dissemination if research generates more outputs than initially planned.
+
+| **Data acquisition and processing** | $3,000 | Access to computational resources for comprehensive analysis including cloud computing resources for large-scale remote sensing analysis and subscription access to specialized databases |
+| **Tool development and software** | $2,500 | Creation of user-friendly analytical tools and decision-support systems including software development tools, hosting costs for online platforms, and technical support for accessible interfaces |
+| **Community engagement and outreach** | $2,000 | Respectful stakeholder engagement where communities express interest in collaboration including travel costs for community meetings, interpretation services, and culturally appropriate communication materials |
+| **Knowledge transfer and dissemination** | $2,000 | Ensuring research findings reach diverse audiences through multiple channels including conference presentations, workshop materials, policy brief development, and open-access publication costs |
+| **Training and capacity building** | $1,500 | Development of training materials and technical documentation for methodology and tool application including user guides, video tutorials, and technical documentation |
+| **Equipment and materials** | $1,000 | Essential computing resources, software licenses, and materials for field validation reflecting reliance on existing data sources and open-source technologies |
+| **Research travel and fieldwork** | $2,000 | Site visits for validation activities, conference participation for dissemination, and stakeholder meetings throughout the research process |
+| **Academic dissemination** | $6,500 | Publication fees for three peer-reviewed journals, conference presentation costs, and open-access publication expenses to ensure wide accessibility |
+| **Equipment and infrastructure** | $1,000 | Commitment to using existing computational resources and open-source software, relying on open-access datasets including Hansen's Global Forest Change data, MapBiomas collections, and publicly available government policy documents |
 | **Total** | **$21,500** | |
 
 ---
 
-## Expected Outcomes and Impact
+### Expected Outcomes and Impact
 
-This research will generate outcomes that serve both community partners and broader academic and policy audiences. The primary deliverables center on community-controlled resources that provide lasting value beyond the doctoral timeline. These include an Indigenous Land Management Toolkit comprising user-friendly geospatial analysis tools designed specifically for community use, policy advocacy resources that provide evidence-based support for indigenous land rights and self-determination efforts, and comprehensive training materials that enable ongoing capacity building in land monitoring and analysis.
+This research will generate comprehensive outcomes that serve indigenous communities, land managers, policy makers, and the broader academic community. The project is designed to produce practical tools and evidence-based insights that will have lasting impact beyond the doctoral timeline.
 
-The academic contributions include three peer-reviewed publications developed in collaboration with indigenous partners where appropriate. These papers will address indigenous governance and conservation outcomes, participatory remote sensing methodology, and comparative policy analysis from indigenous perspectives. The PhD thesis will provide a comprehensive analysis that integrates all three comprehensive exam papers while demonstrating the methodological innovations achieved through community-based research approaches.
+**Primary Deliverables:**
 
-Policy impact represents a crucial dimension of this research, with evidence-based recommendations that support indigenous land management autonomy while engaging directly with policy makers about research findings. The project will contribute to international discussions about indigenous rights and land management through presentations at relevant forums and conferences.
+This research will produce an Indigenous Land Management Toolkit consisting of user-friendly geospatial analysis tools specifically designed for community use. The toolkit will include automated land cover change detection systems that enable communities to monitor their territories independently, along with interactive mapping applications that provide real-time visualization of land use patterns. Policy impact assessment tools will allow communities to evaluate the effectiveness of different management approaches, supported by comprehensive training materials and technical documentation that ensure accessible application across varying technical skill levels.
 
-The capacity building outcomes extend beyond individual skill development to include the establishment of ongoing research partnerships and the documentation of approaches for integrating traditional and scientific knowledge systems. Indigenous community members will be trained in geospatial analysis techniques, creating local expertise that can support long-term land monitoring and management activities.
+The research will generate evidence-based policy recommendations through comprehensive analysis of land management practices and indigenous land protection policies in both countries. These recommendations will emerge from comparative analysis of policy effectiveness across different contexts, enabling identification of best practices for sustainable forest management. The analysis will produce guidelines for strengthening indigenous participation in decision-making processes and develop frameworks for adapting successful policies across different jurisdictions, ensuring transferable insights that can inform policy development beyond the specific case studies.
+
+Publicly accessible maps and visualizations will provide detailed land use change maps for all case study areas, creating visual documentation of landscape transformations over time. Interactive Sankey diagrams will illustrate land cover transitions, while comparative visualizations demonstrate policy impacts across different territories and time periods. Time-series animations will capture forest cover change patterns, making complex analytical results accessible to diverse audiences including policy makers, land managers, and community members.
+
+The research will establish a complete open-source analytical framework that enables replication and adaptation of the methodology across different contexts. This framework will include Python-based processing pipelines capable of handling large-scale remote sensing data, along with database schemas and data management protocols that ensure efficient data organization and accessibility. Statistical analysis scripts and methodological documentation will provide transparent analytical procedures, while quality assurance and validation procedures ensure robust and reliable results that can inform critical land management decisions.
+
+**Academic Contributions:**
+
+
+The research will produce three peer-reviewed publications in high-impact journals addressing indigenous governance and conservation outcomes, participatory remote sensing methodology, and comparative policy analysis. A comprehensive PhD thesis will integrate all three comprehensive exam papers with methodological innovations and policy recommendations. Academic conferences and professional workshops will provide platforms for sharing findings with diverse audiences, while methodological documentation through technical reports and white papers will describe analytical approaches and tool development.
+
+Direct engagement with policy makers in Brazil and British Columbia will ensure research findings and recommendations reach decision-makers, while contributions to international forums will advance global discussions about indigenous rights and land management through relevant international conferences and policy networks. Evidence-based resources will support indigenous land rights and self-determination efforts through advocacy channels.
+
+The research will establish comprehensive training programs for geospatial analysis techniques, land monitoring, and policy assessment. User guides, video tutorials, and technical manuals will support ongoing tool application, while partnership development will establish ongoing research relationships that support long-term land monitoring and management activities. Documentation of approaches for integrating traditional and scientific knowledge systems will contribute to broader methodological advancement in collaborative research practices.
+
+
+**Long-term Impact:**
+
+The project outcomes will support evidence-based land management and policy development across diverse institutional contexts. The open-source tools and methodologies will enable ongoing monitoring and analysis beyond the research period, while the policy recommendations will inform forest conservation and indigenous rights policies in both countries. The transferable nature of the analytical framework will facilitate application in other regions and contexts, contributing to global efforts in sustainable forest management and indigenous land protection.
 
 ---
 
-# Integration of Comprehensive Exam Papers
+## Technical Limitations and Considerations
+
+This research acknowledges several technical and methodological limitations that inform the analytical approach and interpretation of results. The analysis inherits any misclassifications present in source datasets including Hansen's Global Forest Change and MapBiomas, requiring validation procedures and uncertainty assessment. Annual snapshots may miss seasonal changes, short-term disturbances, or rapid recovery patterns that occur within single years, while 30-meter resolution may not capture fine-scale degradation processes, edge effects, or small-scale management interventions. Satellite-based analysis is limited to 1985-present, missing earlier policy impacts and long-term historical baselines.
+
+Full analysis requires substantial computational resources with 32GB+ RAM recommended and specialized technical expertise. Boundaries between land cover classes may show classification instability over time, requiring careful interpretation of transition patterns. Limited availability of ground-truth data for validation exists, particularly in remote areas and historical periods, while variations in policy documentation quality and accessibility occur across different jurisdictions and time periods.
+
+Establishing direct causal relationships between policies and land cover changes requires careful consideration of confounding factors and alternative explanations. Effects may vary at different spatial scales, requiring multi-scale analysis approaches, and policy impacts may occur with significant time delays, requiring extended observation periods. Local environmental, economic, and social conditions may influence policy effectiveness independently of policy design.
+
+The research implements systematic accuracy assessment and uncertainty quantification while combining multiple datasets and methodological approaches to cross-validate findings. Appropriate statistical methods account for uncertainty and control for confounding variables, with complete documentation of methodological choices, limitations, and assumptions ensuring transparency.
+
+The preliminary computational framework has been developed and tested using MapBiomas Collection 8 data for Brazilian indigenous territories. The analysis framework is documented in a 1,205-line Python script available under MIT license, demonstrating the feasibility and scalability of the proposed approach. Initial processing of 138 indigenous territories was completed in 70 minutes using desktop computing resources, validating the computational efficiency of the methodology. The framework is capable of processing 800x800 kilometer regions with 30-meter resolution, with complete technical documentation including processing architecture, validation procedures, and visualization capabilities available through the GitHub repository at https://github.com/leandromet/nlp_project_cuda.
+
+## Integration of Comprehensive Exam Papers
 
 This PhD proposal builds comprehensively on insights from three comprehensive examination papers, each contributing essential theoretical frameworks, methodological innovations, and empirical foundations that collectively inform the proposed research design. The three papers together represent a sophisticated progression from policy analysis theory, through technical spatial analysis capabilities, to integrated methodology development that directly shapes the proposed research.
 
-## Paper 1: Policy Analysis for a Changing Forest Region
+### Paper 1: Policy Analysis for a Changing Forest Region
 
 The first comprehensive paper establishes a robust analytical framework for understanding forest governance in the colonized Americas, with particular attention to the evolution of policies from resource extraction to sustainability paradigms. This paper establishes a sophisticated framework for understanding policy boundaries that considers geographical scope, affected stakeholders, and temporal evolution, recognizing that boundaries are contingent and shaped by the analyst's disciplinary background and historical context. The framework provides comprehensive analysis of how colonial legacies continue to shape contemporary forest governance, including the systematic dispossession of Indigenous peoples and the prioritization of European legal frameworks over customary law systems.
 
@@ -139,7 +242,7 @@ This approach creates a framework for examining interest groups that drive polic
 
 The paper establishes a framework for evaluating policy objectives that distinguishes between explicit goals such as economic efficiency, sustainable timber production, and biodiversity conservation, and implicit aspirations that reflect deeper societal values. This analysis addresses policy implementation challenges including bureaucratic inertia, competing interests, and the temporal disconnect between ecological changes and political cycles, while recognizing that policy success depends on practical implementation, public acceptance, enforcement mechanisms, and long-term evaluation and adaptation cycles.
 
-## Paper 2: Land Cover Change, Forest Analysis in Brazil and Canada
+### Paper 2: Land Cover Change, Forest Analysis in Brazil and Canada
 
 The second paper establishes sophisticated technical foundations for spatial data analysis and remote sensing applications, providing the methodological backbone for empirically evaluating policy effectiveness through landscape change detection. This paper demonstrates deep technical expertise that creates comprehensive mastery of land cover classification methodologies using multiple satellite platforms including Landsat with 30m resolution and multi-decadal archive, MODIS with 250-1000m resolution and high temporal frequency, along with SPOT, Sentinel-3, PROBA-V, and AVHRR systems. This technical foundation includes advanced understanding of remote sensing preprocessing including geometric correction, radiometric calibration, atmospheric correction, and temporal normalization techniques essential for consistent time-series analysis.
 
@@ -149,7 +252,7 @@ The paper demonstrates expertise in integrating diverse data sources including s
 
 The paper provides comprehensive understanding of ready-to-use land change products from initiatives like Hansen's Global Forest Change dataset, Copernicus Climate Change Service land cover maps, Global Forest Watch, and TerraClass for the Brazilian Amazon. This technical knowledge encompasses change detection methods for monitoring deforestation, forest degradation, forest recovery, and understanding the relationship between these changes and policy interventions. The methodological framework establishes capability to work across multiple spatial and temporal scales, from local 30m Landsat resolution to regional 300m Copernicus resolution to global 1km AVHRR resolutions, with understanding of appropriate applications for each scale and their implications for policy analysis.
 
-## Paper 3: Evaluating Changes in Forest Land Cover, Concerning Policy
+### Paper 3: Evaluating Changes in Forest Land Cover, Concerning Policy
 
 The third paper represents a sophisticated synthesis that creates an integrated methodology directly applicable to the proposed PhD research. This paper advances beyond the individual contributions of the first two papers to create a comprehensive framework for policy-landscape analysis that bridges theoretical policy analysis with technical spatial data capabilities.
 
@@ -160,7 +263,6 @@ The paper provides detailed examination of three distinct forest governance cont
 The paper establishes a comprehensive framework for incorporating Indigenous land rights and customary law systems into contemporary forest management policy evaluation, recognizing the critical role of Indigenous Peoples as original stewards and knowledge holders. This framework analyzes how colonial legacies continue to impact policy effectiveness, including the historical dispossession of Indigenous peoples and the imposition of European legal frameworks that often ignore traditional governance systems. The methodological contribution includes framework development for understanding how Indigenous Peoples' traditional knowledge and management practices can inform more effective and equitable forest policies, establishing pathways for meaningful integration of Indigenous governance systems with contemporary policy frameworks.
 
 The paper develops comprehensive tools for policy coherence and effectiveness analysis through policy gap analysis identifying areas where current policies fail to address specific challenges, policy mix evaluation recognizing that coordinated strategies across multiple sectors are necessary for sustainability, and policy coherence assessment ensuring alignment within and between different policy areas and governance levels. This analytical framework includes methods for evaluating both intended and unintended policy consequences, considering implementation challenges, stakeholder engagement effectiveness, and long-term landscape outcomes while incorporating international policy influences including UN SDGs, Paris Agreement, and Convention on Biological Diversity, and their translation into national and local policy contexts.
-
 
 ## Synthesis and Innovation for PhD Research
 
@@ -180,22 +282,26 @@ This foundation ensures that the PhD research can proceed efficiently while serv
 
 ---
 
-# Ethical Considerations and Indigenous Data Sovereignty {#ethics}
+## Ethical Considerations and Indigenous Data Sovereignty {#ethics}
 
-## Indigenous Data Sovereignty Principles
+### Indigenous Data Sovereignty Principles
 
-### CARE Principles
+#### CARE Principles
+
 The research framework embraces Collective Benefit by designing research to benefit indigenous communities, while respecting Authority to Control by ensuring indigenous communities maintain control over their data. The approach emphasizes Responsibility by holding researchers accountable to indigenous communities, and maintains Ethics by aligning research with indigenous values and ethical frameworks.
 
-### OCAP Principles
+#### OCAP Principles
+
 The research acknowledges Ownership by recognizing that indigenous communities own their data, while respecting Control by allowing communities to control data collection and use. Access principles ensure that communities determine who can access their data, while Possession rights guarantee that communities have the right to possess their data.
 
 ## Implementation Strategies
 
 ### Community Protocols
+
 Research activities will follow Free, Prior, and Informed Consent protocols for all activities, while establishing community advisory structures for ongoing oversight. Data sharing agreements will prioritize community ownership, and the research design remains flexible and responsive to community needs.
 
 ### Knowledge Protection
+
 The research framework maintains respect for confidential traditional knowledge while requiring community approval for all dissemination activities. Attribution and recognition of indigenous contributions will be prioritized, along with protection of intellectual property rights.
 
 ---
@@ -205,25 +311,30 @@ The research framework maintains respect for confidential traditional knowledge 
 This research will generate multiple types of outputs designed to serve diverse stakeholder communities and ensure practical application of findings. The outcomes are structured to provide both immediate practical value and long-term analytical capacity for land management and policy development.
 
 ### Academic Outputs
+
 The PhD dissertation will provide comprehensive analysis integrating policy evaluation, land cover change assessment, and comparative case study findings. Three to four peer-reviewed publications will target policy analysis, remote sensing, and environmental management journals, while conference presentations will share findings at indigenous studies, environmental policy, and remote sensing conferences. Methodological contributions will document integrated analytical frameworks for policy-land cover analysis.
 
 ### Practical Tools and Resources
+
 Land cover analysis software will provide user-friendly analytical tools for land managers to conduct ongoing monitoring, while policy evaluation frameworks will offer standardized approaches for assessing forest policy effectiveness. Decision support systems will create interactive platforms for comparing policy scenarios and outcomes, supported by comprehensive training materials that guide application of analytical methodologies across different contexts.
 
 ### Policy and Management Outputs
+
 Policy briefs will provide concise summaries of findings for government agencies and policy makers, while technical reports will deliver detailed analytical results for land management professionals. Best practices documentation will capture transferable insights for forest management and conservation, complemented by comparative analysis reports that offer cross-regional lessons for policy development.
 
 ### Community-Focused Outputs
+
 Community-accessible tools will provide simplified monitoring systems for indigenous land management, while capacity building materials will offer training resources for community-based land monitoring. Knowledge sharing platforms will create online resources for sharing experiences and lessons learned, supported by partnership frameworks that model respectful collaboration between communities and researchers.
 
 ### Data and Knowledge Products
+
 Open data repositories will make processed datasets available for ongoing research and management, while documentation standards will establish protocols for ethical data sharing and community benefit. Analytical databases will provide structured information systems supporting ongoing policy analysis, complemented by monitoring protocols that standardize approaches for long-term land cover monitoring.
 
 These outcomes are designed to ensure that research benefits extend beyond academic publication to create lasting value for land managers, policy makers, and indigenous communities. All tools and resources will be developed with accessibility and transferability as core principles, ensuring broad applicability across diverse institutional contexts.
 
 ---
 
-# Conclusion
+## Conclusion
 
 This proposal represents a pragmatic approach to investigating forest policy and land management through an indigenous-centered lens while ensuring robust academic outcomes and practical impact for diverse stakeholders. By integrating insights from three comprehensive exam papers with evidence-based analytical methods, this project will generate valuable knowledge and practical tools for land managers, policy makers, and indigenous communities.
 
@@ -232,4 +343,3 @@ The 24-month timeline is designed to be feasible while maintaining analytical ri
 This approach recognizes indigenous communities as important knowledge holders while creating robust analytical frameworks that can inform land management decisions regardless of direct community participation levels. The integration of policy analysis, remote sensing capabilities, and comparative evaluation represents a methodological innovation that can contribute to both academic understanding and practical land management applications.
 
 The project's success will be measured through academic outputs, practical tool development, and contributions to evidence-based policy making. The research design ensures valuable outcomes for indigenous self-determination, conservation efforts, and the strengthening of land management capacity across diverse institutional contexts. This balanced approach represents effective, ethical environmental research that serves multiple communities while maintaining academic rigor and practical applicability.
-
