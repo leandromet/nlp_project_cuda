@@ -1,0 +1,12 @@
+Class,Label,Color,Initial_Pixels,Persistent_Pixels,Changed_Pixels,Persistent_Percent
+3,Forest Formation,#1f8d49,15373,13694,1679,89.1%
+11,Wetland,#519799,7654,6378,1276,83.3%
+21,Mosaic of Uses,#ffefc3,5954,4384,1570,73.6%
+5,Mangrove,#04381d,4265,4040,225,94.7%
+33,River Lake and Ocean,#259fe4,1832,1260,572,68.8%
+50,Herbaceous Sandbank Vegetation,#ad5100,687,537,150,78.2%
+24,Urban Area,#d4271e,339,339,0,100.0%
+9,Forest Plantation,#7a5900,138,11,127,8.0%
+15,Pasture,#edde8e,130,2,128,1.5%
+32,Hypersaline Tidal Flat,#fc8114,66,2,64,3.0%
+25,Other non Vegetated Areas,#db4d4f,12,0,12,0.0%

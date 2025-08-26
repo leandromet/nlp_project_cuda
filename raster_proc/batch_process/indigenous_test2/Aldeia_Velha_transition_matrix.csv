@@ -1,0 +1,12 @@
+,3: Forest Formation,5: Mangrove,9: Forest Plantation,11: Wetland,15: Pasture,21: Mosaic of Uses,24: Urban Area,25: Other non Vegetated Areas,32: Hypersaline Tidal Flat,33: River Lake and Ocean,50: Herbaceous Sandbank Vegetation
+3: Forest Formation,578921,592,85,91,419,914,41,11,0,184,2
+5: Mangrove,479,173673,0,182,0,0,0,1,6,491,11
+9: Forest Plantation,52,0,3940,100,0,27,0,0,0,0,0
+11: Wetland,92,211,31,288202,396,962,30,0,52,284,14
+15: Pasture,47,0,0,181,23842,1821,39,14,0,8,0
+21: Mosaic of Uses,359,1,0,1189,1978,219564,401,12,26,75,15
+24: Urban Area,0,0,0,0,2,4,27830,1,0,3,0
+25: Other non Vegetated Areas,7,0,0,6,13,17,0,382,0,27,0
+32: Hypersaline Tidal Flat,0,7,0,60,0,24,0,0,2035,59,117
+33: River Lake and Ocean,298,736,0,294,0,48,7,34,34,65028,46
+50: Herbaceous Sandbank Vegetation,10,14,0,9,0,22,65,0,97,50,24096
