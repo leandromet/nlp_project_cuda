@@ -166,6 +166,7 @@ def main():
                     logging.info(f"Created Sankey diagram for {os.path.basename(str(zarr_path))}")
                 except Exception as e:
                     logging.error(f"Failed to create Sankey diagram for {os.path.basename(str(zarr_path))}: {e}")
+                    logging.exception("Sankey diagram error traceback:")
         
         # Step 4: Create transition visualizations (if not skipped)
         if not args.skip_transition_viz:
@@ -178,6 +179,7 @@ def main():
                     logging.info(f"Created transition visualizations for {os.path.basename(str(zarr_path))}")
                 except Exception as e:
                     logging.error(f"Failed to create transition visualizations for {os.path.basename(str(zarr_path))}: {e}")
+                    logging.exception("Transition visualization error traceback:")
         # Log final memory usage
         # Log final memory usage
         logging.info(f"Final memory usage: {psutil.virtual_memory().used / 1024 / 1024:.1f} MB")

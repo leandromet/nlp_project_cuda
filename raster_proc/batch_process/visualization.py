@@ -44,8 +44,8 @@ def create_visualizations(zarr_path, output_dir, geojson_path=None):
     # 2. Create persistence visualization
     create_persistence_visualization(root, output_dir, file_prefix)
     
-    # 3. Create changes map (if needed)
-    # create_changes_map(root, output_dir, file_prefix)
+    # 3. Create changes map showing total changes per pixel over 40 years
+    create_changes_map(root, output_dir, file_prefix, geojson_path)
 
 
 def create_landcover_map(root, output_dir, file_prefix, geojson_path=None):
@@ -206,20 +206,108 @@ def create_persistence_visualization(root, output_dir, file_prefix):
 
 
 def create_changes_map(root, output_dir, file_prefix, geojson_path=None):
-    """Create changes frequency visualization with PNGW for GIS compatibility."""
+    """Create changes frequency visualization showing total changes per pixel over 40 years with PNGW for GIS compatibility."""
+    
+    # Check if changes data exists
+    if 'changes' not in root:
+        logging.error("No changes data found in Zarr file. Cannot create changes map.")
+        return
+        
     grid_name = root.attrs['grid_name']
     changes = root['changes'][:]
-    transform = json.loads(root.attrs['window_transform'])
+    transform = rasterio.transform.Affine(*json.loads(root.attrs['window_transform']))
+    
+    logging.info(f"Creating changes map for {grid_name}")
+    logging.info(f"Changes array shape: {changes.shape}, dtype: {changes.dtype}")
+    logging.info(f"Changes range: {np.min(changes)} to {np.max(changes)}")
+    logging.info(f"Changes unique values: {np.unique(changes)}")
+    logging.info(f"Changes value distribution: {np.bincount(changes.flatten())}")
+    
+    # Mask out fill values (0 usually indicates no data or outside polygon)
+    # We need to distinguish between "no changes" and "outside analysis area"
+    # Check if we can identify the analysis area from other data
+    valid_data_mask = np.ones(changes.shape, dtype=bool)
+    
+    # Try to get a better mask from the first/last year data to identify analysis area
+    if 'first_year' in root and 'last_year' in root:
+        first_year = root['first_year'][:]
+        last_year = root['last_year'][:]
+        # Pixels that have valid land cover data (not fill value) in both first and last year
+        # should be considered part of the analysis area
+        from config import FILL_VALUE
+        valid_data_mask = (first_year != FILL_VALUE) & (last_year != FILL_VALUE)
+        logging.info(f"Using first/last year data to identify analysis area: {np.sum(valid_data_mask):,} valid pixels")
+    else:
+        # Fallback: assume all non-zero pixels in changes are valid
+        # But this may not distinguish between "no changes" and "outside area"
+        logging.warning("Could not determine analysis area mask - using all pixels")
+    
+    # Calculate statistics only for the valid analysis area
+    total_analysis_pixels = np.sum(valid_data_mask)
+    changes_in_analysis_area = changes[valid_data_mask]
+    
+    if total_analysis_pixels == 0:
+        logging.error("No valid analysis area found!")
+        return
+    
+    changed_pixels = np.sum(changes_in_analysis_area > 0)
+    stable_pixels = np.sum(changes_in_analysis_area == 0)
+    max_changes = np.max(changes_in_analysis_area)
+    avg_changes = np.mean(changes_in_analysis_area[changes_in_analysis_area > 0]) if changed_pixels > 0 else 0
+    
+    logging.info(f"Analysis area statistics:")
+    logging.info(f"  Total analysis pixels: {total_analysis_pixels:,}")
+    logging.info(f"  Changed pixels: {changed_pixels:,} ({100*changed_pixels/total_analysis_pixels:.1f}%)")
+    logging.info(f"  Stable pixels: {stable_pixels:,} ({100*stable_pixels/total_analysis_pixels:.1f}%)")
+    logging.info(f"  Max changes: {max_changes}")
+    
+    if changed_pixels == 0:
+        logging.warning("No land cover changes detected in the analysis area!")
+        logging.info("This might indicate:")
+        logging.info("  1. The area is very stable (unlikely for 40 years)")
+        logging.info("  2. There's an issue with change calculation")
+        logging.info("  3. The polygon mask is incorrectly applied")
     
     # Create the changes map
     plt.figure(figsize=(12, 20))
-    plt.imshow(changes, cmap='gist_stern')
-    plt.colorbar(label='Number of Changes (1985-2024)')
-    plt.title(f"{grid_name} Change Frequency")
+    
+    # Use a more informative colormap for changes
+    # Set vmin=0 but only show meaningful changes
+    if max_changes == 0:
+        logging.warning("Maximum changes is 0 - creating map anyway but data might be incorrect")
+        max_changes = 1  # Avoid division by zero
+    
+    # Create a masked array to show only the analysis area
+    changes_display = changes.copy().astype(float)
+    changes_display[~valid_data_mask] = np.nan  # Set areas outside analysis to NaN
+    
+    im = plt.imshow(changes_display, cmap='plasma', vmin=0, vmax=max_changes)
+    cbar = plt.colorbar(im, label='Number of Land Cover Transitions (1985-2024)', shrink=0.8)
+    cbar.ax.tick_params(labelsize=10)
+    
+    plt.title(f"{grid_name} Land Cover Change Frequency\n(Total transitions per pixel over 40 years)", fontsize=14)
+    plt.axis('off')  # Remove axes for cleaner look
     
     # Add polygon outline if GeoJSON path is provided
     if geojson_path:
         _overlay_polygons(root, plt, geojson_path, changes.shape)
+    
+    # Calculate statistics for pixels within the valid area
+    stats_text = f"""Change Analysis (within study area):
+    • Analysis area: {total_analysis_pixels:,} pixels
+    • Pixels with land cover changes: {changed_pixels:,} ({100*changed_pixels/total_analysis_pixels:.1f}%)
+    • Stable pixels (no changes): {stable_pixels:,} ({100*stable_pixels/total_analysis_pixels:.1f}%)
+    • Maximum transitions per pixel: {max_changes}
+    • Average transitions (changed pixels): {avg_changes:.1f}
+    
+    Time period: 40 years (1985-2024)
+    Each unit = one land cover class transition"""
+    
+    plt.text(0.02, 0.98, stats_text, transform=plt.gca().transAxes, 
+             fontsize=10, verticalalignment='top', 
+             bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+    
+    plt.tight_layout()
     
     # Save the PNG file
     output_path = os.path.join(output_dir, f'{file_prefix}_changes_map.png')
@@ -227,7 +315,30 @@ def create_changes_map(root, output_dir, file_prefix, geojson_path=None):
     plt.close()
     
     # Create PNGW file for georeferencing
-    _create_pngw_file(output_path, rasterio.transform.Affine(*transform))
+    _create_pngw_file(output_path, transform)
+    
+    logging.info(f"Saved changes frequency map to {output_path}")
+    logging.info(f"Change statistics - Analysis area: {total_analysis_pixels:,}, Changed: {changed_pixels:,} ({100*changed_pixels/total_analysis_pixels:.1f}%), Max transitions: {max_changes}")
+    
+    # Save detailed change statistics to CSV
+    csv_path = os.path.join(output_dir, f'{file_prefix}_change_statistics.csv')
+    with open(csv_path, 'w') as f:
+        f.write("Metric,Value,Percentage\n")
+        f.write(f"Analysis area pixels,{total_analysis_pixels},100.0%\n")
+        f.write(f"Stable pixels,{stable_pixels},{100*stable_pixels/total_analysis_pixels:.1f}%\n")
+        f.write(f"Changed pixels,{changed_pixels},{100*changed_pixels/total_analysis_pixels:.1f}%\n")
+        f.write(f"Maximum transitions,{max_changes},\n")
+        f.write(f"Average transitions (changed pixels),{avg_changes:.2f},\n")
+        
+        # Add distribution of change frequencies
+        if changed_pixels > 0:
+            f.write("\nChange Frequency,Pixel Count,Percentage of Analysis Area\n")
+            change_counts = np.bincount(changes_in_analysis_area.flatten())
+            for i, count in enumerate(change_counts):
+                if count > 0:
+                    f.write(f"{i} transitions,{count},{100*count/total_analysis_pixels:.2f}%\n")
+    
+    logging.info(f"Saved detailed change statistics to {csv_path}")
 
 
 def _overlay_polygons(root, plt, geojson_path, img_shape):

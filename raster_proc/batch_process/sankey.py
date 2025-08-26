@@ -20,34 +20,60 @@ def create_sankey_diagram(zarr_path, output_dir):
     """Create Sankey diagram showing land cover transitions."""
     import zarr
     
-    root = zarr.open(zarr_path, mode='r')
-    transition_matrix = np.array(root['transition_matrix'][:])
-    grid_name = root.attrs.get('grid_name', 'unknown_grid')
-    
-    # Extract prefix from zarr filename instead of grid_name
-    zarr_filename = os.path.basename(zarr_path)
-    if zarr_filename.endswith('_data.zarr'):
-        file_prefix = zarr_filename.replace('_data.zarr', '')
-    else:
-        file_prefix = grid_name  # Fallback to grid_name
-    
-    logging.info(f"Creating Sankey diagram with prefix: {file_prefix}")
-    
-    # Filter matrix to significant transitions
-    filtered_matrix, source_labels, target_labels = _filter_transition_matrix(
-        transition_matrix, min_pixels=100
-    )
-    
-    if filtered_matrix is None:
-        logging.warning("No significant transitions found for Sankey diagram")
-        return
-    
-    # Create Sankey diagram
-    fig = _create_sankey_figure(
-        filtered_matrix, source_labels, target_labels, grid_name
-    )
-    
-    # Save as HTML
+    try:
+        root = zarr.open(zarr_path, mode='r')
+        
+        # Check if transition matrix exists
+        if 'transition_matrix' not in root:
+            logging.error(f"No transition matrix found in {zarr_path}. Cannot create Sankey diagram.")
+            return
+            
+        transition_matrix = np.array(root['transition_matrix'][:])
+        grid_name = root.attrs.get('grid_name', 'unknown_grid')
+        
+        # Extract prefix from zarr filename instead of grid_name
+        zarr_filename = os.path.basename(zarr_path)
+        if zarr_filename.endswith('_data.zarr'):
+            file_prefix = zarr_filename.replace('_data.zarr', '')
+        else:
+            file_prefix = grid_name  # Fallback to grid_name
+        
+        logging.info(f"Creating Sankey diagram with prefix: {file_prefix}")
+        logging.info(f"Transition matrix shape: {transition_matrix.shape}")
+        logging.info(f"Total transitions: {np.sum(transition_matrix):,}")
+        
+        # Filter matrix to significant transitions
+        filtered_matrix, source_labels, target_labels = _filter_transition_matrix(
+            transition_matrix, min_pixels=50  # Reduced threshold for more inclusive diagrams
+        )
+        
+        if filtered_matrix is None:
+            logging.warning("No significant transitions found for Sankey diagram")
+            return
+        
+        logging.info(f"Filtered matrix has {len(source_labels)} classes with {np.sum(filtered_matrix):,} total transitions")
+        
+        # Create Sankey diagram
+        fig = _create_sankey_figure(
+            filtered_matrix, source_labels, target_labels, grid_name
+        )
+        
+        # Save as HTML
+        html_path = os.path.join(output_dir, f'{file_prefix}_sankey_diagram.html')
+        plot(fig, filename=html_path, auto_open=False)
+        
+        # Also save as static PNG
+        try:
+            png_path = os.path.join(output_dir, f'{file_prefix}_sankey_diagram.png')
+            fig.write_image(png_path, width=1200, height=600, scale=2)
+            logging.info(f"Saved Sankey diagram: {html_path} and {png_path}")
+        except Exception as e:
+            logging.warning(f"Could not save PNG version of Sankey diagram: {e}")
+            logging.info(f"Saved Sankey diagram: {html_path}")
+            
+    except Exception as e:
+        logging.error(f"Error creating Sankey diagram for {zarr_path}: {e}")
+        logging.exception("Full traceback:")
     html_path = os.path.join(output_dir, f'{file_prefix}_sankey_transitions.html')
     plot(fig, filename=html_path, auto_open=False)
     
