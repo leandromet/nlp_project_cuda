@@ -21,6 +21,7 @@ from config import setup_logging
 from data_extraction import extract_grid_data_with_polygon
 from visualization import create_visualizations
 from sankey import create_sankey_diagram
+from transition_viz import create_class_transition_visualization
 
 
 def main():
@@ -57,6 +58,11 @@ def main():
         '--skip-sankey', 
         action='store_true',
         help='Skip Sankey diagram creation'
+    )
+    parser.add_argument(
+        '--skip-transition-viz', 
+        action='store_true',
+        help='Skip transition visualization creation'
     )
     parser.add_argument(
         '--verbose', '-v', 
@@ -146,7 +152,7 @@ def main():
             logging.info("Starting visualization phase...")
             for zarr_path in zarr_paths:
                 try:
-                    create_visualizations(str(zarr_path), args.output_dir)
+                    create_visualizations(str(zarr_path), args.output_dir, args.geojson)
                     logging.info(f"Created visualizations for {os.path.basename(str(zarr_path))}")
                 except Exception as e:
                     logging.error(f"Failed to create visualizations for {os.path.basename(str(zarr_path))}: {e}")
@@ -160,6 +166,18 @@ def main():
                     logging.info(f"Created Sankey diagram for {os.path.basename(str(zarr_path))}")
                 except Exception as e:
                     logging.error(f"Failed to create Sankey diagram for {os.path.basename(str(zarr_path))}: {e}")
+        
+        # Step 4: Create transition visualizations (if not skipped)
+        if not args.skip_transition_viz:
+            logging.info("Starting transition visualization creation...")
+            for zarr_path in zarr_paths:
+                try:
+                    # Create both treemap and stacked bar visualizations
+                    create_class_transition_visualization(str(zarr_path), args.output_dir, vis_type='treemap')
+                    create_class_transition_visualization(str(zarr_path), args.output_dir, vis_type='stacked_bar')
+                    logging.info(f"Created transition visualizations for {os.path.basename(str(zarr_path))}")
+                except Exception as e:
+                    logging.error(f"Failed to create transition visualizations for {os.path.basename(str(zarr_path))}: {e}")
         # Log final memory usage
         # Log final memory usage
         logging.info(f"Final memory usage: {psutil.virtual_memory().used / 1024 / 1024:.1f} MB")
@@ -209,7 +227,7 @@ def run_batch_processing(geojson_path, vrt_path, output_dir, **kwargs):
         geojson_path: Path to GeoJSON file
         vrt_path: Path to VRT file
         output_dir: Output directory
-        **kwargs: Additional parameters (skip_extraction, skip_visualization, skip_sankey, verbose)
+        **kwargs: Additional parameters (skip_extraction, skip_visualization, skip_sankey, skip_transition_viz, verbose)
     
     Returns:
         bool: True if successful, False otherwise
@@ -219,6 +237,7 @@ def run_batch_processing(geojson_path, vrt_path, output_dir, **kwargs):
         'skip_extraction': False,
         'skip_visualization': False,
         'skip_sankey': False,
+        'skip_transition_viz': False,
         'verbose': False
     }
     params.update(kwargs)
@@ -288,12 +307,18 @@ def run_batch_processing(geojson_path, vrt_path, output_dir, **kwargs):
         # Visualizations
         if not params['skip_visualization']:
             for zarr_path in zarr_paths:
-                create_visualizations(str(zarr_path), output_dir)
+                create_visualizations(str(zarr_path), output_dir, geojson_path)
         
         # Sankey diagrams
         if not params['skip_sankey']:
             for zarr_path in zarr_paths:
                 create_sankey_diagram(str(zarr_path), output_dir)
+        
+        # Transition visualizations
+        if not params['skip_transition_viz']:
+            for zarr_path in zarr_paths:
+                create_class_transition_visualization(str(zarr_path), output_dir, vis_type='treemap')
+                create_class_transition_visualization(str(zarr_path), output_dir, vis_type='stacked_bar')
         
         logging.info("Batch processing completed successfully!")
         return True

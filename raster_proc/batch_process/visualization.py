@@ -21,7 +21,7 @@ import rasterio
 from config import COLOR_MAP, LABELS
 
 
-def create_visualizations(zarr_path, output_dir):
+def create_visualizations(zarr_path, output_dir, geojson_path=None):
     """Create all visualizations from the Zarr data."""
     import zarr
     
@@ -37,9 +37,9 @@ def create_visualizations(zarr_path, output_dir):
     
     logging.info(f"Creating visualizations with prefix: {file_prefix}")
     
-    # 1. Create land cover maps
-    create_landcover_map(root, output_dir, file_prefix)
-    create_initial_landcover_map(root, output_dir, file_prefix)
+    # 1. Create land cover maps with polygon overlay
+    create_landcover_map(root, output_dir, file_prefix, geojson_path)
+    create_initial_landcover_map(root, output_dir, file_prefix, geojson_path)
     
     # 2. Create persistence visualization
     create_persistence_visualization(root, output_dir, file_prefix)
@@ -205,7 +205,7 @@ def create_persistence_visualization(root, output_dir, file_prefix):
     logging.info(f"Saved stacked persistence visualization to {output_path}")
 
 
-def create_changes_map(root, output_dir, file_prefix):
+def create_changes_map(root, output_dir, file_prefix, geojson_path=None):
     """Create changes frequency visualization with PNGW for GIS compatibility."""
     grid_name = root.attrs['grid_name']
     changes = root['changes'][:]
@@ -217,6 +217,10 @@ def create_changes_map(root, output_dir, file_prefix):
     plt.colorbar(label='Number of Changes (1985-2024)')
     plt.title(f"{grid_name} Change Frequency")
     
+    # Add polygon outline if GeoJSON path is provided
+    if geojson_path:
+        _overlay_polygons(root, plt, geojson_path, changes.shape)
+    
     # Save the PNG file
     output_path = os.path.join(output_dir, f'{file_prefix}_changes_map.png')
     plt.savefig(output_path, dpi=450, bbox_inches='tight')
@@ -227,37 +231,105 @@ def create_changes_map(root, output_dir, file_prefix):
 
 
 def _overlay_polygons(root, plt, geojson_path, img_shape):
-    """Overlay polygons from GeoJSON onto the map."""
+    """Overlay polygons from stored geometry in Zarr metadata onto the map."""
     try:
-        gdf = gpd.read_file(geojson_path)
-        if not gdf.empty and 'geometry' in gdf.columns:
-            # Convert polygon to pixel coordinates
-            bounds = root.attrs['bounds']
-            xmin, ymin, xmax, ymax = bounds
-            width = img_shape[1]
-            height = img_shape[0]
+        # First try to use stored geometry from Zarr metadata
+        if 'feature_geometry_wkt' in root.attrs:
+            from shapely import wkt
+            geometry = wkt.loads(root.attrs['feature_geometry_wkt'])
             
-            # Set the same extent as the image
-            plt.xlim(0, width)
-            plt.ylim(height, 0)
-        
-        # Create a patch for the polygon
-        for geom in gdf.geometry:
-            if geom.geom_type == 'Polygon':
+            # Get bounds from the root attributes
+            bounds = json.loads(root.attrs['bounds']) if isinstance(root.attrs['bounds'], str) else root.attrs['bounds']
+            xmin, ymin, xmax, ymax = bounds
+            height, width = img_shape
+            
+            logging.info(f"Overlaying stored polygon geometry on map. Bounds: {bounds}, Image shape: {img_shape}")
+            
+            # Draw the stored geometry
+            if geometry.geom_type == 'Polygon':
                 # Convert coordinates to image space
-                x, y = zip(*geom.exterior.coords)
+                x, y = zip(*geometry.exterior.coords)
                 x_img = ((np.array(x) - xmin) / (xmax - xmin)) * width
-                y_img = height - ((np.array(y) - ymin) / (ymax - ymin)) * height
+                y_img = ((np.array(y) - ymin) / (ymax - ymin)) * height
                 
-                plt.plot(x_img, y_img, color='red', linewidth=2, alpha=0.8)
-            elif geom.geom_type == 'MultiPolygon':
-                for poly in geom.geoms:
+                plt.plot(x_img, y_img, color='red', linewidth=3, alpha=0.9, linestyle='-')
+                
+                # Add interior holes if they exist
+                for interior in geometry.interiors:
+                    x_hole, y_hole = zip(*interior.coords)
+                    x_hole_img = ((np.array(x_hole) - xmin) / (xmax - xmin)) * width
+                    y_hole_img = ((np.array(y_hole) - ymin) / (ymax - ymin)) * height
+                    plt.plot(x_hole_img, y_hole_img, color='red', linewidth=2, alpha=0.9, linestyle='-')
+                    
+            elif geometry.geom_type == 'MultiPolygon':
+                for poly in geometry.geoms:
                     x, y = zip(*poly.exterior.coords)
                     x_img = ((np.array(x) - xmin) / (xmax - xmin)) * width
-                    y_img = height - ((np.array(y) - ymin) / (ymax - ymin)) * height
-                    plt.plot(x_img, y_img, color='red', linewidth=2, alpha=0.8)
+                    y_img = ((np.array(y) - ymin) / (ymax - ymin)) * height
+                    plt.plot(x_img, y_img, color='red', linewidth=3, alpha=0.9, linestyle='-')
+                    
+                    # Add interior holes if they exist
+                    for interior in poly.interiors:
+                        x_hole, y_hole = zip(*interior.coords)
+                        x_hole_img = ((np.array(x_hole) - xmin) / (xmax - xmin)) * width
+                        y_hole_img = ((np.array(y_hole) - ymin) / (ymax - ymin)) * height
+                        plt.plot(x_hole_img, y_hole_img, color='red', linewidth=2, alpha=0.9, linestyle='-')
+            
+            logging.info(f"Successfully overlaid stored polygon geometry on the map")
+            return
+            
     except Exception as e:
-        logging.warning(f"Could not overlay polygon: {str(e)}")
+        logging.warning(f"Could not overlay stored polygon geometry: {str(e)}")
+        logging.info("Falling back to reading from GeoJSON file...")
+    
+    # Fallback: try to read from GeoJSON file if geometry not stored or failed
+    try:
+        if geojson_path and os.path.exists(geojson_path):
+            gdf = gpd.read_file(geojson_path)
+            if not gdf.empty and 'geometry' in gdf.columns:
+                # Get bounds from the root attributes
+                bounds = json.loads(root.attrs['bounds']) if isinstance(root.attrs['bounds'], str) else root.attrs['bounds']
+                xmin, ymin, xmax, ymax = bounds
+                height, width = img_shape
+                
+                logging.info(f"Overlaying polygon from GeoJSON on map. Bounds: {bounds}, Image shape: {img_shape}")
+                
+                # Only overlay the first feature (for individual processing)
+                geom = gdf.iloc[0].geometry
+                if geom.geom_type == 'Polygon':
+                    # Convert coordinates to image space
+                    x, y = zip(*geom.exterior.coords)
+                    x_img = ((np.array(x) - xmin) / (xmax - xmin)) * width
+                    y_img = ((np.array(y) - ymin) / (ymax - ymin)) * height
+                    
+                    plt.plot(x_img, y_img, color='red', linewidth=3, alpha=0.9, linestyle='-')
+                    
+                    # Add interior holes if they exist
+                    for interior in geom.interiors:
+                        x_hole, y_hole = zip(*interior.coords)
+                        x_hole_img = ((np.array(x_hole) - xmin) / (xmax - xmin)) * width
+                        y_hole_img = ((np.array(y_hole) - ymin) / (ymax - ymin)) * height
+                        plt.plot(x_hole_img, y_hole_img, color='red', linewidth=2, alpha=0.9, linestyle='-')
+                        
+                elif geom.geom_type == 'MultiPolygon':
+                    for poly in geom.geoms:
+                        x, y = zip(*poly.exterior.coords)
+                        x_img = ((np.array(x) - xmin) / (xmax - xmin)) * width
+                        y_img = ((np.array(y) - ymin) / (ymax - ymin)) * height
+                        plt.plot(x_img, y_img, color='red', linewidth=3, alpha=0.9, linestyle='-')
+                        
+                        # Add interior holes if they exist
+                        for interior in poly.interiors:
+                            x_hole, y_hole = zip(*interior.coords)
+                            x_hole_img = ((np.array(x_hole) - xmin) / (xmax - xmin)) * width
+                            y_hole_img = ((np.array(y_hole) - ymin) / (ymax - ymin)) * height
+                            plt.plot(x_hole_img, y_hole_img, color='red', linewidth=2, alpha=0.9, linestyle='-')
+                
+                logging.info(f"Successfully overlaid polygon from GeoJSON file")
+                
+    except Exception as e:
+        logging.warning(f"Could not overlay polygon from GeoJSON: {str(e)}")
+        logging.exception("Full traceback for polygon overlay error:")
 
 
 def _create_legend(plt):

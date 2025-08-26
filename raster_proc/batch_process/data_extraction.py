@@ -57,6 +57,12 @@ def extract_grid_data_with_polygon(vrt_path, geojson_path, output_base_dir):
         terrai_nom = None
         if not gdf.empty and 'terrai_nom' in gdf.columns:
             terrai_nom = str(gdf.iloc[0]['terrai_nom'])
+            
+        # Store the geometry as WKT for visualization overlay
+        feature_geometry_wkt = None
+        if not gdf.empty and 'geometry' in gdf.columns:
+            feature_geometry = gdf.iloc[0].geometry
+            feature_geometry_wkt = feature_geometry.wkt
 
         with rasterio.open(vrt_path) as src:
             logging.info(f"Dataset info - Width: {src.width}, Height: {src.height}, Bands: {src.count}")
@@ -220,7 +226,7 @@ def extract_grid_data_with_polygon(vrt_path, geojson_path, output_base_dir):
                 zarr_path = _store_zarr_data(
                     grid_output_dir, full_changes, full_transitions, 
                     full_persistence, full_initial, src, full_window,
-                    bounds, grid_name, failed_tiles, vrt_path, len(polygons), terrai_nom
+                    bounds, grid_name, failed_tiles, vrt_path, len(polygons), terrai_nom, feature_geometry_wkt
                 )
                 
                 logging.info(f"Zarr file created successfully at: {zarr_path}")
@@ -233,7 +239,7 @@ def extract_grid_data_with_polygon(vrt_path, geojson_path, output_base_dir):
 
 def _store_zarr_data(grid_output_dir, full_changes, full_transitions, full_persistence, 
                     full_initial, src, full_window, bounds, grid_name, failed_tiles, 
-                    vrt_path, polygon_count, terrai_nom=None):
+                    vrt_path, polygon_count, terrai_nom=None, feature_geometry_wkt=None):
     """Store processed data in Zarr format with proper compression and metadata."""
     
     # Use grid_name as prefix for the Zarr file
@@ -331,6 +337,10 @@ def _store_zarr_data(grid_output_dir, full_changes, full_transitions, full_persi
         # Add terrai_nom if available
         if terrai_nom:
             metadata['terrai_nom'] = terrai_nom
+            
+        # Add feature geometry if available
+        if feature_geometry_wkt:
+            metadata['feature_geometry_wkt'] = feature_geometry_wkt
             
         root.attrs.update(metadata)
         logging.info("Metadata stored successfully")
