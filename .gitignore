@@ -153,6 +153,8 @@ raster_proc/atlfor_state_analysis/
 raster_proc/vassununga/
 *.geojson
 ajuda_doc/node_modules
+ajuda_doc/proposal/large_files/
+raster_proc/batch_process/ind*
 
 # pytype static type analyzer
 .pytype/
