@@ -223,6 +223,15 @@ def create_changes_map(root, output_dir, file_prefix, geojson_path=None):
     logging.info(f"Changes unique values: {np.unique(changes)}")
     logging.info(f"Changes value distribution: {np.bincount(changes.flatten())}")
     
+    # Debug: Check if all values are really 0
+    non_zero_count = np.sum(changes != 0)
+    logging.info(f"DEBUG: Non-zero pixels in changes array: {non_zero_count:,}")
+    if non_zero_count > 0:
+        logging.info(f"DEBUG: Max non-zero value: {np.max(changes[changes != 0])}")
+        logging.info(f"DEBUG: Sample of non-zero values: {changes[changes != 0][:10]}")
+    else:
+        logging.warning("DEBUG: ALL CHANGES VALUES ARE ZERO! This indicates a problem.")
+    
     # Mask out fill values (0 usually indicates no data or outside polygon)
     # We need to distinguish between "no changes" and "outside analysis area"
     # Check if we can identify the analysis area from other data
@@ -238,9 +247,12 @@ def create_changes_map(root, output_dir, file_prefix, geojson_path=None):
         valid_data_mask = (first_year != FILL_VALUE) & (last_year != FILL_VALUE)
         logging.info(f"Using first/last year data to identify analysis area: {np.sum(valid_data_mask):,} valid pixels")
     else:
-        # Fallback: assume all non-zero pixels in changes are valid
-        # But this may not distinguish between "no changes" and "outside area"
-        logging.warning("Could not determine analysis area mask - using all pixels")
+        # Fallback: use changes array to identify analysis area
+        # Areas outside polygon should have been set to 255, inside polygon has 0 or more changes
+        valid_data_mask = (changes != 255)  # 255 is used for outside polygon areas
+        logging.info(f"Using changes array to identify analysis area: {np.sum(valid_data_mask):,} valid pixels")
+        if np.sum(valid_data_mask) == 0:
+            logging.warning("No valid analysis area found using changes array mask!")
     
     # Calculate statistics only for the valid analysis area
     total_analysis_pixels = np.sum(valid_data_mask)
@@ -249,6 +261,10 @@ def create_changes_map(root, output_dir, file_prefix, geojson_path=None):
     if total_analysis_pixels == 0:
         logging.error("No valid analysis area found!")
         return
+    
+    # Remove any remaining fill values (255) from the analysis area calculations
+    # This can happen if the mask isn't perfect
+    changes_in_analysis_area = changes_in_analysis_area[changes_in_analysis_area != 255]
     
     changed_pixels = np.sum(changes_in_analysis_area > 0)
     stable_pixels = np.sum(changes_in_analysis_area == 0)
@@ -272,7 +288,7 @@ def create_changes_map(root, output_dir, file_prefix, geojson_path=None):
     plt.figure(figsize=(12, 20))
     
     # Use a more informative colormap for changes
-    # Set vmin=0 but only show meaningful changes
+    # Set vmin=0 but only show meaningful changes, excluding fill values
     if max_changes == 0:
         logging.warning("Maximum changes is 0 - creating map anyway but data might be incorrect")
         max_changes = 1  # Avoid division by zero
@@ -280,7 +296,10 @@ def create_changes_map(root, output_dir, file_prefix, geojson_path=None):
     # Create a masked array to show only the analysis area
     changes_display = changes.copy().astype(float)
     changes_display[~valid_data_mask] = np.nan  # Set areas outside analysis to NaN
+    changes_display[changes_display == 255] = np.nan  # Also mask the 255 fill values
     
+    # Use a better color scale that focuses on actual changes (0 to max_changes, not 0 to 255)
+    # This will give much better contrast for the actual change values
     im = plt.imshow(changes_display, cmap='plasma', vmin=0, vmax=max_changes)
     cbar = plt.colorbar(im, label='Number of Land Cover Transitions (1985-2024)', shrink=0.8)
     cbar.ax.tick_params(labelsize=10)
@@ -361,7 +380,8 @@ def _overlay_polygons(root, plt, geojson_path, img_shape):
                 # Convert coordinates to image space
                 x, y = zip(*geometry.exterior.coords)
                 x_img = ((np.array(x) - xmin) / (xmax - xmin)) * width
-                y_img = ((np.array(y) - ymin) / (ymax - ymin)) * height
+                # Flip Y-axis: image coordinates have Y=0 at top, geographic has Y=max at top
+                y_img = height - ((np.array(y) - ymin) / (ymax - ymin)) * height
                 
                 plt.plot(x_img, y_img, color='red', linewidth=3, alpha=0.9, linestyle='-')
                 
@@ -369,21 +389,24 @@ def _overlay_polygons(root, plt, geojson_path, img_shape):
                 for interior in geometry.interiors:
                     x_hole, y_hole = zip(*interior.coords)
                     x_hole_img = ((np.array(x_hole) - xmin) / (xmax - xmin)) * width
-                    y_hole_img = ((np.array(y_hole) - ymin) / (ymax - ymin)) * height
+                    # Flip Y-axis for holes too
+                    y_hole_img = height - ((np.array(y_hole) - ymin) / (ymax - ymin)) * height
                     plt.plot(x_hole_img, y_hole_img, color='red', linewidth=2, alpha=0.9, linestyle='-')
                     
             elif geometry.geom_type == 'MultiPolygon':
                 for poly in geometry.geoms:
                     x, y = zip(*poly.exterior.coords)
                     x_img = ((np.array(x) - xmin) / (xmax - xmin)) * width
-                    y_img = ((np.array(y) - ymin) / (ymax - ymin)) * height
+                    # Flip Y-axis for MultiPolygon too
+                    y_img = height - ((np.array(y) - ymin) / (ymax - ymin)) * height
                     plt.plot(x_img, y_img, color='red', linewidth=3, alpha=0.9, linestyle='-')
                     
                     # Add interior holes if they exist
                     for interior in poly.interiors:
                         x_hole, y_hole = zip(*interior.coords)
                         x_hole_img = ((np.array(x_hole) - xmin) / (xmax - xmin)) * width
-                        y_hole_img = ((np.array(y_hole) - ymin) / (ymax - ymin)) * height
+                        # Flip Y-axis for holes in MultiPolygon
+                        y_hole_img = height - ((np.array(y_hole) - ymin) / (ymax - ymin)) * height
                         plt.plot(x_hole_img, y_hole_img, color='red', linewidth=2, alpha=0.9, linestyle='-')
             
             logging.info(f"Successfully overlaid stored polygon geometry on the map")
@@ -411,7 +434,8 @@ def _overlay_polygons(root, plt, geojson_path, img_shape):
                     # Convert coordinates to image space
                     x, y = zip(*geom.exterior.coords)
                     x_img = ((np.array(x) - xmin) / (xmax - xmin)) * width
-                    y_img = ((np.array(y) - ymin) / (ymax - ymin)) * height
+                    # Flip Y-axis: image coordinates have Y=0 at top, geographic has Y=max at top
+                    y_img = height - ((np.array(y) - ymin) / (ymax - ymin)) * height
                     
                     plt.plot(x_img, y_img, color='red', linewidth=3, alpha=0.9, linestyle='-')
                     
@@ -419,21 +443,24 @@ def _overlay_polygons(root, plt, geojson_path, img_shape):
                     for interior in geom.interiors:
                         x_hole, y_hole = zip(*interior.coords)
                         x_hole_img = ((np.array(x_hole) - xmin) / (xmax - xmin)) * width
-                        y_hole_img = ((np.array(y_hole) - ymin) / (ymax - ymin)) * height
+                        # Flip Y-axis for holes too
+                        y_hole_img = height - ((np.array(y_hole) - ymin) / (ymax - ymin)) * height
                         plt.plot(x_hole_img, y_hole_img, color='red', linewidth=2, alpha=0.9, linestyle='-')
                         
                 elif geom.geom_type == 'MultiPolygon':
                     for poly in geom.geoms:
                         x, y = zip(*poly.exterior.coords)
                         x_img = ((np.array(x) - xmin) / (xmax - xmin)) * width
-                        y_img = ((np.array(y) - ymin) / (ymax - ymin)) * height
+                        # Flip Y-axis for MultiPolygon in GeoJSON fallback
+                        y_img = height - ((np.array(y) - ymin) / (ymax - ymin)) * height
                         plt.plot(x_img, y_img, color='red', linewidth=3, alpha=0.9, linestyle='-')
                         
                         # Add interior holes if they exist
                         for interior in poly.interiors:
                             x_hole, y_hole = zip(*interior.coords)
                             x_hole_img = ((np.array(x_hole) - xmin) / (xmax - xmin)) * width
-                            y_hole_img = ((np.array(y_hole) - ymin) / (ymax - ymin)) * height
+                            # Flip Y-axis for holes in MultiPolygon fallback
+                            y_hole_img = height - ((np.array(y_hole) - ymin) / (ymax - ymin)) * height
                             plt.plot(x_hole_img, y_hole_img, color='red', linewidth=2, alpha=0.9, linestyle='-')
                 
                 logging.info(f"Successfully overlaid polygon from GeoJSON file")

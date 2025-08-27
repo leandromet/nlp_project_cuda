@@ -154,6 +154,11 @@ def calculate_changes_tile(args):
                     failed = True
                     break
             
+            # Debug: Log tile results
+            changes_count = np.sum(changes > 0)
+            max_changes = np.max(changes) if changes_count > 0 else 0
+            logging.debug(f"Tile {y},{x} processed: {changes_count} pixels with changes, max changes: {max_changes}")
+            
             return changes, transition_matrix, class_persistence, class_initial, (y, x), failed
 
     except Exception as e:

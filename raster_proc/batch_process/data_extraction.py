@@ -116,32 +116,22 @@ def extract_grid_data_with_polygon(vrt_path, geojson_path, output_base_dir):
 
             # Create a mask for the polygon(s)
             mask_shape = (full_window.height, full_window.width)
-            mask = np.zeros(mask_shape, dtype=np.uint8)  # Use uint8 for rasterio compatibility
             
-            # Transform polygons to pixel coordinates relative to the window
+            # Get the proper transform for the window
             transform_window = src.window_transform(full_window)
             
-            # Rasterize all polygons at once for better performance
-            all_polygons = []
-            for polygon in polygons:
-                coords = list(polygon.exterior.coords)
-                polygon_pixels = [
-                    ((lon - transform.c) / transform.a - full_window.col_off,
-                     (lat - transform.f) / transform.e - full_window.row_off)
-                    for lon, lat in coords
-                ]
-                all_polygons.append((polygon_pixels, 1))
-                
+            # Rasterize polygons using proper geometric shapes
+            polygon_shapes = [(geom, 1) for geom in polygons]
+            
             # Rasterize with fill=0 and default_value=1
-            if all_polygons:
-                mask = rasterize(
-                    all_polygons,
-                    out_shape=mask_shape,
-                    transform=transform_window,
-                    fill=0,
-                    default_value=1,
-                    dtype=np.uint8
-                )
+            mask = rasterize(
+                polygon_shapes,
+                out_shape=mask_shape,
+                transform=transform_window,
+                fill=0,
+                default_value=1,
+                dtype=np.uint8
+            )
 
             # Convert mask to boolean after all polygons are processed
             mask_bool = mask.astype(bool)
@@ -180,10 +170,19 @@ def extract_grid_data_with_polygon(vrt_path, geojson_path, output_base_dir):
                             result = future.result(timeout=300)  # 5 minute timeout per tile
                             completed_tiles += 1
                             
+                            logging.info(f"Tile result: {type(result)}, first element: {type(result[0]) if result and len(result) > 0 else 'None'}")
+                            
                             if result[0] is not None:
                                 changes, transitions, persistence, initial, (tile_y, tile_x), failed = result
                                 
+                                logging.info(f"Processing tile {tile_y},{tile_x} - failed: {failed}")
+                                
                                 if not failed:
+                                    # Check tile contents before adding
+                                    tile_changes_count = np.sum(changes > 0)
+                                    tile_max_changes = np.max(changes)
+                                    logging.info(f"Tile {tile_y},{tile_x}: {tile_changes_count} pixels with changes, max: {tile_max_changes}")
+                                    
                                     # Calculate tile position in full array
                                     y_start = tile_y * PROCESSING_TILE_SIZE
                                     y_end = min(y_start + PROCESSING_TILE_SIZE, full_window.height)
@@ -197,7 +196,9 @@ def extract_grid_data_with_polygon(vrt_path, geojson_path, output_base_dir):
                                     full_initial += initial
                                 else:
                                     failed_tiles.append((tile_y, tile_x))
-                            
+                            else:
+                                logging.warning(f"Tile returned None result - marking as failed")
+                                failed_tiles.append((0, 0))  # Placeholder coordinates for failed tile
                             # Log progress every 10 tiles
                             if completed_tiles % 10 == 0:
                                 elapsed = time.time() - start_time
@@ -219,7 +220,62 @@ def extract_grid_data_with_polygon(vrt_path, geojson_path, output_base_dir):
 
                 # Apply the mask to the changes data
                 logging.info("Applying polygon mask to data...")
-                full_changes[~mask_bool] = FILL_VALUE
+                
+                # Debug: Check changes data before masking
+                total_pixels = full_changes.size
+                pixels_inside_polygon = np.sum(mask_bool)
+                changes_before_mask = np.sum(full_changes > 0)
+                max_changes_before = np.max(full_changes)
+                
+                logging.info(f"Before masking - Total pixels: {total_pixels:,}")
+                logging.info(f"Before masking - Pixels inside polygon: {pixels_inside_polygon:,} ({100*pixels_inside_polygon/total_pixels:.1f}%)")
+                logging.info(f"Before masking - Pixels with changes: {changes_before_mask:,}")
+                logging.info(f"Before masking - Max changes: {max_changes_before}")
+                
+                # DEBUG: Final summary of tile processing
+                logging.info(f"TILE PROCESSING SUMMARY:")
+                logging.info(f"  Total tiles submitted: {len(tasks)}")
+                logging.info(f"  Completed tiles: {completed_tiles}")
+                logging.info(f"  Failed tiles: {len(failed_tiles)}")
+                logging.info(f"  Success rate: {100*(completed_tiles-len(failed_tiles))/completed_tiles:.1f}%")
+                
+                if changes_before_mask == 0:
+                    logging.error("CRITICAL ISSUE: No changes detected in any tile!")
+                    logging.error("This suggests:")
+                    logging.error("  1. All tiles failed to process")
+                    logging.error("  2. All tiles processed but found no year-to-year changes")  
+                    logging.error("  3. Changes were calculated but assembly logic is wrong")
+                    logging.error("  4. VRT data has issues (all years identical)")
+                    
+                    # Additional debugging
+                    logging.info(f"full_changes array unique values: {np.unique(full_changes)}")
+                    logging.info(f"full_transitions sum: {np.sum(full_transitions)}")
+                    logging.info(f"full_persistence sum: {np.sum(full_persistence)}")
+                    logging.info(f"full_initial sum: {np.sum(full_initial)}")
+                
+                # DEBUG: Check mask integrity
+                mask_inside_count = np.sum(mask_bool)
+                mask_outside_count = np.sum(~mask_bool)
+                logging.info(f"Mask check - Inside: {mask_inside_count:,}, Outside: {mask_outside_count:,}, Total: {mask_inside_count + mask_outside_count:,}")
+                
+                if mask_inside_count == 0:
+                    logging.error("CRITICAL: Mask has no inside pixels! This will zero out all data.")
+                    logging.error("Polygon might be too small, outside bounds, or mask calculation failed.")
+                
+                full_changes[~mask_bool] = 255  # Use 255 instead of FILL_VALUE to distinguish from "no changes" (0)
+                
+                # Debug: Check changes data after masking
+                changes_after_mask = np.sum(full_changes > 0)
+                max_changes_after = np.max(full_changes)
+                
+                logging.info(f"After masking - Pixels with changes: {changes_after_mask:,}")
+                logging.info(f"After masking - Max changes: {max_changes_after}")
+                
+                if changes_after_mask == 0:
+                    logging.warning("WARNING: No changes detected after masking! This suggests:")
+                    logging.warning("  1. No land cover changes occurred within the polygon")
+                    logging.warning("  2. The polygon is too small to capture meaningful changes")  
+                    logging.warning("  3. There's an issue with the change calculation or polygon masking")
                 
                 # Store data in Zarr format
                 logging.info("Storing data in Zarr format...")
