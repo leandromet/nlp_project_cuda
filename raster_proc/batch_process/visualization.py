@@ -265,6 +265,7 @@ def create_changes_map(root, output_dir, file_prefix, geojson_path=None):
     # Remove any remaining fill values (255) from the analysis area calculations
     # This can happen if the mask isn't perfect
     changes_in_analysis_area = changes_in_analysis_area[changes_in_analysis_area != 255]
+    actual_analysis_pixels = len(changes_in_analysis_area)  # Actual count after removing fill values
     
     changed_pixels = np.sum(changes_in_analysis_area > 0)
     stable_pixels = np.sum(changes_in_analysis_area == 0)
@@ -272,10 +273,11 @@ def create_changes_map(root, output_dir, file_prefix, geojson_path=None):
     avg_changes = np.mean(changes_in_analysis_area[changes_in_analysis_area > 0]) if changed_pixels > 0 else 0
     
     logging.info(f"Analysis area statistics:")
-    logging.info(f"  Total analysis pixels: {total_analysis_pixels:,}")
-    logging.info(f"  Changed pixels: {changed_pixels:,} ({100*changed_pixels/total_analysis_pixels:.1f}%)")
-    logging.info(f"  Stable pixels: {stable_pixels:,} ({100*stable_pixels/total_analysis_pixels:.1f}%)")
+    logging.info(f"  Total analysis pixels: {actual_analysis_pixels:,}")
+    logging.info(f"  Changed pixels: {changed_pixels:,} ({100*changed_pixels/actual_analysis_pixels:.1f}%)")
+    logging.info(f"  Stable pixels: {stable_pixels:,} ({100*stable_pixels/actual_analysis_pixels:.1f}%)")
     logging.info(f"  Max changes: {max_changes}")
+    logging.info(f"  Note: Color scale will use range 0 to {max_changes} for better contrast")
     
     if changed_pixels == 0:
         logging.warning("No land cover changes detected in the analysis area!")
@@ -313,9 +315,9 @@ def create_changes_map(root, output_dir, file_prefix, geojson_path=None):
     
     # Calculate statistics for pixels within the valid area
     stats_text = f"""Change Analysis (within study area):
-    • Analysis area: {total_analysis_pixels:,} pixels
-    • Pixels with land cover changes: {changed_pixels:,} ({100*changed_pixels/total_analysis_pixels:.1f}%)
-    • Stable pixels (no changes): {stable_pixels:,} ({100*stable_pixels/total_analysis_pixels:.1f}%)
+    • Analysis area: {actual_analysis_pixels:,} pixels
+    • Pixels with land cover changes: {changed_pixels:,} ({100*changed_pixels/actual_analysis_pixels:.1f}%)
+    • Stable pixels (no changes): {stable_pixels:,} ({100*stable_pixels/actual_analysis_pixels:.1f}%)
     • Maximum transitions per pixel: {max_changes}
     • Average transitions (changed pixels): {avg_changes:.1f}
     
@@ -337,15 +339,15 @@ def create_changes_map(root, output_dir, file_prefix, geojson_path=None):
     _create_pngw_file(output_path, transform)
     
     logging.info(f"Saved changes frequency map to {output_path}")
-    logging.info(f"Change statistics - Analysis area: {total_analysis_pixels:,}, Changed: {changed_pixels:,} ({100*changed_pixels/total_analysis_pixels:.1f}%), Max transitions: {max_changes}")
+    logging.info(f"Change statistics - Analysis area: {actual_analysis_pixels:,}, Changed: {changed_pixels:,} ({100*changed_pixels/actual_analysis_pixels:.1f}%), Max transitions: {max_changes}")
     
     # Save detailed change statistics to CSV
     csv_path = os.path.join(output_dir, f'{file_prefix}_change_statistics.csv')
     with open(csv_path, 'w') as f:
         f.write("Metric,Value,Percentage\n")
-        f.write(f"Analysis area pixels,{total_analysis_pixels},100.0%\n")
-        f.write(f"Stable pixels,{stable_pixels},{100*stable_pixels/total_analysis_pixels:.1f}%\n")
-        f.write(f"Changed pixels,{changed_pixels},{100*changed_pixels/total_analysis_pixels:.1f}%\n")
+        f.write(f"Analysis area pixels,{actual_analysis_pixels},100.0%\n")
+        f.write(f"Stable pixels,{stable_pixels},{100*stable_pixels/actual_analysis_pixels:.1f}%\n")
+        f.write(f"Changed pixels,{changed_pixels},{100*changed_pixels/actual_analysis_pixels:.1f}%\n")
         f.write(f"Maximum transitions,{max_changes},\n")
         f.write(f"Average transitions (changed pixels),{avg_changes:.2f},\n")
         
@@ -355,7 +357,7 @@ def create_changes_map(root, output_dir, file_prefix, geojson_path=None):
             change_counts = np.bincount(changes_in_analysis_area.flatten())
             for i, count in enumerate(change_counts):
                 if count > 0:
-                    f.write(f"{i} transitions,{count},{100*count/total_analysis_pixels:.2f}%\n")
+                    f.write(f"{i} transitions,{count},{100*count/actual_analysis_pixels:.2f}%\n")
     
     logging.info(f"Saved detailed change statistics to {csv_path}")
 

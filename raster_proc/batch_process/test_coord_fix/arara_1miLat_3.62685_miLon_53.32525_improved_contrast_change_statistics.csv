@@ -1,23 +1,22 @@
 Metric,Value,Percentage
-Analysis area pixels,1397997,100.0%
-Stable pixels,201715,14.4%
-Changed pixels,1196282,85.6%
-Maximum transitions,255,
-Average transitions (changed pixels),178.97,
+Analysis area pixels,561092,100.0%
+Stable pixels,201715,36.0%
+Changed pixels,359377,64.0%
+Maximum transitions,13,
+Average transitions (changed pixels),1.91,
 
 Change Frequency,Pixel Count,Percentage of Analysis Area
-0 transitions,201715,14.43%
-1 transitions,193379,13.83%
-2 transitions,70561,5.05%
-3 transitions,56282,4.03%
-4 transitions,21541,1.54%
-5 transitions,11784,0.84%
-6 transitions,3759,0.27%
-7 transitions,1323,0.09%
-8 transitions,481,0.03%
-9 transitions,170,0.01%
-10 transitions,59,0.00%
+0 transitions,201715,35.95%
+1 transitions,193379,34.46%
+2 transitions,70561,12.58%
+3 transitions,56282,10.03%
+4 transitions,21541,3.84%
+5 transitions,11784,2.10%
+6 transitions,3759,0.67%
+7 transitions,1323,0.24%
+8 transitions,481,0.09%
+9 transitions,170,0.03%
+10 transitions,59,0.01%
 11 transitions,27,0.00%
 12 transitions,9,0.00%
 13 transitions,2,0.00%
-255 transitions,836905,59.86%
