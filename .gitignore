@@ -155,6 +155,7 @@ raster_proc/vassununga/
 ajuda_doc/node_modules
 ajuda_doc/proposal/large_files/
 raster_proc/batch_process/ind*
+raster_proc/batch_process/br319_completo
 
 # pytype static type analyzer
 .pytype/
