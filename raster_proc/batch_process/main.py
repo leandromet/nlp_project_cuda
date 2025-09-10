@@ -109,7 +109,7 @@ def main():
             else:
                 # Multiple features - process each individually
                 logging.info(f"Processing {len(gdf)} features individually...")
-                for idx, feature in gdf.iterrows():
+                for idx, _ in gdf.iterrows():
                     try:
                         # Create temporary GeoJSON with single feature
                         single_gdf = gdf.iloc[[idx]]

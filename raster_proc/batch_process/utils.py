@@ -10,6 +10,7 @@ import numpy as np
 import rasterio
 import logging
 import time
+import pandas as pd
 from rasterio.windows import Window
 from config import MAX_READ_RETRIES, RETRY_DELAY
 
@@ -167,11 +168,44 @@ def calculate_changes_tile(args):
 
 
 def generate_local_grid_name(gdf):
-    """Generate grid name from terrai_nom field or use simple fallback."""
-    # Try to get terrai_nom field as prefix
-    if not gdf.empty and 'terrai_nom' in gdf.columns:
+    """Generate grid name from property fields or use simple fallback."""
+    if gdf.empty:
+        return f"grid_empty"
+        
+    # Priority order for naming:
+    # 1. terrai_nom (if available)
+    # 2. cod_imovel (CAR code)
+    # 3. nom_tema + municipio (if both available)
+    # 4. municipio (if available)
+    # 5. Default grid name
+    
+    if 'terrai_nom' in gdf.columns and not pd.isna(gdf.iloc[0]['terrai_nom']):
         terrai_nom = str(gdf.iloc[0]['terrai_nom']).replace(' ', '_').replace('/', '_').replace('-', '_')
         return terrai_nom
+    
+    elif 'cod_imovel' in gdf.columns and not pd.isna(gdf.iloc[0]['cod_imovel']):
+        # Extract last part of CAR code (after last dash)
+        car_code = str(gdf.iloc[0]['cod_imovel'])
+        # Use the last part after the last dash, or the full code if no dash
+        short_code = car_code.split('-')[-1] if '-' in car_code else car_code
+        prefix = "CAR_"
+        
+        # Add municipality if available
+        if 'municipio' in gdf.columns and not pd.isna(gdf.iloc[0]['municipio']):
+            municipio = str(gdf.iloc[0]['municipio']).replace(' ', '_')
+            prefix = f"{municipio}_CAR_"
+            
+        return f"{prefix}{short_code}"
+    
+    elif 'nom_tema' in gdf.columns and 'municipio' in gdf.columns and not pd.isna(gdf.iloc[0]['nom_tema']) and not pd.isna(gdf.iloc[0]['municipio']):
+        nom_tema = str(gdf.iloc[0]['nom_tema']).replace(' ', '_').replace('/', '_').replace('-', '_')
+        municipio = str(gdf.iloc[0]['municipio']).replace(' ', '_')
+        return f"{municipio}_{nom_tema}"
+    
+    elif 'municipio' in gdf.columns and not pd.isna(gdf.iloc[0]['municipio']):
+        municipio = str(gdf.iloc[0]['municipio']).replace(' ', '_')
+        return f"{municipio}_area_{len(gdf)}"
+    
     else:
-        # Fallback to simple numbered prefix if terrai_nom doesn't exist
+        # Fallback to simple numbered prefix if no useful fields exist
         return f"grid_{len(gdf)}"

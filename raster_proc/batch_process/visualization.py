@@ -302,7 +302,7 @@ def create_changes_map(root, output_dir, file_prefix, geojson_path=None):
     
     # Use a better color scale that focuses on actual changes (0 to max_changes, not 0 to 255)
     # This will give much better contrast for the actual change values
-    im = plt.imshow(changes_display, cmap='plasma', vmin=0, vmax=max_changes)
+    im = plt.imshow(changes_display, cmap='gist_stern', vmin=0, vmax=max_changes)
     cbar = plt.colorbar(im, label='Number of Land Cover Transitions (1985-2024)', shrink=0.8)
     cbar.ax.tick_params(labelsize=10)
     
